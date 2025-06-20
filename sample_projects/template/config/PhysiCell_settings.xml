@@ -14,7 +14,7 @@
     </domain>
 
     <overall>
-        <max_time units="min">7200</max_time>
+        <max_time units="min">12000</max_time>
         <time_units>min</time_units>
         <space_units>micron</space_units>
         <dt_diffusion units="min">0.01</dt_diffusion>
@@ -84,9 +84,9 @@
     </microenvironment_setup>
 
     <cell_definitions>
-        <cell_definition name="default" ID="0">
+        <cell_definition name="hepatocyte" ID="0">
             <phenotype>
-                <cycle code="6" name="Flow cytometry model (separated)">
+                <cycle code="5" name="live">
                     <phase_durations units="min">
                         <duration index="0" fixed_duration="false">300.0</duration>
                         <duration index="1" fixed_duration="true">480.0</duration>
@@ -96,7 +96,7 @@
                 </cycle>
                 <death>
                     <model code="100" name="apoptosis">
-                        <death_rate units="1/min">5.31667e-05</death_rate>
+                        <death_rate units="1/min">0</death_rate>
                         <phase_durations units="min">
                             <duration index="0" fixed_duration="true">516</duration>
                         </phase_durations>
@@ -108,7 +108,7 @@
                             <calcification_rate units="1/min">0</calcification_rate>
                             <relative_rupture_volume units="dimensionless">2.0</relative_rupture_volume>
                         </parameters>
-                    </model>
+                    </model>f
                     <model code="101" name="necrosis">
                         <death_rate units="1/min">0.0</death_rate>
                         <phase_durations units="min">
@@ -127,11 +127,11 @@
                 </death>
                 <volume>
                     <total units="micron^3">2494</total>
-                    <fluid_fraction units="dimensionless">0.75</fluid_fraction>
+                    <fluid_fraction units="dimensionless">0</fluid_fraction>
                     <nuclear units="micron^3">540</nuclear>
                     <fluid_change_rate units="1/min">0.05</fluid_change_rate>
-                    <cytoplasmic_biomass_change_rate units="1/min">0.0045</cytoplasmic_biomass_change_rate>
-                    <nuclear_biomass_change_rate units="1/min">0.0055</nuclear_biomass_change_rate>
+                    <cytoplasmic_biomass_change_rate units="1/min">0.0</cytoplasmic_biomass_change_rate>
+                    <nuclear_biomass_change_rate units="1/min">0.0</nuclear_biomass_change_rate>
                     <calcified_fraction units="dimensionless">0</calcified_fraction>
                     <calcification_rate units="1/min">0</calcification_rate>
                     <relative_rupture_volume units="dimensionless">2.0</relative_rupture_volume>
@@ -153,9 +153,9 @@
                     <maximum_number_of_attachments>12</maximum_number_of_attachments>
                 </mechanics>
                 <motility>
-                    <speed units="micron/min">1</speed>
-                    <persistence_time units="min">1</persistence_time>
-                    <migration_bias units="dimensionless">.5</migration_bias>
+                    <speed units="micron/min">0</speed>
+                    <persistence_time units="min">0</persistence_time>
+                    <migration_bias units="dimensionless">0.0</migration_bias>
                     <options>
                         <enabled>false</enabled>
                         <use_2D>true</use_2D>
@@ -209,6 +209,7 @@
             </phenotype>
             <custom_data>
                 <sample conserved="false" units="dimensionless" description="">1.0</sample>
+                <zone units="">0</zone>
             </custom_data>
             <initial_parameter_distributions enabled="false">
                 <distribution enabled="false" type="Log10Normal" check_base="true">
@@ -227,7 +228,7 @@
     </cell_definitions>
 
     <initial_conditions>
-        <cell_positions type="csv" enabled="false">
+        <cell_positions type="csv" enabled="true">
             <folder>./config</folder>
             <filename>cells.csv</filename>
         </cell_positions>

@@ -1,0 +1,227 @@
+Signals (with synonyms): 
+=======================
+4 : CYP
+18 : CYP gradient
+1 : ammonia
+15 : ammonia gradient
+39 : apoptotic
+34 : attacking
+6 : cholesterol
+20 : cholesterol gradient
+31 : contact with BM
+28 : contact with apoptotic cell
+28 : contact with apoptotic cells
+31 : contact with basement membrane
+23 : contact with cell type 0
+24 : contact with cell type 1
+25 : contact with cell type 2
+27 : contact with dead cell
+27 : contact with dead cells
+26 : contact with live cell
+26 : contact with live cells
+29 : contact with necrotic cell
+29 : contact with necrotic cells
+30 : contact with other dead cell
+30 : contact with other dead cells
+23 : contact with zone_1
+24 : contact with zone_2
+25 : contact with zone_3
+37 : current time
+38 : custom 0
+38 : custom: sample
+38 : custom:sample
+32 : damage
+33 : damage delivered
+35 : dead
+37 : global time
+5 : glucose
+19 : glucose gradient
+18 : grad(CYP)
+15 : grad(ammonia)
+20 : grad(cholesterol)
+19 : grad(glucose)
+17 : grad(lactate)
+14 : grad(oxygen)
+16 : grad(urea)
+18 : gradient of CYP
+15 : gradient of ammonia
+20 : gradient of cholesterol
+19 : gradient of glucose
+17 : gradient of lactate
+14 : gradient of oxygen
+16 : gradient of urea
+11 : internalized CYP
+8 : internalized ammonia
+13 : internalized cholesterol
+12 : internalized glucose
+10 : internalized lactate
+7 : internalized oxygen
+9 : internalized urea
+11 : intracellular CYP
+8 : intracellular ammonia
+13 : intracellular cholesterol
+12 : intracellular glucose
+10 : intracellular lactate
+7 : intracellular oxygen
+9 : intracellular urea
+34 : is attacking
+35 : is dead
+39 : is_apoptotic
+40 : is_necrotic
+3 : lactate
+17 : lactate gradient
+40 : necrotic
+0 : oxygen
+14 : oxygen gradient
+21 : pressure
+37 : time
+36 : total attack time
+33 : total damage delivered
+2 : urea
+16 : urea gradient
+22 : volume
+
+
+Behaviors (with synonyms): 
+=========================
+25 : CYP export
+4 : CYP secretion
+11 : CYP secretion saturation density
+11 : CYP secretion target
+18 : CYP uptake
+48 : adhesive affinity to cell type 0
+49 : adhesive affinity to cell type 1
+50 : adhesive affinity to cell type 2
+48 : adhesive affinity to zone_1
+49 : adhesive affinity to zone_2
+50 : adhesive affinity to zone_3
+22 : ammonia export
+1 : ammonia secretion
+8 : ammonia secretion saturation density
+8 : ammonia secretion target
+15 : ammonia uptake
+34 : apoptosis
+70 : asymmetric division to zone_1
+71 : asymmetric division to zone_2
+72 : asymmetric division to zone_3
+61 : attack cell type 0
+62 : attack cell type 1
+63 : attack cell type 2
+81 : attack damage rate
+82 : attack duration
+61 : attack zone_1
+62 : attack zone_2
+63 : attack zone_3
+78 : cell attachment rate
+79 : cell detachment rate
+53 : cell-BM adhesion
+54 : cell-BM repulsion
+46 : cell-cell adhesion
+47 : cell-cell adhesion elastic constant
+52 : cell-cell repulsion
+53 : cell-membrane adhesion
+54 : cell-membrane repulsion
+43 : chemotactic response to CYP
+40 : chemotactic response to ammonia
+45 : chemotactic response to cholesterol
+44 : chemotactic response to glucose
+42 : chemotactic response to lactate
+39 : chemotactic response to oxygen
+41 : chemotactic response to urea
+43 : chemotactic sensitivity to CYP
+40 : chemotactic sensitivity to ammonia
+45 : chemotactic sensitivity to cholesterol
+44 : chemotactic sensitivity to glucose
+42 : chemotactic sensitivity to lactate
+39 : chemotactic sensitivity to oxygen
+41 : chemotactic sensitivity to urea
+27 : cholesterol export
+6 : cholesterol secretion
+13 : cholesterol secretion saturation density
+13 : cholesterol secretion target
+20 : cholesterol uptake
+73 : custom 0
+73 : custom: sample
+73 : custom:sample
+28 : cycle entry
+83 : damage rate
+84 : damage repair rate
+28 : exit from cycle phase 0
+29 : exit from cycle phase 1
+30 : exit from cycle phase 2
+31 : exit from cycle phase 3
+32 : exit from cycle phase 4
+33 : exit from cycle phase 5
+64 : fuse to cell type 0
+65 : fuse to cell type 1
+66 : fuse to cell type 2
+64 : fuse to zone_1
+65 : fuse to zone_2
+66 : fuse to zone_3
+26 : glucose export
+5 : glucose secretion
+12 : glucose secretion saturation density
+12 : glucose secretion target
+19 : glucose uptake
+75 : immunogenicity to cell type 0
+76 : immunogenicity to cell type 1
+77 : immunogenicity to cell type 2
+75 : immunogenicity to zone_1
+76 : immunogenicity to zone_2
+77 : immunogenicity to zone_3
+74 : is movable
+74 : is_movable
+24 : lactate export
+3 : lactate secretion
+10 : lactate secretion saturation density
+10 : lactate secretion target
+17 : lactate uptake
+80 : maximum number of cell attachments
+37 : migration bias
+38 : migration persistence time
+36 : migration speed
+74 : movable
+35 : necrosis
+21 : oxygen export
+0 : oxygen secretion
+7 : oxygen secretion saturation density
+7 : oxygen secretion target
+14 : oxygen uptake
+55 : phagocytose apoptotic cell
+58 : phagocytose cell type 0
+59 : phagocytose cell type 1
+60 : phagocytose cell type 2
+56 : phagocytose necrotic cell
+57 : phagocytose other dead cell
+58 : phagocytose zone_1
+59 : phagocytose zone_2
+60 : phagocytose zone_3
+58 : phagocytosis of 0
+59 : phagocytosis of 1
+60 : phagocytosis of 2
+55 : phagocytosis of apoptotic cell
+55 : phagocytosis of apoptotic cells
+56 : phagocytosis of necrotic cell
+56 : phagocytosis of necrotic cells
+57 : phagocytosis of other dead cell
+57 : phagocytosis of other dead cells
+51 : relative maximum adhesion distance
+67 : transform to cell type 0
+68 : transform to cell type 1
+69 : transform to cell type 2
+67 : transform to zone_1
+68 : transform to zone_2
+69 : transform to zone_3
+67 : transition to cell type 0
+68 : transition to cell type 1
+69 : transition to cell type 2
+67 : transition to zone_1
+68 : transition to zone_2
+69 : transition to zone_3
+23 : urea export
+2 : urea secretion
+9 : urea secretion saturation density
+9 : urea secretion target
+16 : urea uptake
+
+
