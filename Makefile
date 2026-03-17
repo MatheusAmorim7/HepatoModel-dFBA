@@ -11,6 +11,15 @@ ifdef PHYSICELL_CPP
 	CC := $(PHYSICELL_CPP)
 endif
 
+
+CUR_DIR = $(shell pwd)
+EXT_DIR = $(CUR_DIR)/addons/dFBA/ext
+
+
+LIB := -L$(EXT_DIR)/libsbml/lib  $(EXT_DIR)/coin-or/lib/libClp.a $(EXT_DIR)/coin-or/lib/libCoinUtils.a -lsbml-static -lxml2 -lbz2 -lz -ggdb -llapack
+INC := -DADDON_PHYSIDFBA -I$(EXT_DIR)/libsbml/include -I$(EXT_DIR)/coin-or/include -I$(CUR_DIR)/addons/dFBA/src
+
+
 ifndef STATIC_OPENMP
 	STATIC_OPENMP = -fopenmp
 endif
@@ -64,21 +73,26 @@ PhysiCell_pugixml.o PhysiCell_settings.o PhysiCell_geometry.o
 
 # put your custom objects here (they should be in the custom_modules directory)
 
+libFBA := ./addons/dFBA/ext/coin-or/include/coin/CoinPackedMatrix.hpp
+
+PhysiCelldFBA_OBJECTS := dfba_Metabolite.o dfba_Reaction.o dfba_Solution.o dfba_Model.o dfba_intracellular.o
+
 PhysiCell_custom_module_OBJECTS := custom.o
 
 pugixml_OBJECTS := pugixml.o
 
 PhysiCell_OBJECTS := $(BioFVM_OBJECTS)  $(pugixml_OBJECTS) $(PhysiCell_core_OBJECTS) $(PhysiCell_module_OBJECTS)
-ALL_OBJECTS := $(PhysiCell_OBJECTS) $(PhysiCell_custom_module_OBJECTS)
+ALL_OBJECTS := $(PhysiCell_OBJECTS) $(PhysiCell_custom_module_OBJECTS) $(PhysiCelldFBA_OBJECTS) 
 
-# compile the project 
+SOME_OBJECTS := dfba_Metabolite.o dfba_Reaction.o dfba_Solution.o dfba_Model.o
 
-all: main.cpp $(ALL_OBJECTS)
-	$(COMPILE_COMMAND) -o $(PROGRAM_NAME) $(ALL_OBJECTS) main.cpp 
+# compile the project
+
+
+
+all: main.cpp $(ALL_OBJECTS) $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -o $(PROGRAM_NAME) $(ALL_OBJECTS) main.cpp $(LIB)
 	make name
-
-static: main.cpp $(ALL_OBJECTS) $(MaBoSS)
-	$(LINK_COMMAND) $(INC) -o $(PROGRAM_NAME) $(ALL_OBJECTS) main.cpp $(LIB) -static-libgcc -static-libstdc++ $(STATIC_OPENMP)
 
 name:
 	@echo ""
@@ -93,8 +107,8 @@ PhysiCell_phenotype.o: ./core/PhysiCell_phenotype.cpp
 PhysiCell_digital_cell_line.o: ./core/PhysiCell_digital_cell_line.cpp
 	$(COMPILE_COMMAND) -c ./core/PhysiCell_digital_cell_line.cpp
 
-PhysiCell_cell.o: ./core/PhysiCell_cell.cpp
-	$(COMPILE_COMMAND) -c ./core/PhysiCell_cell.cpp 
+PhysiCell_cell.o: ./core/PhysiCell_cell.cpp $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -c ./core/PhysiCell_cell.cpp 
 
 PhysiCell_cell_container.o: ./core/PhysiCell_cell_container.cpp
 	$(COMPILE_COMMAND) -c ./core/PhysiCell_cell_container.cpp 
@@ -177,8 +191,29 @@ PhysiCell_geometry.o: ./modules/PhysiCell_geometry.cpp
 	
 # user-defined PhysiCell modules
 
-custom.o: ./custom_modules/custom.cpp 
-	$(COMPILE_COMMAND) -c ./custom_modules/custom.cpp
+# PhysiFBA addon modules
+$(libFBA): 
+	python3 beta/setup_fba.py
+	
+dfba_intracellular.o: addons/dFBA/src/dfba_intracellular.cpp $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -c addons/dFBA/src/dfba_intracellular.cpp
+
+dfba_Model.o: addons/dFBA/src/dfba_Model.cpp $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -c addons/dFBA/src/dfba_Model.cpp
+
+dfba_Reaction.o: addons/dFBA/src/dfba_Reaction.cpp $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -c addons/dFBA/src/dfba_Reaction.cpp
+
+dfba_Metabolite.o: addons/dFBA/src/dfba_Metabolite.cpp $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -c addons/dFBA/src/dfba_Metabolite.cpp
+
+dfba_Solution.o: addons/dFBA/src/dfba_Solution.cpp $(libFBA)
+	$(COMPILE_COMMAND) $(INC) -c addons/dFBA/src/dfba_Solution.cpp 
+
+# user-defined PhysiCell modules
+custom.o: ./custom_modules/custom.cpp
+	$(COMPILE_COMMAND) $(INC) -c ./custom_modules/custom.cpp
+
 
 # cleanup
 
