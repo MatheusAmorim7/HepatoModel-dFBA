@@ -205,13 +205,11 @@
                     <necrotic_phagocytosis_rate units="1/min">0.0</necrotic_phagocytosis_rate>
                     <other_dead_phagocytosis_rate units="1/min">0.0</other_dead_phagocytosis_rate>
                     <live_phagocytosis_rates>
-                        <phagocytosis_rate name="default" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
                     </live_phagocytosis_rates>
                     <attack_rates>
-                        <attack_rate name="default" units="1/min">0</attack_rate>
                         <attack_rate name="zone_1" units="1/min">0</attack_rate>
                         <attack_rate name="zone_2" units="1/min">0</attack_rate>
                         <attack_rate name="zone_3" units="1/min">0</attack_rate>
@@ -219,7 +217,6 @@
                     <attack_damage_rate units="1/min">1</attack_damage_rate>
                     <attack_duration units="min">0.1</attack_duration>
                     <fusion_rates>
-                        <fusion_rate name="default" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
@@ -227,7 +224,6 @@
                 </cell_interactions>
                 <cell_transformations>
                     <transformation_rates>
-                        <transformation_rate name="default" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
@@ -400,13 +396,11 @@
                     <necrotic_phagocytosis_rate units="1/min">0.0</necrotic_phagocytosis_rate>
                     <other_dead_phagocytosis_rate units="1/min">0.0</other_dead_phagocytosis_rate>
                     <live_phagocytosis_rates>
-                        <phagocytosis_rate name="default" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
                     </live_phagocytosis_rates>
                     <attack_rates>
-                        <attack_rate name="default" units="1/min">0</attack_rate>
                         <attack_rate name="zone_1" units="1/min">0</attack_rate>
                         <attack_rate name="zone_2" units="1/min">0</attack_rate>
                         <attack_rate name="zone_3" units="1/min">0</attack_rate>
@@ -414,7 +408,6 @@
                     <attack_damage_rate units="1/min">1</attack_damage_rate>
                     <attack_duration units="min">0.1</attack_duration>
                     <fusion_rates>
-                        <fusion_rate name="default" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
@@ -422,7 +415,6 @@
                 </cell_interactions>
                 <cell_transformations>
                     <transformation_rates>
-                        <transformation_rate name="default" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
@@ -595,13 +587,11 @@
                     <necrotic_phagocytosis_rate units="1/min">0.0</necrotic_phagocytosis_rate>
                     <other_dead_phagocytosis_rate units="1/min">0.0</other_dead_phagocytosis_rate>
                     <live_phagocytosis_rates>
-                        <phagocytosis_rate name="default" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
                     </live_phagocytosis_rates>
                     <attack_rates>
-                        <attack_rate name="default" units="1/min">0</attack_rate>
                         <attack_rate name="zone_1" units="1/min">0</attack_rate>
                         <attack_rate name="zone_2" units="1/min">0</attack_rate>
                         <attack_rate name="zone_3" units="1/min">0</attack_rate>
@@ -609,7 +599,6 @@
                     <attack_damage_rate units="1/min">1</attack_damage_rate>
                     <attack_duration units="min">0.1</attack_duration>
                     <fusion_rates>
-                        <fusion_rate name="default" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
@@ -617,7 +606,6 @@
                 </cell_interactions>
                 <cell_transformations>
                     <transformation_rates>
-                        <transformation_rate name="default" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
