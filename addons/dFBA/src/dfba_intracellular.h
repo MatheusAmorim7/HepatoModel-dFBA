@@ -75,6 +75,7 @@ class dFBAIntracellular : public PhysiCell::Intracellular
 
 	/** \brief map between density IDs and exchange reactions */
 	std::map<std::string, ExchangeFluxData> substrate_exchanges;
+	std::vector<std::string> output_fluxes;
 
     dFBAIntracellular();
 
@@ -179,6 +180,7 @@ class dFBAIntracellular : public PhysiCell::Intracellular
 
 	
 	int parse_transport_model(pugi::xml_node& node);
+	void parse_output_model(pugi::xml_node& parent);
 	void parse_growth_model(pugi::xml_node& node);
 	void parse_death_model(pugi::xml_node& node);
 	void initLpSolver();
