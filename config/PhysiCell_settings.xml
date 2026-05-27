@@ -19,7 +19,7 @@
         <space_units>micron</space_units>
         <dt_diffusion units="min">0.01</dt_diffusion>
         <dt_mechanics units="min">0.1</dt_mechanics>
-        <dt_phenotype units="min">6</dt_phenotype>
+        <dt_phenotype units="min">2</dt_phenotype>
     </overall>
 
     <parallel>
@@ -54,36 +54,36 @@
     </options>
 
     <microenvironment_setup>
-        <variable name="oxygen" units="dimensionless" ID="0">
+        <variable name="oxygen" units="mM" ID="0">
             <physical_parameter_set>
-                <diffusion_coefficient units="micron^2/min">1000.0</diffusion_coefficient>
+                <diffusion_coefficient units="micron^2/min">140.000</diffusion_coefficient>
                 <decay_rate units="1/min">0.001</decay_rate>
             </physical_parameter_set>
-            <initial_condition units="mmHg">0.0</initial_condition>
-            <Dirichlet_boundary_condition units="mmHg" enabled="False">0</Dirichlet_boundary_condition>
+            <initial_condition units="mM">0.07</initial_condition>
+            <Dirichlet_boundary_condition units="mM" enabled="False">0.0</Dirichlet_boundary_condition>
             <Dirichlet_options>
-                <boundary_value ID="xmin" enabled="False">38</boundary_value>
-                <boundary_value ID="xmax" enabled="False">38</boundary_value>
-                <boundary_value ID="ymin" enabled="False">38</boundary_value>
-                <boundary_value ID="ymax" enabled="False">38</boundary_value>
-                <boundary_value ID="zmin" enabled="False">38</boundary_value>
-                <boundary_value ID="zmax" enabled="False">38</boundary_value>
+                <boundary_value ID="xmin" enabled="False">0.07</boundary_value>
+                <boundary_value ID="xmax" enabled="False">0.03</boundary_value>
+                <boundary_value ID="ymin" enabled="False">0.0</boundary_value>
+                <boundary_value ID="ymax" enabled="False">0.0</boundary_value>
+                <boundary_value ID="zmin" enabled="False">0.0</boundary_value>
+                <boundary_value ID="zmax" enabled="False">0.0</boundary_value>
             </Dirichlet_options>
         </variable>
-        <variable name="glucose" units="dimensionless" ID="1">
+        <variable name="glucose" units="mM" ID="1">
             <physical_parameter_set>
-                <diffusion_coefficient units="micron^2/min">600.0</diffusion_coefficient>
-                <decay_rate units="1/min">0.0001</decay_rate>
+                <diffusion_coefficient units="micron^2/min">18.600</diffusion_coefficient>
+                <decay_rate units="1/min">0.001</decay_rate>
             </physical_parameter_set>
-            <initial_condition units="mmHg">5.0</initial_condition>
-            <Dirichlet_boundary_condition units="mmHg" enabled="False">0</Dirichlet_boundary_condition>
+            <initial_condition units="mM">6.0</initial_condition>
+            <Dirichlet_boundary_condition units="mM" enabled="True">6.0</Dirichlet_boundary_condition>
             <Dirichlet_options>
-                <boundary_value ID="xmin" enabled="False">5</boundary_value>
-                <boundary_value ID="xmax" enabled="False">5</boundary_value>
-                <boundary_value ID="ymin" enabled="False">5</boundary_value>
-                <boundary_value ID="ymax" enabled="False">5</boundary_value>
-                <boundary_value ID="zmin" enabled="False">5</boundary_value>
-                <boundary_value ID="zmax" enabled="False">5</boundary_value>
+                <boundary_value ID="xmin" enabled="True">6</boundary_value>
+                <boundary_value ID="xmax" enabled="True">3</boundary_value>
+                <boundary_value ID="ymin" enabled="False">6</boundary_value>
+                <boundary_value ID="ymax" enabled="False">6</boundary_value>
+                <boundary_value ID="zmin" enabled="False">6</boundary_value>
+                <boundary_value ID="zmax" enabled="False">6</boundary_value>
             </Dirichlet_options>
         </variable>
         <options>
@@ -161,6 +161,7 @@
                         <cell_adhesion_affinity name="zone_1">1</cell_adhesion_affinity>
                         <cell_adhesion_affinity name="zone_2">1</cell_adhesion_affinity>
                         <cell_adhesion_affinity name="zone_3">1</cell_adhesion_affinity>
+                        <cell_adhesion_affinity name="source_sink">0</cell_adhesion_affinity>
                     </cell_adhesion_affinities>
                     <options>
                         <set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
@@ -209,12 +210,14 @@
                         <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="source_sink" units="1/min">0</phagocytosis_rate>
                     </live_phagocytosis_rates>
                     <attack_rates>
                         <attack_rate name="default" units="1/min">0</attack_rate>
                         <attack_rate name="zone_1" units="1/min">0</attack_rate>
                         <attack_rate name="zone_2" units="1/min">0</attack_rate>
                         <attack_rate name="zone_3" units="1/min">0</attack_rate>
+                        <attack_rate name="source_sink" units="1/min">0</attack_rate>
                     </attack_rates>
                     <attack_damage_rate units="1/min">1</attack_damage_rate>
                     <attack_duration units="min">0.1</attack_duration>
@@ -223,6 +226,7 @@
                         <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
+                        <fusion_rate name="source_sink" units="1/min">0</fusion_rate>
                     </fusion_rates>
                 </cell_interactions>
                 <cell_transformations>
@@ -231,6 +235,7 @@
                         <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
+                        <transformation_rate name="source_sink" units="1/min">0</transformation_rate>
                     </transformation_rates>
                 </cell_transformations>
                 <cell_integrity>
@@ -244,21 +249,21 @@
                     </settings>
                     <transport_model>
                         <exchange substrate="oxygen">
-                            <fba_flux>r0855</fba_flux>
-                            <Km units="mM">0.5</Km>
-                            <Vmax units="fmol/pg DW cell/min">20</Vmax>
+                            <fba_flux>R_EX_HC00017_s</fba_flux>
+                            <Km units="mM">0.08</Km>
+                            <Vmax units="fmol/pg DW cell/min">35</Vmax>
                         </exchange>
                         <exchange substrate="glucose">
-                            <fba_flux>r1032</fba_flux>
-                            <Km units="mM">0.5</Km>
-                            <Vmax units="fmol/pg DW cell/min">10</Vmax>
+                            <fba_flux>R_EX_HC00040_s</fba_flux>
+                            <Km units="mM">5.0</Km>
+                            <Vmax units="fmol/pg DW cell/min">2.8</Vmax>
                         </exchange>
                     </transport_model>
                     <growth_model>
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>
-                        <max_growth_rate units="1/min">1000</max_growth_rate>
-                        <objective_reaction>r1388</objective_reaction>
+                        <max_growth_rate units="1/min">1</max_growth_rate>
+                        <objective_reaction>R_r1032</objective_reaction>
                     </growth_model>
                 </intracellular>
             </phenotype>
@@ -356,6 +361,7 @@
                         <cell_adhesion_affinity name="zone_1">1</cell_adhesion_affinity>
                         <cell_adhesion_affinity name="zone_2">1</cell_adhesion_affinity>
                         <cell_adhesion_affinity name="zone_3">1</cell_adhesion_affinity>
+                        <cell_adhesion_affinity name="source_sink">0</cell_adhesion_affinity>
                     </cell_adhesion_affinities>
                     <options>
                         <set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
@@ -404,12 +410,14 @@
                         <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="source_sink" units="1/min">0</phagocytosis_rate>
                     </live_phagocytosis_rates>
                     <attack_rates>
                         <attack_rate name="default" units="1/min">0</attack_rate>
                         <attack_rate name="zone_1" units="1/min">0</attack_rate>
                         <attack_rate name="zone_2" units="1/min">0</attack_rate>
                         <attack_rate name="zone_3" units="1/min">0</attack_rate>
+                        <attack_rate name="source_sink" units="1/min">0</attack_rate>
                     </attack_rates>
                     <attack_damage_rate units="1/min">1</attack_damage_rate>
                     <attack_duration units="min">0.1</attack_duration>
@@ -418,6 +426,7 @@
                         <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
+                        <fusion_rate name="source_sink" units="1/min">0</fusion_rate>
                     </fusion_rates>
                 </cell_interactions>
                 <cell_transformations>
@@ -426,6 +435,7 @@
                         <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
+                        <transformation_rate name="source_sink" units="1/min">0</transformation_rate>
                     </transformation_rates>
                 </cell_transformations>
                 <cell_integrity>
@@ -439,21 +449,21 @@
                     </settings>
                     <transport_model>
                         <exchange substrate="oxygen">
-                            <fba_flux>r0855</fba_flux>
-                            <Km units="mM">0.5</Km>
+                            <fba_flux>R_EX_HC00017_s</fba_flux>
+                            <Km units="mM">0.04</Km>
                             <Vmax units="fmol/pg DW cell/min">20</Vmax>
                         </exchange>
                         <exchange substrate="glucose">
-                            <fba_flux>r1032</fba_flux>
-                            <Km units="mM">0.5</Km>
-                            <Vmax units="fmol/pg DW cell/min">10</Vmax>
+                            <fba_flux>R_EX_HC00040_s</fba_flux>
+                            <Km units="mM">3.5</Km>
+                            <Vmax units="fmol/pg DW cell/min">3.2</Vmax>
                         </exchange>
                     </transport_model>
                     <growth_model>
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>
-                        <max_growth_rate units="1/min">1000</max_growth_rate>
-                        <objective_reaction>r1388</objective_reaction>
+                        <max_growth_rate units="1/min">1</max_growth_rate>
+                        <objective_reaction>R_r1032</objective_reaction>
                     </growth_model>
                 </intracellular>
             </phenotype>
@@ -551,6 +561,7 @@
                         <cell_adhesion_affinity name="zone_1">1</cell_adhesion_affinity>
                         <cell_adhesion_affinity name="zone_2">1</cell_adhesion_affinity>
                         <cell_adhesion_affinity name="zone_3">1</cell_adhesion_affinity>
+                        <cell_adhesion_affinity name="source_sink">0</cell_adhesion_affinity>
                     </cell_adhesion_affinities>
                     <options>
                         <set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
@@ -599,12 +610,14 @@
                         <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
                         <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="source_sink" units="1/min">0</phagocytosis_rate>
                     </live_phagocytosis_rates>
                     <attack_rates>
                         <attack_rate name="default" units="1/min">0</attack_rate>
                         <attack_rate name="zone_1" units="1/min">0</attack_rate>
                         <attack_rate name="zone_2" units="1/min">0</attack_rate>
                         <attack_rate name="zone_3" units="1/min">0</attack_rate>
+                        <attack_rate name="source_sink" units="1/min">0</attack_rate>
                     </attack_rates>
                     <attack_damage_rate units="1/min">1</attack_damage_rate>
                     <attack_duration units="min">0.1</attack_duration>
@@ -613,6 +626,7 @@
                         <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
                         <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
+                        <fusion_rate name="source_sink" units="1/min">0</fusion_rate>
                     </fusion_rates>
                 </cell_interactions>
                 <cell_transformations>
@@ -621,6 +635,7 @@
                         <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
                         <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
+                        <transformation_rate name="source_sink" units="1/min">0</transformation_rate>
                     </transformation_rates>
                 </cell_transformations>
                 <cell_integrity>
@@ -629,27 +644,27 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_zone3.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
                         <exchange substrate="oxygen">
-                            <fba_flux>r0855</fba_flux>
-                            <Km units="mM">0.5</Km>
-                            <Vmax units="fmol/pg DW cell/min">20</Vmax>
+                            <fba_flux>R_EX_HC00017_s</fba_flux>
+                            <Km units="mM">0.01</Km>
+                            <Vmax units="fmol/pg DW cell/min">11.3548</Vmax>
                         </exchange>
                         <exchange substrate="glucose">
-                            <fba_flux>r1032</fba_flux>
+                            <fba_flux>R_EX_HC00040_s</fba_flux>
                             <Km units="mM">0.5</Km>
-                            <Vmax units="fmol/pg DW cell/min">10</Vmax>
+                            <Vmax units="fmol/pg DW cell/min">12.8806</Vmax>
                         </exchange>
                     </transport_model>
                     <growth_model>
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>
-                        <max_growth_rate units="1/min">1000</max_growth_rate>
-                        <objective_reaction>r1388</objective_reaction>
-                    </growth_model>
+                        <max_growth_rate units="1/min">1</max_growth_rate>
+                        <objective_reaction>R_r1389</objective_reaction>
+                    </growth_model>    
                 </intracellular>
             </phenotype>
             <custom_data>
@@ -684,7 +699,158 @@
                 </distribution>
             </initial_parameter_distributions>
         </cell_definition>
-    </cell_definitions>
+        <cell_definition name="source_sink" ID="3">
+            <phenotype>
+                <cycle code="5" name="live">
+                    <phase_transition_rates units="1/min">
+                        <rate start_index="0" end_index="0" fixed_duration="true">0.0</rate>
+                    </phase_transition_rates>
+                </cycle>
+                <death>
+                    <model code="100" name="apoptosis">
+                        <death_rate units="1/min">0</death_rate>
+                        <phase_durations units="min">
+                            <duration index="0" fixed_duration="true">516</duration>
+                        </phase_durations>
+                        <parameters>
+                            <unlysed_fluid_change_rate units="1/min">0.05</unlysed_fluid_change_rate>
+                            <lysed_fluid_change_rate units="1/min">0</lysed_fluid_change_rate>
+                            <cytoplasmic_biomass_change_rate units="1/min">1.66667e-02</cytoplasmic_biomass_change_rate>
+                            <nuclear_biomass_change_rate units="1/min">5.83333e-03</nuclear_biomass_change_rate>
+                            <calcification_rate units="1/min">0</calcification_rate>
+                            <relative_rupture_volume units="dimensionless">2.0</relative_rupture_volume>
+                        </parameters>
+                    </model>
+                    <model code="101" name="necrosis">
+                        <death_rate units="1/min">0.0</death_rate>
+                        <phase_durations units="min">
+                            <duration index="0" fixed_duration="true">0</duration>
+                            <duration index="1" fixed_duration="true">86400</duration>
+                        </phase_durations>
+                        <parameters>
+                            <unlysed_fluid_change_rate units="1/min">1.11667e-2</unlysed_fluid_change_rate>
+                            <lysed_fluid_change_rate units="1/min">8.33333e-4</lysed_fluid_change_rate>
+                            <cytoplasmic_biomass_change_rate units="1/min">5.33333e-5</cytoplasmic_biomass_change_rate>
+                            <nuclear_biomass_change_rate units="1/min">2.16667e-3</nuclear_biomass_change_rate>
+                            <calcification_rate units="1/min">0</calcification_rate>
+                            <relative_rupture_volume units="dimensionless">2.0</relative_rupture_volume>
+                        </parameters>
+                    </model>
+                </death>
+                <volume>
+                    <total units="micron^3">2494</total>
+                    <fluid_fraction units="dimensionless">0.75</fluid_fraction>
+                    <nuclear units="micron^3">540</nuclear>
+                    <fluid_change_rate units="1/min">0.0</fluid_change_rate>
+                    <cytoplasmic_biomass_change_rate units="1/min">0.0</cytoplasmic_biomass_change_rate>
+                    <nuclear_biomass_change_rate units="1/min">0.0</nuclear_biomass_change_rate>
+                    <calcified_fraction units="dimensionless">0</calcified_fraction>
+                    <calcification_rate units="1/min">0</calcification_rate>
+                    <relative_rupture_volume units="dimensionless">9e99</relative_rupture_volume>
+                </volume>
+                <mechanics>
+                    <cell_cell_adhesion_strength units="micron/min">0</cell_cell_adhesion_strength>
+                    <cell_cell_repulsion_strength units="micron/min">0</cell_cell_repulsion_strength>
+                    <relative_maximum_adhesion_distance units="dimensionless">1</relative_maximum_adhesion_distance>
+                    <cell_adhesion_affinities>
+                        <cell_adhesion_affinity name="zone_1">0</cell_adhesion_affinity>
+                        <cell_adhesion_affinity name="zone_2">0</cell_adhesion_affinity>
+                        <cell_adhesion_affinity name="zone_3">0</cell_adhesion_affinity>
+                        <cell_adhesion_affinity name="source_sink">0</cell_adhesion_affinity>
+                    </cell_adhesion_affinities>
+                    <options>
+                        <set_relative_equilibrium_distance enabled="false" units="dimensionless">1.8</set_relative_equilibrium_distance>
+                        <set_absolute_equilibrium_distance enabled="false" units="micron">15.12</set_absolute_equilibrium_distance>
+                    </options>
+                    <attachment_elastic_constant units="1/min">0</attachment_elastic_constant>
+                    <attachment_rate units="1/min">0.0</attachment_rate>
+                    <detachment_rate units="1/min">0.0</detachment_rate>
+                    <maximum_number_of_attachments>0</maximum_number_of_attachments>
+                </mechanics>
+                <motility>
+                    <speed units="micron/min">0</speed>
+                    <persistence_time units="min">0</persistence_time>
+                    <migration_bias units="dimensionless">0</migration_bias>
+                    <options>
+                        <enabled>false</enabled>
+                        <use_2D>true</use_2D>
+                        <chemotaxis>
+                            <enabled>false</enabled>
+                            <substrate>oxygen</substrate>
+                            <direction>1</direction>
+                        </chemotaxis>
+                        <advanced_chemotaxis>
+                            <enabled>false</enabled>
+                            <normalize_each_gradient>false</normalize_each_gradient>
+                            <chemotactic_sensitivities>
+                                <chemotactic_sensitivity substrate="oxygen">0.0</chemotactic_sensitivity>
+                                <chemotactic_sensitivity substrate="glucose">0.0</chemotactic_sensitivity>
+                            </chemotactic_sensitivities>
+                        </advanced_chemotaxis>
+                    </options>
+                </motility>
+                <secretion>
+                    <substrate name="oxygen">
+                        <secretion_rate units="1/min">0.0</secretion_rate>
+                        <secretion_target units="substrate density">0</secretion_target>
+                        <uptake_rate units="1/min">0.0</uptake_rate>
+                        <net_export_rate units="total substrate/min">0.0</net_export_rate>
+                    </substrate>
+                    <substrate name="glucose">
+                        <secretion_rate units="1/min">0.0</secretion_rate>
+                        <secretion_target units="substrate density">0</secretion_target>
+                        <uptake_rate units="1/min">0.0</uptake_rate>
+                        <net_export_rate units="total substrate/min">0.0</net_export_rate>
+                    </substrate>
+                </secretion>
+                <cell_interactions>
+                    <apoptotic_phagocytosis_rate units="1/min">0.0</apoptotic_phagocytosis_rate>
+                    <necrotic_phagocytosis_rate units="1/min">0.0</necrotic_phagocytosis_rate>
+                    <other_dead_phagocytosis_rate units="1/min">0.0</other_dead_phagocytosis_rate>
+                    <live_phagocytosis_rates>
+                        <phagocytosis_rate name="default" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="zone_1" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="zone_2" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="zone_3" units="1/min">0</phagocytosis_rate>
+                        <phagocytosis_rate name="source_sink" units="1/min">0</phagocytosis_rate>
+                    </live_phagocytosis_rates>
+                    <attack_rates>
+                        <attack_rate name="default" units="1/min">0</attack_rate>
+                        <attack_rate name="zone_1" units="1/min">0</attack_rate>
+                        <attack_rate name="zone_2" units="1/min">0</attack_rate>
+                        <attack_rate name="zone_3" units="1/min">0</attack_rate>
+                        <attack_rate name="source_sink" units="1/min">0</attack_rate>
+                    </attack_rates>
+                    <attack_damage_rate units="1/min">1</attack_damage_rate>
+                    <attack_duration units="min">0.1</attack_duration>
+                    <fusion_rates>
+                        <fusion_rate name="default" units="1/min">0</fusion_rate>
+                        <fusion_rate name="zone_1" units="1/min">0</fusion_rate>
+                        <fusion_rate name="zone_2" units="1/min">0</fusion_rate>
+                        <fusion_rate name="zone_3" units="1/min">0</fusion_rate>
+                        <fusion_rate name="source_sink" units="1/min">0</fusion_rate>
+                    </fusion_rates>
+                </cell_interactions>
+                <cell_transformations>
+                    <transformation_rates>
+                        <transformation_rate name="default" units="1/min">0</transformation_rate>
+                        <transformation_rate name="zone_1" units="1/min">0</transformation_rate>
+                        <transformation_rate name="zone_2" units="1/min">0</transformation_rate>
+                        <transformation_rate name="zone_3" units="1/min">0</transformation_rate>
+                        <transformation_rate name="source_sink" units="1/min">0</transformation_rate>
+                    </transformation_rates>
+                </cell_transformations>
+                <cell_integrity>
+                    <damage_rate units="1/min">0.0</damage_rate>
+                    <damage_repair_rate units="1/min">0.0</damage_repair_rate>
+                </cell_integrity>
+                <!-- SEM bloco intracellular — source_sink não roda dFBA -->
+            </phenotype>
+            <custom_data>
+                <sample conserved="false" units="dimensionless" description="">1.0</sample>
+            </custom_data>
+        </cell_definition>
+    </cell_definitions>    
 
     <initial_conditions>
         <cell_positions type="csv" enabled="true">

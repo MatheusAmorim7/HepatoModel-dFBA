@@ -94,3 +94,8 @@ void custom_microenvironment_function(double dt);
 
 void initialize_oxygen_gradient_from_csv(const std::string& csv_file);
 
+void initialize_oxygen_zones(); // NOVO
+void setup_peripheral_sources(); // NOVO
+void dynamic_oxygen_supply(double dt); // NOVO
+void dynamic_glucose_supply(double dt); // NOVO
+

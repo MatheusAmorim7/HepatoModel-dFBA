@@ -461,8 +461,13 @@ void dFBAModel::readSBMLModel(const char* sbmlFileName)
     FbcModelPlugin* mplugin = static_cast<FbcModelPlugin*>(model->getPlugin("fbc"));
     if (mplugin) {
         ListOfObjectives* listOfObjectives = mplugin->getListOfObjectives();
-        Objective* objective = mplugin->getObjective(listOfObjectives->getActiveObjective());
-        ListOfFluxObjectives* listOfFluxObjectives = objective->getListOfFluxObjectives();
+
+        libsbml::Objective* fbc_objective = mplugin->getObjective(listOfObjectives->getActiveObjective());
+
+        this->objective_type = fbc_objective->getType();
+        std::cout << "Objective type read from SBML: " << this->objective_type << std::endl;
+
+        ListOfFluxObjectives* listOfFluxObjectives = fbc_objective->getListOfFluxObjectives();
 
         for (unsigned int i = 0; i < listOfFluxObjectives->getNumFluxObjectives(); i++)
         {
@@ -531,7 +536,15 @@ void dFBAModel::initProblem()
     }
 
     this->problem.loadProblem(matrix, col_lb, col_ub, objective, row_lb, row_ub);
-    this->problem.setOptimizationDirection(-1);
+    
+    // Ler direção do objetivo do SBML: minimize=1, maximize=-1 no ClpSimplex
+    if (this->objective_type == "minimize") {
+        this->problem.setOptimizationDirection(1);
+        std::cout << "Optimization direction: MINIMIZE" << std::endl;
+    } else {
+        this->problem.setOptimizationDirection(-1);
+        std::cout << "Optimization direction: MAXIMIZE" << std::endl;
+    }
 
     this->problem.setPerturbation(50); // 50 is a standard default for perturbation. It means that the perturbation is always applied. 100 is the default value (automatic)
 

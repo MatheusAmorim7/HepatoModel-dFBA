@@ -58,6 +58,8 @@ class dFBAModel
 
 		bool is_initialized = false;
 
+		std::string objective_type = "maximize";
+
 	public:
 
 		/** \brief Constructor */
