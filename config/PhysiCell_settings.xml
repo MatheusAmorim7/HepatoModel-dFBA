@@ -259,6 +259,16 @@
                             <Vmax units="fmol/pg DW cell/min">2.8</Vmax>
                         </exchange>
                     </transport_model>
+                    <output>
+                        <flux>r1386</flux>
+                        <flux>r1387</flux>
+                        <flux>r1388</flux>
+                        <flux>r0094</flux>
+                        <flux>r0621</flux>
+                        <flux>r0353</flux>
+                        <flux>r1032</flux>
+                        <flux>EX_HC00040_s</flux>
+                    </output>
                     <growth_model>
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>
@@ -459,6 +469,16 @@
                             <Vmax units="fmol/pg DW cell/min">3.2</Vmax>
                         </exchange>
                     </transport_model>
+                    <output>
+                        <flux>r1386</flux>
+                        <flux>r1387</flux>
+                        <flux>r1388</flux>
+                        <flux>r0094</flux>
+                        <flux>r0621</flux>
+                        <flux>r0353</flux>
+                        <flux>r1032</flux>
+                        <flux>EX_HC00040_s</flux>
+                    </output>
                     <growth_model>
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>
@@ -659,6 +679,16 @@
                             <Vmax units="fmol/pg DW cell/min">12.8806</Vmax>
                         </exchange>
                     </transport_model>
+                    <output>
+                        <flux>r1386</flux>
+                        <flux>r1387</flux>
+                        <flux>r1388</flux>
+                        <flux>r0094</flux>
+                        <flux>r0621</flux>
+                        <flux>r0353</flux>
+                        <flux>r1032</flux>
+                        <flux>EX_HC00040_s</flux>
+                    </output>
                     <growth_model>
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>

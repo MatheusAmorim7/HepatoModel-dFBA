@@ -78,6 +78,7 @@ dFBAIntracellular::dFBAIntracellular(const dFBAIntracellular& copy) : Intracellu
 	death_flux_threshold = copy.death_flux_threshold;
 	death_rate_increase = copy.death_rate_increase;
 	flag_for_death = copy.flag_for_death;
+    output_fluxes = copy.output_fluxes;
 }
 
 
@@ -173,7 +174,17 @@ int dFBAIntracellular::parse_transport_model(pugi::xml_node& node)
 	}
     return num_exchanges;
 }
-
+void dFBAIntracellular::parse_output_model(pugi::xml_node& parent){
+    this->output_fluxes.clear();
+        pugi::xml_node node_flux = parent.child("flux");
+        while(node_flux){
+            std::string flux_id = PhysiCell::xml_get_my_string_value(node_flux);
+            std::cout << "Adding output flux: " << flux_id << std::endl;
+            this->output_fluxes.push_back(flux_id);
+            node_flux = node_flux.next_sibling("flux");
+        }
+    
+}
 void dFBAIntracellular::parse_growth_model(pugi::xml_node& parent)
 {
     
@@ -365,7 +376,14 @@ void dFBAIntracellular::initialize_intracellular_from_pugixml(pugi::xml_node& no
         std::cout << std::endl; 
         exit(-1); 
     }
-
+    
+    // parsing the output model
+    pugi::xml_node node_output_model = node.child( "output" );
+    if ( node_output_model )
+    { 
+        parse_output_model(node_output_model);
+    }
+   
 
     // parsing the transport model
     pugi::xml_node node_growth_model = node.child( "growth_model" );
@@ -585,8 +603,10 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
     if (!header_summary) {
         f_summary.open(path_summary, std::ios::out);
         f_summary << "time,cell_id,cell_type,x,y,growth_rate,obj_flux";
-        for (auto& it : this->substrate_exchanges)
-            f_summary << "," << it.second.density_name << "_flux";
+        for (auto& it : this->output_fluxes){
+            std::cout << "Adding output flux to summary: " << it << std::endl;
+            f_summary << "," << it << "_flux";
+        }
         f_summary << "\n";
         header_summary = true;
     } else {
@@ -603,8 +623,8 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
     dFBAReaction* obj = this->sbml_model.getReaction(this->objective_reaction);
     f_summary << "," << (obj ? obj->getFluxValue() : 0.0);
 
-    for (auto& it : this->substrate_exchanges) {
-        dFBAReaction* rxn = this->sbml_model.getReaction(it.second.fba_flux_id);
+    for (auto& it : this->output_fluxes) {
+        dFBAReaction* rxn = this->sbml_model.getReaction(it);
         f_summary << "," << (rxn ? rxn->getFluxValue() : 0.0);
     }
     f_summary << "\n";
