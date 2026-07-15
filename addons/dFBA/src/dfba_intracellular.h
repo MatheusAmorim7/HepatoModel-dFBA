@@ -46,6 +46,8 @@ struct ExchangeFluxData
 	int density_index;
 	KineticParam Km;
 	KineticParam Vmax;
+	bool allow_uptake = true;
+	double minimum_uptake_fraction = 0.0;
 };
 
 class dFBAIntracellular : public PhysiCell::Intracellular 
@@ -61,6 +63,7 @@ class dFBAIntracellular : public PhysiCell::Intracellular
 	double cell_density = 0.0;
 	double max_growth_rate = 0;
 	double current_growth_rate = 0;
+    std::string last_solution_status = "not_run";
 	double next_dfba_run = 0;
 	bool use_metabolic_death = true;
 	std::string death_type;

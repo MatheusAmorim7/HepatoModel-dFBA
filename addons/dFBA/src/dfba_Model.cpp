@@ -388,9 +388,14 @@ void dFBAModel::readSBMLModel(const char* sbmlFileName)
         {
             // Getting dFBAReaction's upper and lower bounds
             std::string lbId = rxnFbc->getLowerFluxBound();
-            Parameter* lbParam = listOfParameters->get(lbId);
+            Parameter* lbParam = dynamic_cast<Parameter*>(listOfParameters->getElementBySId(lbId));
             if (lbParam) {
                 double lb = lbParam->getValue();
+                if (lbParam->getId() != lbId) {
+                    std::cerr << "ERROR: requested lower bound parameter '" << lbId
+                               << "' but resolved to '" << lbParam->getId()
+                               << "' for reaction " << sbml_reaction->getId() << std::endl;
+                }
                 reaction->setLowerBound(lb);
             }
             else {
@@ -398,9 +403,14 @@ void dFBAModel::readSBMLModel(const char* sbmlFileName)
             }
 
             std::string ubId = rxnFbc->getUpperFluxBound();
-            Parameter* ubParam = listOfParameters->get(ubId);
+            Parameter* ubParam = dynamic_cast<Parameter*>(listOfParameters->getElementBySId(ubId));
             if (ubParam) {
                 double ub = ubParam->getValue();
+                if (ubParam->getId() != ubId) {
+                    std::cerr << "ERROR: requested upper bound parameter '" << ubId
+                               << "' but resolved to '" << ubParam->getId()
+                               << "' for reaction " << sbml_reaction->getId() << std::endl;
+                }
                 reaction->setUpperBound(ub);
             }
             else {
@@ -462,7 +472,7 @@ void dFBAModel::readSBMLModel(const char* sbmlFileName)
     if (mplugin) {
         ListOfObjectives* listOfObjectives = mplugin->getListOfObjectives();
 
-        libsbml::Objective* fbc_objective = mplugin->getObjective(listOfObjectives->getActiveObjective());
+        Objective* fbc_objective = mplugin->getObjective(listOfObjectives->getActiveObjective());
 
         this->objective_type = fbc_objective->getType();
         std::cout << "Objective type read from SBML: " << this->objective_type << std::endl;

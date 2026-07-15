@@ -766,6 +766,16 @@ void Microenvironment::simulate_cell_sources_and_sinks( std::vector<Basic_Agent*
 	{		
 		basic_agent_list[i]->simulate_secretion_and_uptake( this , dt ); 
 	}
+
+	#pragma omp parallel for
+	for( unsigned int voxel_index = 0; voxel_index < mesh.voxels.size(); voxel_index++ )
+	{
+		for( unsigned int substrate_index = 0; substrate_index < (*p_density_vectors)[voxel_index].size(); substrate_index++ )
+		{
+			if( (*p_density_vectors)[voxel_index][substrate_index] < 0.0 )
+			{ (*p_density_vectors)[voxel_index][substrate_index] = 0.0; }
+		}
+	}
 	
 	return; 
 }
@@ -1573,3 +1583,4 @@ void get_row_from_substrate_initial_condition_csv(std::vector<int> &voxel_set, c
 	voxel_set.push_back(voxel_ind);
 }
 };
+

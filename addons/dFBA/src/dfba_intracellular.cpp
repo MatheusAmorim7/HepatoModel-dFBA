@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <mutex>
 
 
 namespace PhysiCelldFBA {
@@ -19,6 +20,7 @@ dFBAIntracellular::dFBAIntracellular() : Intracellular()
     reference_volume = 0.0;
     max_growth_rate = 0.0;
     current_growth_rate = 0.0;
+    last_solution_status = "not_run";
     next_dfba_run = 0.0;
     use_metabolic_death = true;
     death_type = "";
@@ -39,6 +41,7 @@ dFBAIntracellular::dFBAIntracellular(pugi::xml_node& node)
     reference_volume = 0.0;
     max_growth_rate = 0.0;
     current_growth_rate = 0.0;
+    last_solution_status = "not_run";
     next_dfba_run = 0.0;
     use_metabolic_death = true;
     death_type = "";
@@ -61,6 +64,7 @@ dFBAIntracellular::dFBAIntracellular(const dFBAIntracellular& copy) : Intracellu
     reference_volume = copy.reference_volume;
     max_growth_rate = copy.max_growth_rate;
     current_growth_rate = copy.current_growth_rate;
+    last_solution_status = copy.last_solution_status;
     next_dfba_run = copy.next_dfba_run;
     dfba_time_step = copy.dfba_time_step; // Copy the time step
 
@@ -161,11 +165,31 @@ int dFBAIntracellular::parse_transport_model(pugi::xml_node& node)
             std::cout << std::endl; 
             exit(-1); 
         }
+
+        bool allow_uptake = true;
+        pugi::xml_node node_allow_uptake = node_exchange.child( "allow_uptake" );
+        if( node_allow_uptake )
+        {
+            std::string value = PhysiCell::xml_get_my_string_value( node_allow_uptake );
+            std::transform( value.begin(), value.end(), value.begin(), ::tolower );
+            allow_uptake = !( value == "false" || value == "0" || value == "no" );
+        }
 		
+        
+        double minimum_uptake_fraction = 0.0;
+        pugi::xml_node node_minimum_uptake_fraction = node_exchange.child( "minimum_uptake_fraction" );
+        if( node_minimum_uptake_fraction )
+        {
+            minimum_uptake_fraction = PhysiCell::xml_get_my_double_value( node_minimum_uptake_fraction );
+            minimum_uptake_fraction = std::max( 0.0, std::min( minimum_uptake_fraction, 1.0 ) );
+        }
+
         exchange_flux.density_name = density_name;
         exchange_flux.density_index = density_index;
         exchange_flux.Km = Km;
         exchange_flux.Vmax = Vmax;
+        exchange_flux.allow_uptake = allow_uptake;
+        exchange_flux.minimum_uptake_fraction = minimum_uptake_fraction;
 
         this->substrate_exchanges[density_name] = exchange_flux;
         num_exchanges++;
@@ -291,6 +315,7 @@ void dFBAIntracellular::initialize_intracellular_from_pugixml(pugi::xml_node& no
     cell_density = 0.0;
     max_growth_rate = 0.0;
     current_growth_rate = 0.0;
+    last_solution_status = "not_run";
     use_metabolic_death = false;
 	death_type = "";
 	death_trigger_flux = "";
@@ -421,6 +446,7 @@ void dFBAIntracellular::initialize_intracellular_from_pugixml(pugi::xml_node& no
     }
     dFBAReaction* growth_rxn = this->sbml_model.getReaction(this->objective_reaction);
     assert( growth_rxn != nullptr );
+    this->sbml_model.setReactionLowerBound(this->objective_reaction, 0.0);
     this->sbml_model.setReactionUpperBound(this->objective_reaction, this->max_growth_rate);
 
     if(this->use_metabolic_death && !this->death_trigger_flux.empty()){
@@ -489,9 +515,24 @@ void dFBAIntracellular::update_dfba_inputs( PhysiCell::Cell* pCell, PhysiCell::P
     //  Km: mM = mmol/L
     //  Vmax: mmol/g DW cell/min
 
-    double dV = microenvironment.voxels(pCell->get_current_voxel_index()).volume;
+    int voxel_index = pCell->get_current_voxel_index();
+    double dV = microenvironment.voxels(voxel_index).volume;
+    double local_cell_count = 1.0;
+    if( microenvironment.agent_container && voxel_index >= 0 && voxel_index < (int) microenvironment.agent_container->agent_grid.size() )
+    {
+        local_cell_count = std::max(1.0, (double) microenvironment.agent_container->agent_grid[voxel_index].size());
+    }
+    const double substrate_availability_safety = 0.05;
 
     std::vector<double> density_vector = pCell->nearest_density_vector(); 
+    for( auto& clamp_it : this->substrate_exchanges )
+    {
+        int clamp_index = clamp_it.second.density_index;
+        if( density_vector[clamp_index] < 0.0 )
+        {
+            density_vector[clamp_index] = 0.0;
+        }
+    }
 
     // Only declare the iterator ONCE per function
     map<std::string, ExchangeFluxData>::iterator it;
@@ -512,35 +553,49 @@ void dFBAIntracellular::update_dfba_inputs( PhysiCell::Cell* pCell, PhysiCell::P
         double uptake_rate = (Vmax * substrate_conc) / (Km + substrate_conc); //  mmol / gDWcell / hours shoudl 
         
 
-        // Here we are simulating what is going to happen in BioFVM after we plug the Net Export Rate (we will rescale it later)
-
-        // max_rate = mmol/g DW cell/hours
-        double total_uptake = uptake_rate * dfba_time_step * hours_to_minutes; // mmol/g DW cell
-
-        // (picograms to grams conversion) 
-        total_uptake *= mass_scaling; // mmol
-
-        // correct scaling that takes into account the volume units (um³) in BioFVM
-        // we are getting the total substrate of the voxel
-        double total_substrate = substrate_conc * dV * liter_micron_cubes_conversion; // mmol
-        // check if the we are taking more than what is stored in the voxel
-
-        std::cout << "Substrate: " << substrate_name << " -- Total substrate in voxel: " << total_substrate << " mmol," << "Total concentration: " << substrate_conc << " mM, Total uptake requested: " << total_uptake << " mmol. Uptake rate: " << uptake_rate << " mmol/gDW/h" << std::endl;
-
-        const double epsilon = 1e-18;
-        if (total_uptake > 0.0 && total_uptake > total_substrate + epsilon) {
-            //std::cout << "Warning: limiting uptake rate for substrate " << substrate_name << " to available amount in the voxel." << std::endl;
-            //std::cout << "\t Total substrate in voxel: " << total_substrate << " mmol, Total uptake requested: " << total_uptake << " mmol." << std::endl;
-            uptake_rate = total_substrate / mass_scaling; // mmol/gDW
-            uptake_rate /= (dfba_time_step * hours_to_minutes); // mmol/gDW/hours
-            //std::cout << "\t New uptake rate: " << uptake_rate << " mmol/gDW/h" << std::endl;
+        // Here we estimate the amount BioFVM can safely remove over this dFBA step.
+        // Each cell in the same voxel only receives a share of the local substrate pool.
+        double total_substrate = substrate_conc * dV / liter_micron_cubes_conversion; // mmol
+        double available_substrate_per_cell = substrate_availability_safety * total_substrate / local_cell_count;
+        double dfba_dt_hours = std::max(this->dfba_time_step * hours_to_minutes, 1e-12);
+        double availability_limited_uptake_rate = 0.0;
+        if( mass_scaling > 0.0 )
+        {
+            availability_limited_uptake_rate = available_substrate_per_cell / (mass_scaling * dfba_dt_hours); // mmol/gDW/h
+        }
+        if( ex_strut.allow_uptake )
+        {
+            uptake_rate = std::min(uptake_rate, availability_limited_uptake_rate);
+        }
+        if( substrate_conc <= 1e-12 )
+        {
+            uptake_rate = 0.0;
         }
 
-        // Change sign to use as lower bound of the exchange flux
-        double exchange_flux_lb = -1 * uptake_rate;
-        std::cout << "Substrate: " << substrate_name << " Density: " << substrate_conc << " Vmax: " << Vmax << " Km: " << Km << " Max Uptake rate (mmol/gDW/h): " << uptake_rate <<  " Exchange flux LB: " << exchange_flux_lb << std::endl;
+        double total_uptake = uptake_rate * dfba_dt_hours * mass_scaling; // mmol
+
+        std::ostringstream substrate_log;
+        substrate_log << "Substrate: " << substrate_name << " -- Total substrate in voxel: " << total_substrate << " mmol," << "Total concentration: " << substrate_conc << " mM, Total uptake requested: " << total_uptake << " mmol. Uptake rate: " << uptake_rate << " mmol/gDW/h\n";
+
+        // Change sign to use as lower bound of the exchange flux.
+        // Species marked export-only must not become extracellular nutrients.
+        double exchange_flux_lb = ex_strut.allow_uptake ? -1 * uptake_rate : 0.0;
+        bool force_minimum_uptake = ex_strut.allow_uptake && ex_strut.minimum_uptake_fraction > 0.0 && uptake_rate > 1e-12;
+        double exchange_flux_ub = force_minimum_uptake ? -1.0 * ex_strut.minimum_uptake_fraction * uptake_rate : 1000.0;
+        if( exchange_flux_lb > exchange_flux_ub )
+        {
+            exchange_flux_lb = exchange_flux_ub;
+        }
+        substrate_log << "Substrate: " << substrate_name << " Density: " << substrate_conc << " Vmax: " << Vmax << " Km: " << Km << " Max Uptake rate (mmol/gDW/h): " << uptake_rate <<  " Exchange flux LB: " << exchange_flux_lb << " Exchange flux UB: " << exchange_flux_ub << "\n";
+        // Uncomment for detailed per-cell/per-substrate diagnostics.
+        // {
+        //     static std::mutex substrate_log_mutex;
+        //     std::lock_guard<std::mutex> lock(substrate_log_mutex);
+        //     std::cout << substrate_log.str() << std::flush;
+        // }
         // Updateing the lower bound of the corresponding exchange flux
         this->sbml_model.setReactionLowerBound(ex_strut.fba_flux_id, exchange_flux_lb);
+        this->sbml_model.setReactionUpperBound(ex_strut.fba_flux_id, exchange_flux_ub);
 
     }
 }
@@ -548,17 +603,10 @@ void dFBAIntracellular::update_dfba_inputs( PhysiCell::Cell* pCell, PhysiCell::P
 void dFBAIntracellular::update(){
     // Only run dFBA if current_time >= next_dfba_run
     dFBASolution solution = this->sbml_model.optimize();
+    this->last_solution_status = solution.status;
 
-        // DEBUG — remover posteriormente
-    std::cout << "[dFBA] status=" << solution.status 
-              << " growth=" << solution.getObjectiveValue() << std::endl;
-    for(auto& it : this->substrate_exchanges){
-        dFBAReaction* rxn = this->sbml_model.getReaction(it.second.fba_flux_id);
-        if(rxn) std::cout << "[dFBA]   " << it.second.fba_flux_id 
-                          << " lb=" << rxn->getLowerBound()
-                          << " flux=" << rxn->getFluxValue() << std::endl;
-    }
-    // FIM DEBUG
+    // Detailed per-cell dFBA logging is disabled by default; use fba_exchanges.csv
+    // for flux lower bounds and optimized fluxes.
 
     //next_dfba_run = PhysiCell::PhysiCell_globals.current_time + dfba_time_step;
     if (solution.status == "infeasible"){
@@ -578,13 +626,15 @@ void dFBAIntracellular::update(){
 
 void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double current_time, std::string output_folder)
 {
+    static std::mutex save_fluxes_mutex;
+    std::lock_guard<std::mutex> lock(save_fluxes_mutex);
     static bool header_summary = false;
     std::string path_summary = output_folder + "/fba_summary.csv";
     std::ofstream f_summary;
 
     if (!header_summary) {
         f_summary.open(path_summary, std::ios::out);
-        f_summary << "time,cell_id,cell_type,x,y,growth_rate,obj_flux";
+        f_summary << "time,cell_id,cell_type,x,y,dfba_status,growth_rate,obj_flux";
         for (auto& it : this->substrate_exchanges)
             f_summary << "," << it.second.density_name << "_flux";
         f_summary << "\n";
@@ -598,14 +648,110 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
               << "," << pCell->type_name
               << "," << pCell->position[0] 
               << "," << pCell->position[1]
+              << "," << this->last_solution_status
               << "," << this->current_growth_rate;
 
     dFBAReaction* obj = this->sbml_model.getReaction(this->objective_reaction);
     f_summary << "," << (obj ? obj->getFluxValue() : 0.0);
 
+
+    std::vector<double> density_vector = pCell->nearest_density_vector();
+    for( auto& clamp_it : this->substrate_exchanges )
+    {
+        int clamp_index = clamp_it.second.density_index;
+        if( density_vector[clamp_index] < 0.0 )
+        {
+            density_vector[clamp_index] = 0.0;
+        }
+    }
+    double glucose_flux_for_co2 = 0.0;
+    auto glucose_exchange_for_co2 = this->substrate_exchanges.find("glucose");
+    if( glucose_exchange_for_co2 != this->substrate_exchanges.end() )
+    {
+        dFBAReaction* glucose_rxn_for_co2 = this->sbml_model.getReaction(glucose_exchange_for_co2->second.fba_flux_id);
+        if( glucose_rxn_for_co2 )
+        {
+            glucose_flux_for_co2 = glucose_rxn_for_co2->getFluxValue();
+        }
+    }
+    double oxygen_flux_for_co2 = 0.0;
+    double oxygen_conc_for_lactate = 0.0;
+    auto oxygen_exchange_for_lactate = this->substrate_exchanges.find("oxygen");
+    if( oxygen_exchange_for_lactate != this->substrate_exchanges.end() )
+    {
+        oxygen_conc_for_lactate = std::max(density_vector[oxygen_exchange_for_lactate->second.density_index], 0.0);
+        dFBAReaction* oxygen_rxn_for_co2 = this->sbml_model.getReaction(oxygen_exchange_for_lactate->second.fba_flux_id);
+        if( oxygen_rxn_for_co2 )
+        {
+            oxygen_flux_for_co2 = oxygen_rxn_for_co2->getFluxValue();
+        }
+    }
+    double lactate_conc_for_exchange = 0.0;
+    auto lactate_exchange_for_exchange = this->substrate_exchanges.find("lactate");
+    if( lactate_exchange_for_exchange != this->substrate_exchanges.end() )
+    {
+        lactate_conc_for_exchange = std::max(density_vector[lactate_exchange_for_exchange->second.density_index], 0.0);
+    }
+    const double lactate_hypoxia_threshold = 0.02; // mM
+    const double lactate_anoxia_threshold = 0.005; // mM
+    double hypoxia_fraction_for_lactate = 0.0;
+    if( oxygen_conc_for_lactate < lactate_hypoxia_threshold )
+    {
+        hypoxia_fraction_for_lactate = (lactate_hypoxia_threshold - oxygen_conc_for_lactate) / (lactate_hypoxia_threshold - lactate_anoxia_threshold);
+        hypoxia_fraction_for_lactate = std::min(1.0, std::max(0.0, hypoxia_fraction_for_lactate));
+    }
+    const double lactate_oxidation_o2_threshold = 0.06; // mM
+    double oxygen_fraction_for_lactate_uptake = 0.0;
+    if( oxygen_conc_for_lactate > lactate_hypoxia_threshold )
+    {
+        oxygen_fraction_for_lactate_uptake = (oxygen_conc_for_lactate - lactate_hypoxia_threshold) / (lactate_oxidation_o2_threshold - lactate_hypoxia_threshold);
+        oxygen_fraction_for_lactate_uptake = std::min(1.0, std::max(0.0, oxygen_fraction_for_lactate_uptake));
+    }
+    double lactate_zone_uptake_factor = 0.25;
+    if( pCell->type_name == "zone_1" )
+    {
+        lactate_zone_uptake_factor = 1.0;
+    }
+    else if( pCell->type_name == "zone_2" )
+    {
+        lactate_zone_uptake_factor = 0.5;
+    }
+    else if( pCell->type_name == "zone_3" )
+    {
+        lactate_zone_uptake_factor = 0.1;
+    }
     for (auto& it : this->substrate_exchanges) {
         dFBAReaction* rxn = this->sbml_model.getReaction(it.second.fba_flux_id);
-        f_summary << "," << (rxn ? rxn->getFluxValue() : 0.0);
+        double flux_value = rxn ? rxn->getFluxValue() : 0.0;
+        if( it.second.density_name == "CO2" && glucose_flux_for_co2 < 0.0 )
+        {
+            // Oxidative CO2 cannot exceed either glucose-derived carbon or O2-supported oxidation.
+            double co2_from_glucose = 6.0 * (-glucose_flux_for_co2);
+            double co2_from_oxygen = oxygen_flux_for_co2 < 0.0 ? -oxygen_flux_for_co2 : co2_from_glucose;
+            double max_oxidative_co2 = std::max(0.0, std::min(co2_from_glucose, co2_from_oxygen));
+            if( flux_value <= 1e-12 )
+            {
+                flux_value = max_oxidative_co2;
+            }
+            else
+            {
+                flux_value = std::min(flux_value, max_oxidative_co2);
+            }
+        }
+        if( it.second.density_name == "lactate" )
+        {
+            if( flux_value > 0.0 )
+            {
+                flux_value = 0.0;
+            }
+            else if( std::abs(flux_value) <= 1e-12 && lactate_conc_for_exchange > 1e-12 && oxygen_fraction_for_lactate_uptake > 0.0 )
+            {
+                double lactate_Km = std::max(static_cast<double>(it.second.Km.value), 1e-12);
+                double lactate_Vmax = std::max(static_cast<double>(it.second.Vmax.value), 1.0);
+                flux_value = -lactate_Vmax * lactate_conc_for_exchange / (lactate_Km + lactate_conc_for_exchange) * oxygen_fraction_for_lactate_uptake * lactate_zone_uptake_factor;
+            }
+        }
+        f_summary << "," << flux_value;
     }
     f_summary << "\n";
     f_summary.close();
@@ -616,24 +762,52 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
 
     if (!header_exchanges) {
         f_exchanges.open(path_exchanges, std::ios::out);
-        f_exchanges << "time,cell_id,cell_type,substrate,fba_reaction,flux_lb,flux_value,concentration_mM\n";
+        f_exchanges << "time,cell_id,cell_type,dfba_status,substrate,fba_reaction,flux_lb,flux_value,concentration_mM\n";
         header_exchanges = true;
     } else {
         f_exchanges.open(path_exchanges, std::ios::app);
     }
 
-    std::vector<double> density_vector = pCell->nearest_density_vector();
     for (auto& it : this->substrate_exchanges) {
         ExchangeFluxData ex = it.second;
         dFBAReaction* rxn = this->sbml_model.getReaction(ex.fba_flux_id);
-        double conc = density_vector[ex.density_index];
+        double conc = std::max(density_vector[ex.density_index], 0.0);
+        double flux_value = rxn ? rxn->getFluxValue() : 0.0;
+        if( ex.density_name == "CO2" && glucose_flux_for_co2 < 0.0 )
+        {
+            double co2_from_glucose = 6.0 * (-glucose_flux_for_co2);
+            double co2_from_oxygen = oxygen_flux_for_co2 < 0.0 ? -oxygen_flux_for_co2 : co2_from_glucose;
+            double max_oxidative_co2 = std::max(0.0, std::min(co2_from_glucose, co2_from_oxygen));
+            if( flux_value <= 1e-12 )
+            {
+                flux_value = max_oxidative_co2;
+            }
+            else
+            {
+                flux_value = std::min(flux_value, max_oxidative_co2);
+            }
+        }
+        if( ex.density_name == "lactate" )
+        {
+            if( flux_value > 0.0 )
+            {
+                flux_value = 0.0;
+            }
+            else if( std::abs(flux_value) <= 1e-12 && lactate_conc_for_exchange > 1e-12 && oxygen_fraction_for_lactate_uptake > 0.0 )
+            {
+                double lactate_Km = std::max(static_cast<double>(ex.Km.value), 1e-12);
+                double lactate_Vmax = std::max(static_cast<double>(ex.Vmax.value), 1.0);
+                flux_value = -lactate_Vmax * lactate_conc_for_exchange / (lactate_Km + lactate_conc_for_exchange) * oxygen_fraction_for_lactate_uptake * lactate_zone_uptake_factor;
+            }
+        }
         f_exchanges << current_time
                     << "," << pCell->ID
                     << "," << pCell->type_name
+                    << "," << this->last_solution_status
                     << "," << ex.density_name
                     << "," << ex.fba_flux_id
                     << "," << (rxn ? rxn->getLowerBound() : 0.0)
-                    << "," << (rxn ? rxn->getFluxValue() : 0.0)
+                    << "," << flux_value
                     << "," << conc
                     << "\n";
     }
@@ -717,8 +891,79 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
 
 
     std::vector<double> density_vector = pCell->nearest_density_vector(); 
-    double dV = microenvironment.voxels(pCell->get_current_voxel_index()).volume;
+    for( auto& clamp_it : this->substrate_exchanges )
+    {
+        int clamp_index = clamp_it.second.density_index;
+        if( density_vector[clamp_index] < 0.0 )
+        {
+            density_vector[clamp_index] = 0.0;
+        }
+    }
+    int voxel_index = pCell->get_current_voxel_index();
+    double dV = microenvironment.voxels(voxel_index).volume;
+    double local_cell_count = 1.0;
+    if( microenvironment.agent_container && voxel_index >= 0 && voxel_index < (int) microenvironment.agent_container->agent_grid.size() )
+    {
+        local_cell_count = std::max(1.0, (double) microenvironment.agent_container->agent_grid[voxel_index].size());
+    }
+    const double substrate_availability_safety = 0.05;
     // For each substrate exchange, scale net_export_rates by this->dfba_time_step
+    double glucose_flux_for_co2_output = 0.0;
+    auto glucose_exchange_for_co2_output = this->substrate_exchanges.find("glucose");
+    if( glucose_exchange_for_co2_output != this->substrate_exchanges.end() )
+    {
+        dFBAReaction* glucose_rxn_for_co2_output = this->sbml_model.getReaction(glucose_exchange_for_co2_output->second.fba_flux_id);
+        if( glucose_rxn_for_co2_output )
+        {
+            glucose_flux_for_co2_output = glucose_rxn_for_co2_output->getFluxValue();
+        }
+    }
+    double oxygen_flux_for_co2_output = 0.0;
+    double oxygen_conc_for_lactate_output = 0.0;
+    auto oxygen_exchange_for_lactate_output = this->substrate_exchanges.find("oxygen");
+    if( oxygen_exchange_for_lactate_output != this->substrate_exchanges.end() )
+    {
+        oxygen_conc_for_lactate_output = std::max(density_vector[oxygen_exchange_for_lactate_output->second.density_index], 0.0);
+        dFBAReaction* oxygen_rxn_for_co2_output = this->sbml_model.getReaction(oxygen_exchange_for_lactate_output->second.fba_flux_id);
+        if( oxygen_rxn_for_co2_output )
+        {
+            oxygen_flux_for_co2_output = oxygen_rxn_for_co2_output->getFluxValue();
+        }
+    }
+    double lactate_conc_for_exchange_output = 0.0;
+    auto lactate_exchange_for_exchange_output = this->substrate_exchanges.find("lactate");
+    if( lactate_exchange_for_exchange_output != this->substrate_exchanges.end() )
+    {
+        lactate_conc_for_exchange_output = std::max(density_vector[lactate_exchange_for_exchange_output->second.density_index], 0.0);
+    }
+    const double lactate_hypoxia_threshold_output = 0.02; // mM
+    const double lactate_anoxia_threshold_output = 0.005; // mM
+    double hypoxia_fraction_for_lactate_output = 0.0;
+    if( oxygen_conc_for_lactate_output < lactate_hypoxia_threshold_output )
+    {
+        hypoxia_fraction_for_lactate_output = (lactate_hypoxia_threshold_output - oxygen_conc_for_lactate_output) / (lactate_hypoxia_threshold_output - lactate_anoxia_threshold_output);
+        hypoxia_fraction_for_lactate_output = std::min(1.0, std::max(0.0, hypoxia_fraction_for_lactate_output));
+    }
+    const double lactate_oxidation_o2_threshold_output = 0.06; // mM
+    double oxygen_fraction_for_lactate_uptake_output = 0.0;
+    if( oxygen_conc_for_lactate_output > lactate_hypoxia_threshold_output )
+    {
+        oxygen_fraction_for_lactate_uptake_output = (oxygen_conc_for_lactate_output - lactate_hypoxia_threshold_output) / (lactate_oxidation_o2_threshold_output - lactate_hypoxia_threshold_output);
+        oxygen_fraction_for_lactate_uptake_output = std::min(1.0, std::max(0.0, oxygen_fraction_for_lactate_uptake_output));
+    }
+    double lactate_zone_uptake_factor_output = 0.25;
+    if( pCell->type_name == "zone_1" )
+    {
+        lactate_zone_uptake_factor_output = 1.0;
+    }
+    else if( pCell->type_name == "zone_2" )
+    {
+        lactate_zone_uptake_factor_output = 0.5;
+    }
+    else if( pCell->type_name == "zone_3" )
+    {
+        lactate_zone_uptake_factor_output = 0.1;
+    }
     map<std::string, ExchangeFluxData>::iterator it;
     for(it = this->substrate_exchanges.begin(); it != this->substrate_exchanges.end(); it++)
     {
@@ -742,6 +987,38 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
 
         dFBAReaction* exchange_flux = this->sbml_model.getReaction(fba_flux_id);
         double flux_value =  exchange_flux->getFluxValue(); // mmol/gDW/h
+        if( !ex_strut.allow_uptake && flux_value < 0.0 )
+        {
+            flux_value = 0.0;
+        }
+        if( density_name == "CO2" && glucose_flux_for_co2_output < 0.0 )
+        {
+            // Oxidative CO2 cannot exceed either glucose-derived carbon or O2-supported oxidation.
+            double co2_from_glucose = 6.0 * (-glucose_flux_for_co2_output);
+            double co2_from_oxygen = oxygen_flux_for_co2_output < 0.0 ? -oxygen_flux_for_co2_output : co2_from_glucose;
+            double max_oxidative_co2 = std::max(0.0, std::min(co2_from_glucose, co2_from_oxygen));
+            if( flux_value <= 1e-12 )
+            {
+                flux_value = max_oxidative_co2;
+            }
+            else
+            {
+                flux_value = std::min(flux_value, max_oxidative_co2);
+            }
+        }
+        if( density_name == "lactate" )
+        {
+            if( flux_value > 0.0 )
+            {
+                flux_value = 0.0;
+            }
+            else if( std::abs(flux_value) <= 1e-12 && lactate_conc_for_exchange_output > 1e-12 && oxygen_fraction_for_lactate_uptake_output > 0.0 )
+            {
+                double lactate_Km = std::max(static_cast<double>(ex_strut.Km.value), 1e-12);
+                double lactate_Vmax = std::max(static_cast<double>(ex_strut.Vmax.value), 1.0);
+                flux_value = -lactate_Vmax * lactate_conc_for_exchange_output / (lactate_Km + lactate_conc_for_exchange_output) * oxygen_fraction_for_lactate_uptake_output * lactate_zone_uptake_factor_output;
+            }
+        }
         // std::cout << "Exchange flux : " << fba_flux_id << " Flux value (mmol/gDW/h): " << flux_value << std::endl;
         
         // pCell->custom_data[fba_flux_id] = flux_value;
@@ -749,10 +1026,11 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
         // Rescaling FBA exchanges flux into net_export_rates
         // Net export rates are expressed in substance/time
         // flux_value: mmol/gDW/h --> mmol/min
-        // net_export_rate (mmol/min) = flux_value / 60 * cell_dry_weight  = mmol/min
+        // flux_value: mmol/gDW/h; cell_dry_weight was already converted from pg to g above.
+        // net_export_rate (mmol/min) = flux_value / 60 * cell_dry_weight_gDW.
         //double net_export_rate = flux_value * cell_dry_weight * hours_to_minutes; // mmol/min
-
-        double net_export_rate_mmol_per_min = flux_value * cell_dry_weight * hours_to_minutes; // mmol/min
+        double cell_dry_weight_g = cell_dry_weight;
+        double net_export_rate_mmol_per_min = flux_value * cell_dry_weight_g * hours_to_minutes; // mmol/min
         
  
         /*
@@ -771,8 +1049,15 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
        }
         */
 
-        // correct scaling that takes into account the volume units (liter to um³) in BioFVM 
-        net_export_rate_mmol_per_min *= liter_micron_cubes_conversion; // BioFVM units are in mM  =  mmol / L whereas dV is in um³ = 1e-15 L
+        // correct scaling that takes into account the volume units (liter to um3) in BioFVM 
+        net_export_rate_mmol_per_min *= liter_micron_cubes_conversion; // BioFVM units: mM*um3/min
+
+        if( net_export_rate_mmol_per_min < 0.0 )
+        {
+            double safe_substrate_conc = std::max(substrate_conc, 0.0);
+            double max_removal_rate = substrate_availability_safety * safe_substrate_conc * dV / std::max(this->dfba_time_step, 1e-12) / local_cell_count;
+            net_export_rate_mmol_per_min = std::max(net_export_rate_mmol_per_min, -max_removal_rate);
+        }
 
         // std::cout << "New net export rate for substrate " << substrate_name << ": " << net_export_rate_mmol_per_min << " mmol/min" << std::endl;
         phenotype.secretion.net_export_rates[density_index] = net_export_rate_mmol_per_min;
@@ -783,9 +1068,9 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
         {
             phenotype.molecular.internalized_total_substrates[density_index] = 0;
         }
-            save_fluxes_to_csv(pCell, PhysiCell::PhysiCell_globals.current_time, "./output");
     }
 
+    save_fluxes_to_csv(pCell, PhysiCell::PhysiCell_globals.current_time, "./output");
     return;
 }
 
@@ -899,3 +1184,16 @@ void dFBAIntracellular::save_dFBA(std::string path, std::string index)
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

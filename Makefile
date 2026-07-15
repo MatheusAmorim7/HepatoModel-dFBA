@@ -19,10 +19,9 @@ ARCH := native
 DFBA_SRC     := ./addons/dFBA/src
 DFBA_EXT     := ./addons/dFBA/ext
 DFBA_INC     := -I$(DFBA_SRC) -I$(DFBA_EXT)/libsbml/include -I$(DFBA_EXT)/coin-or/include
-DFBA_LD      := -L$(DFBA_EXT)/libsbml/lib -L$(DFBA_EXT)/coin-or/lib
-DFBA_RPATH   := -Wl,-rpath,$(DFBA_EXT)/libsbml/lib -Wl,-rpath,$(DFBA_EXT)/coin-or/lib
-DFBA_LIBS    := $(DFBA_EXT)/coin-or/lib/libClp.a $(DFBA_EXT)/coin-or/lib/libCoinUtils.a \
-                -llapack -lsbml-static -lxml2 -lbz2 -lz
+DFBA_LD      := -L./addons/dFBA/ext/libsbml/lib
+DFBA_RPATH   := -Wl,-rpath,./addons/dFBA/ext/libsbml/lib
+DFBA_LIBS    := -lClp -lClpSolver -lCoinUtils -llapack -lsbml-static -lxml2 -lbz2 -lz
 
 # ---------------------------------------------------------------
 # Compiler flags

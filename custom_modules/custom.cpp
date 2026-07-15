@@ -357,6 +357,7 @@ void setup_tissue(void)
 { 
     int oxygen_substrate = microenvironment.find_density_index("oxygen");
     int glucose_index = microenvironment.find_density_index("glucose");
+    int co2_index = microenvironment.find_density_index("CO2");
 
     Cell_Definition* pSourceDef = find_cell_definition("source_sink");
 
@@ -378,6 +379,13 @@ void setup_tissue(void)
     sink->phenotype.secretion.uptake_rates[glucose_index]  = 0.0;  // /min
     sink->phenotype.secretion.secretion_rates[glucose_index]  = 0.0;
     sink->phenotype.secretion.saturation_densities[glucose_index]  = 0.0;
+
+    // Dreno de CO2: representa a drenagem venosa do CO2 metabólico produzido no lóbulo.
+    // O sink não tem dFBA (intracellular = nullptr), então o consumo aqui é puramente
+    // fenomenológico (uptake de primeira ordem do PhysiCell), não uma reação de troca do LP.
+    sink->phenotype.secretion.uptake_rates[co2_index] = 0.0005;   // /min -- ponto de partida, calibrar conforme item abaixo
+    sink->phenotype.secretion.secretion_rates[co2_index] = 0.0;
+    sink->phenotype.secretion.saturation_densities[co2_index] = 0.0;
 
     setup_peripheral_sources();
 
@@ -441,10 +449,63 @@ void dynamic_glucose_supply(double dt)
     }
 }
 
+void sinusoidal_distributed_supply(double dt)
+{
+    int oxygen_index = microenvironment.find_density_index("oxygen");
+    int glucose_index = microenvironment.find_density_index("glucose");
+
+    if( oxygen_index < 0 && glucose_index < 0 )
+    { return; }
+
+    double x_center = 0.5 * (microenvironment.mesh.bounding_box[0] + microenvironment.mesh.bounding_box[3]);
+    double y_center = 0.5 * (microenvironment.mesh.bounding_box[1] + microenvironment.mesh.bounding_box[4]);
+
+    // Level 1 sinusoidal perfusion approximation:
+    // weak radial relaxation toward portal-to-central blood-side targets.
+    const double radius_max = 450.0;
+
+    const double o2_portal_target = 0.12;   // mM, periportal/sinusoidal inlet side
+    const double o2_central_target = 0.035; // mM, pericentral/sinusoidal outlet side
+    const double glc_portal_target = 5.0;   // mM
+    const double glc_central_target = 3.5;  // mM
+
+    const double k_o2 = 0.02;  // 1/min
+    const double k_glc = 0.01; // 1/min
+
+    for( int n = 0; n < microenvironment.number_of_voxels(); n++ )
+    {
+        double voxel_x = microenvironment.mesh.voxels[n].center[0];
+        double voxel_y = microenvironment.mesh.voxels[n].center[1];
+
+        double dx = voxel_x - x_center;
+        double dy = voxel_y - y_center;
+        double distance_from_center = sqrt( dx*dx + dy*dy );
+        double portal_fraction = std::min( distance_from_center / radius_max, 1.0 );
+
+        if( oxygen_index >= 0 )
+        {
+            double oxygen_target = o2_central_target
+                + ( o2_portal_target - o2_central_target ) * portal_fraction;
+            double& oxygen = microenvironment(n)[oxygen_index];
+            oxygen += k_o2 * ( oxygen_target - oxygen ) * dt;
+            oxygen = std::max( 0.0, std::min( oxygen, o2_portal_target ) );
+        }
+
+        if( glucose_index >= 0 )
+        {
+            double glucose_target = glc_central_target
+                + ( glc_portal_target - glc_central_target ) * portal_fraction;
+            double& glucose = microenvironment(n)[glucose_index];
+            glucose += k_glc * ( glucose_target - glucose ) * dt;
+            glucose = std::max( 0.0, std::min( glucose, glc_portal_target ) );
+        }
+    }
+}
+
 void custom_microenvironment_function(double dt)
 {
-    dynamic_oxygen_supply(dt);
-    dynamic_glucose_supply(dt);
+    sinusoidal_distributed_supply(dt);
+    return;
 }
 
 std::vector<std::string> my_coloring_function( Cell* pCell )

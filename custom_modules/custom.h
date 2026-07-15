@@ -98,4 +98,5 @@ void initialize_oxygen_zones(); // NOVO
 void setup_peripheral_sources(); // NOVO
 void dynamic_oxygen_supply(double dt); // NOVO
 void dynamic_glucose_supply(double dt); // NOVO
+void sinusoidal_distributed_supply(double dt);
 
