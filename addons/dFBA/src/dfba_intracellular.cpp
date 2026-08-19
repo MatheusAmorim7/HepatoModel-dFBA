@@ -692,8 +692,8 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
     {
         lactate_conc_for_exchange = std::max(density_vector[lactate_exchange_for_exchange->second.density_index], 0.0);
     }
-    const double lactate_hypoxia_threshold = 0.02; // mM
-    const double lactate_anoxia_threshold = 0.005; // mM
+    const double lactate_hypoxia_threshold = 0.06; // mM, experimental hypoxic lactate test threshold
+    const double lactate_anoxia_threshold = 0.02; // mM
     double hypoxia_fraction_for_lactate = 0.0;
     if( oxygen_conc_for_lactate < lactate_hypoxia_threshold )
     {
@@ -740,9 +740,32 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
         }
         if( it.second.density_name == "lactate" )
         {
+            double lactate_release_zone_factor = 0.1;
+            if( pCell->type_name == "zone_1" )
+            {
+                lactate_release_zone_factor = 0.0;
+            }
+            else if( pCell->type_name == "zone_2" )
+            {
+                lactate_release_zone_factor = 0.25;
+            }
+            else if( pCell->type_name == "zone_3" )
+            {
+                lactate_release_zone_factor = 1.0;
+            }
+
+            double max_glycolytic_lactate = glucose_flux_for_co2 < 0.0 ? 2.0 * (-glucose_flux_for_co2) : 0.0;
+            double hypoxic_lactate_release = max_glycolytic_lactate
+                * hypoxia_fraction_for_lactate
+                * lactate_release_zone_factor;
+
             if( flux_value > 0.0 )
             {
-                flux_value = 0.0;
+                flux_value = std::min(flux_value, hypoxic_lactate_release);
+            }
+            else if( std::abs(flux_value) <= 1e-12 && hypoxic_lactate_release > 0.0 )
+            {
+                flux_value = hypoxic_lactate_release;
             }
             else if( std::abs(flux_value) <= 1e-12 && lactate_conc_for_exchange > 1e-12 && oxygen_fraction_for_lactate_uptake > 0.0 )
             {
@@ -789,9 +812,32 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
         }
         if( ex.density_name == "lactate" )
         {
+            double lactate_release_zone_factor = 0.1;
+            if( pCell->type_name == "zone_1" )
+            {
+                lactate_release_zone_factor = 0.0;
+            }
+            else if( pCell->type_name == "zone_2" )
+            {
+                lactate_release_zone_factor = 0.25;
+            }
+            else if( pCell->type_name == "zone_3" )
+            {
+                lactate_release_zone_factor = 1.0;
+            }
+
+            double max_glycolytic_lactate = glucose_flux_for_co2 < 0.0 ? 2.0 * (-glucose_flux_for_co2) : 0.0;
+            double hypoxic_lactate_release = max_glycolytic_lactate
+                * hypoxia_fraction_for_lactate
+                * lactate_release_zone_factor;
+
             if( flux_value > 0.0 )
             {
-                flux_value = 0.0;
+                flux_value = std::min(flux_value, hypoxic_lactate_release);
+            }
+            else if( std::abs(flux_value) <= 1e-12 && hypoxic_lactate_release > 0.0 )
+            {
+                flux_value = hypoxic_lactate_release;
             }
             else if( std::abs(flux_value) <= 1e-12 && lactate_conc_for_exchange > 1e-12 && oxygen_fraction_for_lactate_uptake > 0.0 )
             {
@@ -936,8 +982,8 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
     {
         lactate_conc_for_exchange_output = std::max(density_vector[lactate_exchange_for_exchange_output->second.density_index], 0.0);
     }
-    const double lactate_hypoxia_threshold_output = 0.02; // mM
-    const double lactate_anoxia_threshold_output = 0.005; // mM
+    const double lactate_hypoxia_threshold_output = 0.06; // mM, experimental hypoxic lactate test threshold
+    const double lactate_anoxia_threshold_output = 0.02; // mM
     double hypoxia_fraction_for_lactate_output = 0.0;
     if( oxygen_conc_for_lactate_output < lactate_hypoxia_threshold_output )
     {
@@ -1008,9 +1054,32 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
         }
         if( density_name == "lactate" )
         {
+            double lactate_release_zone_factor_output = 0.1;
+            if( pCell->type_name == "zone_1" )
+            {
+                lactate_release_zone_factor_output = 0.0;
+            }
+            else if( pCell->type_name == "zone_2" )
+            {
+                lactate_release_zone_factor_output = 0.25;
+            }
+            else if( pCell->type_name == "zone_3" )
+            {
+                lactate_release_zone_factor_output = 1.0;
+            }
+
+            double max_glycolytic_lactate_output = glucose_flux_for_co2_output < 0.0 ? 2.0 * (-glucose_flux_for_co2_output) : 0.0;
+            double hypoxic_lactate_release_output = max_glycolytic_lactate_output
+                * hypoxia_fraction_for_lactate_output
+                * lactate_release_zone_factor_output;
+
             if( flux_value > 0.0 )
             {
-                flux_value = 0.0;
+                flux_value = std::min(flux_value, hypoxic_lactate_release_output);
+            }
+            else if( std::abs(flux_value) <= 1e-12 && hypoxic_lactate_release_output > 0.0 )
+            {
+                flux_value = hypoxic_lactate_release_output;
             }
             else if( std::abs(flux_value) <= 1e-12 && lactate_conc_for_exchange_output > 1e-12 && oxygen_fraction_for_lactate_uptake_output > 0.0 )
             {

@@ -465,7 +465,7 @@ void sinusoidal_distributed_supply(double dt)
     const double radius_max = 450.0;
 
     const double o2_portal_target = 0.12;   // mM, periportal/sinusoidal inlet side
-    const double o2_central_target = 0.035; // mM, pericentral/sinusoidal outlet side
+    const double o2_central_target = 0.02; // mM, pericentral/sinusoidal outlet side
     const double glc_portal_target = 5.0;   // mM
     const double glc_central_target = 3.5;  // mM
 

@@ -1,0 +1,2142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" metaid="meta_" sboTerm="SBO:0000624" level="3" version="1" fbc:required="false">
+  <model metaid="meta_" name="tmpcompute" fbc:strict="true">
+    <listOfUnitDefinitions>
+      <unitDefinition id="mmol_per_gDW_per_hr">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="gram" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="3600"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="cyto" name="cyto" constant="true"/>
+      <compartment id="ext" name="ext" constant="true"/>
+      <compartment id="lyso" name="lyso" constant="true"/>
+      <compartment id="GolErMi" name="GolErMi" constant="true"/>
+      <compartment id="mito" name="mito" constant="true"/>
+      <compartment id="peroxy" name="peroxy" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="M_HC00003_c" name="Antitrypsin(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00003_s" name="Antitrypsin(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00003_l" name="Antitrypsin(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00004_c" name="ApoA1(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00004_s" name="ApoA1(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00005_c" name="ApoB100(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00008_r" name="ApoC3(r)" compartment="GolErMi" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00008_c" name="ApoC3(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00011_r" name="H2O(r)" compartment="GolErMi" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00011_c" name="H2O(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00011_s" name="H2O(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00011_l" name="H2O(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00011_m" name="H2O(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00012_c" name="ATP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00012_l" name="ATP(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00012_m" name="ATP(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00013_c" name="NAD+(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00013_m" name="NAD+(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00013_p" name="NAD+(p)" compartment="peroxy" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00014_c" name="NADH(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00014_m" name="NADH(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00014_p" name="NADH(p)" compartment="peroxy" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00015_c" name="NADPH(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00016_c" name="NADP+(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00017_c" name="O2(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00017_s" name="O2(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00018_c" name="ADP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00018_l" name="ADP(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00018_m" name="ADP(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00019_r" name="Pi(r)" compartment="GolErMi" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00019_c" name="Pi(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00019_s" name="Pi(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00019_l" name="Pi(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00019_m" name="Pi(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00020_c" name="CoA(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00020_m" name="CoA(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00021_c" name="CO2(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00021_s" name="CO2(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00021_m" name="CO2(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00023_c" name="PPi(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00023_m" name="PPi(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00024_c" name="NH3(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00024_s" name="NH3(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00025_c" name="UDP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00030_c" name="AMP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00030_m" name="AMP(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00032_c" name="Pyruvate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00032_s" name="Pyruvate(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00032_m" name="Pyruvate(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00032_p" name="Pyruvate(p)" compartment="peroxy" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00033_c" name="Acetyl-CoA(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00033_m" name="Acetyl-CoA(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00034_c" name="Glutamate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00034_l" name="Glutamate(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00036_c" name="H2O2(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00036_s" name="H2O2(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00038_c" name="UDP-glucose(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00040_r" name="Glucose(r)" compartment="GolErMi" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00040_c" name="Glucose(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00040_s" name="Glucose(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00042_c" name="Acetate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00042_m" name="Acetate(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00043_c" name="GDP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00045_c" name="Glycine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00045_l" name="Glycine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00048_c" name="Alanine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00048_l" name="Alanine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00051_c" name="GTP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00053_c" name="Lysine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00053_l" name="Lysine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00055_c" name="Aspartate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00055_l" name="Aspartate(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00056_c" name="GSH(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00056_s" name="GSH(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00060_m" name="CMP(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00061_c" name="Formate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00065_c" name="Arginine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00065_s" name="Arginine(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00065_l" name="Arginine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00066_m" name="CTP(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00067_c" name="Glutamine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00067_l" name="Glutamine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00068_c" name="Serine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00068_s" name="Serine(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00068_l" name="Serine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00075_c" name="Methionine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00075_l" name="Methionine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00076_c" name="PEP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00077_c" name="UTP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00080_c" name="Tryptophan(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00080_l" name="Tryptophan(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00081_c" name="Phenylalanine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00081_l" name="Phenylalanine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00083_c" name="H+(PG)(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00083_s" name="H+(PG)(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00084_c" name="ITP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00085_c" name="Tyrosine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00085_l" name="Tyrosine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00094_r" name="Glucose-6P(r)" compartment="GolErMi" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00094_c" name="Glucose-6P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00095_c" name="sn-Glycerol-3P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00095_m" name="sn-Glycerol-3P(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00099_c" name="Cysteine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00099_l" name="Cysteine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00102_c" name="THF(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00103_c" name="Glucose-1P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00104_c" name="IDP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00115_c" name="Ribose-5P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00116_c" name="GAP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00117_c" name="PRPP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00120_c" name="Fumarate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00121_c" name="Leucine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00121_l" name="Leucine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00128_c" name="IMP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00129_c" name="dATP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00132_s" name="Putrescine(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00133_c" name="Histidine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00133_l" name="Histidine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00140_c" name="5,10-Methylene-THF(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00145_c" name="Proline(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00145_l" name="Proline(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00146_c" name="Malate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00146_m" name="Malate(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00148_c" name="Asparagine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00148_l" name="Asparagine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00150_c" name="Palmitoyl-CoA(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00174_c" name="Valine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00174_l" name="Valine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00177_c" name="L-Lactate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00177_s" name="L-Lactate(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00177_m" name="L-Lactate(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00177_p" name="L-Lactate(p)" compartment="peroxy" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00179_c" name="Threonine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00179_l" name="Threonine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00186_c" name="3PG(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00188_c" name="Ribulose-5P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00192_c" name="dADP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00194_s" name="Maltose(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00209_c" name="D-Xylulose-5P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00212_c" name="10-Formyl-THF(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00214_c" name="1,3DPG(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00225_m" name="Lipoamide(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00229_s" name="Isomaltose(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00277_c" name="Citrulline(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00277_s" name="Citrulline(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00278_c" name="Kynurenine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00282_m" name="Acetoacetyl-CoA(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00289_c" name="Thioredoxin(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00292_c" name="6-Phospho-D-gluconate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00302_m" name="HMG-CoA(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00334_c" name="Isoleucine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00334_l" name="Isoleucine(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00338_c" name="Stearoyl-CoA(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00360_c" name="5,10-Methenyl-THF(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00361_c" name="Sedoheptulose-1,7PP(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00400_c" name="Oleoyl-CoA(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00415_c" name="NO(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00415_s" name="NO(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00418_c" name="Triphosphate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00428_s" name="4-Aminobutanal(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00464_c" name="3-Hydroxyanthranilate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00505_c" name="O2.-(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00505_s" name="O2.-(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00534_c" name="Urocanate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00564_c" name="Deamido-NAD(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00643_c" name="UroporphyrinogenIII(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00656_c" name="Protoporphyrinogen_IX(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00682_m" name="S-Acetyldihydrolipoamide(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00703_c" name="Nicotinate_ribonucleotide(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00733_c" name="Glucono-1,5-lactone-6P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00757_c" name="3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestan-26-al(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00763_c" name="Na+(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00763_s" name="Na+(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00784_c" name="Cys-Gly(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00906_c" name="Dehydroalanine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC00985_c" name="L-Formylkynurenine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01053_c" name="5-Phosphoribosylamine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01079_c" name="3-Hydroxy-L-kynurenine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01081_m" name="3-Methylglutaconyl-CoA(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01085_c" name="CoproporphyrinogenIII(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01108_c" name="AIR(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01157_c" name="4-Imidazolone-5-propanoate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01183_c" name="Adenylosuccinate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01190_c" name="GAR(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01281_c" name="N-Formyl-GAR(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01288_c" name="2-Amino-3-carboxymuconate_semialdehyde(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01329_c" name="5-Phosphoribosylformylglycinamidine(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01340_c" name="3alpha,7alpha,12alpha-Trihydroxy-5beta-cholestanate(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01436_c" name="Sedoheptulose-7P(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01455_c" name="5beta-Cholestane-3alpha,7alpha,12alpha,26-tetrol(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01609_s" name="UroporphyrinogenI(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01610_s" name="CoproporphyrinogenI(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01939_s" name="Haptoglobin(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01939_l" name="Haptoglobin(l)" compartment="lyso" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01942_c" name="Plasminogen(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01943_c" name="Prothrombin(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01943_s" name="Prothrombin(s)" compartment="ext" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC01983_c" name="Linoleoyl-CoA(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02029_c" name="1-Acylglycerol-3P-palm(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02031_c" name="1-Acylglycerol-3P-stea(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02032_c" name="1-Acylglycerol-3P-ol(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02033_c" name="1-Acylglycerol-3P-lin(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02055_c" name="1,2-Diacylglycerol-VLDL-TG-pool(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02061_c" name="Acyl-CoA-VLDL-TG3-pool(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02062_c" name="Triacylglycerol-VLDL-pool(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02063_c" name="Fatty-acid-VLDL-TG3-pool(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02087_m" name="CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02089_c" name="Acyl-CoA-CL-pool(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02089_m" name="Acyl-CoA-CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02091_m" name="1-Acylglycerol-3P-CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02093_m" name="Phosphatidate-CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02094_m" name="CDP-diacylglycerol-CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02095_m" name="PGP-CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02096_m" name="PG-CL-pool(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02112_c" name="NADH-redox-potential(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02113_c" name="NADPH-redox-potential(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02131_c" name="Glycogenin(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02132_c" name="Glycogenin-G8(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02133_c" name="Glycogenin-G11(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02134_c" name="Glycogenin-G4G7(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02135_c" name="Glycogenin-G4G4(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02136_c" name="Glycogenin-G7G1(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02137_c" name="Glycogenin-G7(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02224_c" name="mitoThioredoxin(c)" compartment="cyto" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+      <species id="M_HC02224_m" name="mitoThioredoxin(m)" compartment="mito" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_lb" value="-1000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_ub" value="1000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_0_bound" value="0" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="minus_inf" value="-INF" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="plus_inf" value="INF" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction metaid="meta_R_EX_HC00003_s" sboTerm="SBO:0000627" id="R_EX_HC00003_s" name="EX_HC00003_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00003_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00004_s" sboTerm="SBO:0000627" id="R_EX_HC00004_s" name="EX_HC00004_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00004_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00008_r" sboTerm="SBO:0000627" id="R_EX_HC00008_r" name="EX_HC00008_r" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00008_r" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00012_c" sboTerm="SBO:0000627" id="R_EX_HC00012_c" name="EX_HC00012_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00015_c" sboTerm="SBO:0000627" id="R_EX_HC00015_c" name="EX_HC00015_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00015_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00017_s" sboTerm="SBO:0000627" id="R_EX_HC00017_s" name="EX_HC00017_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_0_bound">
+        <listOfReactants>
+          <speciesReference species="M_HC00017_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00021_s" sboTerm="SBO:0000627" id="R_EX_HC00021_s" name="EX_HC00021_s" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00021_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00023_c" sboTerm="SBO:0000627" id="R_EX_HC00023_c" name="EX_HC00023_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00024_s" sboTerm="SBO:0000627" id="R_EX_HC00024_s" name="EX_HC00024_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00024_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00032_s" sboTerm="SBO:0000627" id="R_EX_HC00032_s" name="EX_HC00032_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00032_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00036_s" sboTerm="SBO:0000627" id="R_EX_HC00036_s" name="EX_HC00036_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00036_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00040_s" sboTerm="SBO:0000627" id="R_EX_HC00040_s" name="EX_HC00040_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_0_bound">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00051_c" sboTerm="SBO:0000627" id="R_EX_HC00051_c" name="EX_HC00051_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00051_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00056_s" sboTerm="SBO:0000627" id="R_EX_HC00056_s" name="EX_HC00056_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00056_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00065_s" sboTerm="SBO:0000627" id="R_EX_HC00065_s" name="EX_HC00065_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00065_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00075_c" sboTerm="SBO:0000627" id="R_EX_HC00075_c" name="EX_HC00075_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00075_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00080_c" sboTerm="SBO:0000627" id="R_EX_HC00080_c" name="EX_HC00080_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00080_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00132_s" sboTerm="SBO:0000627" id="R_EX_HC00132_s" name="EX_HC00132_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00132_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00177_s" sboTerm="SBO:0000627" id="R_EX_HC00177_s" name="EX_HC00177_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_0_bound">
+        <listOfReactants>
+          <speciesReference species="M_HC00177_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00194_s" sboTerm="SBO:0000627" id="R_EX_HC00194_s" name="EX_HC00194_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00194_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00229_s" sboTerm="SBO:0000627" id="R_EX_HC00229_s" name="EX_HC00229_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00229_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00277_s" sboTerm="SBO:0000627" id="R_EX_HC00277_s" name="EX_HC00277_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00277_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00289_c" sboTerm="SBO:0000627" id="R_EX_HC00289_c" name="EX_HC00289_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00289_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00415_s" sboTerm="SBO:0000627" id="R_EX_HC00415_s" name="EX_HC00415_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00415_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00418_c" sboTerm="SBO:0000627" id="R_EX_HC00418_c" name="EX_HC00418_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00418_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00428_s" sboTerm="SBO:0000627" id="R_EX_HC00428_s" name="EX_HC00428_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00428_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC00505_s" sboTerm="SBO:0000627" id="R_EX_HC00505_s" name="EX_HC00505_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00505_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC01108_c" sboTerm="SBO:0000627" id="R_EX_HC01108_c" name="EX_HC01108_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01108_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC01609_s" sboTerm="SBO:0000627" id="R_EX_HC01609_s" name="EX_HC01609_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01609_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC01610_s" sboTerm="SBO:0000627" id="R_EX_HC01610_s" name="EX_HC01610_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01610_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC01939_s" sboTerm="SBO:0000627" id="R_EX_HC01939_s" name="EX_HC01939_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01939_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC01943_s" sboTerm="SBO:0000627" id="R_EX_HC01943_s" name="EX_HC01943_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01943_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC02087_m" sboTerm="SBO:0000627" id="R_EX_HC02087_m" name="EX_HC02087_m" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02087_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC02112_c" sboTerm="SBO:0000627" id="R_EX_HC02112_c" name="EX_HC02112_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02112_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC02113_c" sboTerm="SBO:0000627" id="R_EX_HC02113_c" name="EX_HC02113_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02113_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC02134_c" sboTerm="SBO:0000627" id="R_EX_HC02134_c" name="EX_HC02134_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02134_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction metaid="meta_R_EX_HC02224_m" sboTerm="SBO:0000627" id="R_EX_HC02224_m" name="EX_HC02224_m" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02224_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="R_r0005" name="r0005" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00906_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00024_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0007" name="r0007" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00019_c" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0010" name="r0010" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00036_c" stoichiometry="2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0014" name="r0014" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00194_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00040_s" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0030" name="r0030" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0031" name="r0031" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_m" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0054" name="r0054" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00032_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00076_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0056" name="r0056" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00032_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00033_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0057" name="r0057" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00013_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00146_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0058" name="r0058" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00146_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00016_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00015_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0061" name="r0061" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00033_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00020_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00042_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0067" name="r0067" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00042_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00030_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00023_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00033_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0070" name="r0070" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00033_m" stoichiometry="2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00020_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00282_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0079" name="r0079" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00564_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00030_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0129" name="r0129" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00056_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00034_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00784_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0145" name="r0145" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00065_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_c" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_HC00015_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00415_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00277_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_HC00016_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0158" name="r0158" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00030_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0161" name="r0161" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00068_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00906_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0165" name="r0165" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00077_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00032_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00025_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00076_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0169" name="r0169" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00080_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00985_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0171" name="r0171" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00177_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0172" name="r0172" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00177_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0173" name="r0173" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00177_p" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_p" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_p" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_p" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0214" name="r0214" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00784_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00099_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0230" name="r0230" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00140_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00102_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0247" name="r0247" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00115_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00030_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00117_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0253" name="r0253" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00116_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00214_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0257" name="r0257" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01053_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00067_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00117_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0258" name="r0258" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00146_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00120_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0260" name="r0260" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01183_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00120_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0277" name="r0277" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00051_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00128_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00043_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01183_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0278" name="r0278" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00192_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00129_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0281" name="r0281" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00132_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00036_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00428_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00024_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0286" name="r0286" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00133_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00534_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00024_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0337" name="r0337" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00186_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00214_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0343" name="r0343" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00292_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00016_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00015_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00188_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0344" name="r0344" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00188_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00209_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0353" name="r0353" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00094_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0354" name="r0354" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00084_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00094_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00104_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0355" name="r0355" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00129_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00094_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00192_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0370" name="r0370" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01436_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00116_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00115_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00209_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0371" name="r0371" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00360_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00212_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0383" name="r0383" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00032_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00225_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00682_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0390" name="r0390" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00229_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00040_s" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0396" name="r0396" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_r" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00094_r" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00040_r" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_r" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0409" name="r0409" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00077_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01436_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00025_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00361_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0454" name="r0454" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00985_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00061_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00278_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0455" name="r0455" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00278_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00015_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01079_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00016_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0462" name="r0462" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00302_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00033_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00282_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0479" name="r0479" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00733_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00292_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0490" name="r0490" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00302_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01081_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0562" name="r0562" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00464_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01288_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0563" name="r0563" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01079_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00464_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00048_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0577" name="r0577" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01157_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00534_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0585" name="r0585" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00703_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00564_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0606" name="r0606" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00643_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01085_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_c" stoichiometry="4" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0608" name="r0608" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01085_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00656_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_c" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0621" name="r0621" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00103_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00094_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0625" name="r0625" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00757_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01340_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00014_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0626" name="r0626" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01455_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00014_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00757_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0659" name="r0659" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01053_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01190_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0666" name="r0666" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01329_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01108_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0677" name="r0677" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00212_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01190_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00102_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01281_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0687" name="r0687" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01281_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC01329_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0774" name="r0774" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01609_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01610_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00021_s" stoichiometry="4" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0806" name="r0806" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00003_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00003_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0807" name="r0807" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00003_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00003_l" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0808" name="r0808" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00004_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00004_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0823" name="r0823" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00094_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00094_r" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0825" name="r0825" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00334_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0831" name="r0831" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00146_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00146_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0851" name="r0851" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0855" name="r0855" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00017_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0861" name="r0861" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00019_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00763_s" stoichiometry="3" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00763_c" stoichiometry="3" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0867" name="r0867" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00021_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00021_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0883" name="r0883" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00048_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0925" name="r0925" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00179_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00179_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0965" name="r0965" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00415_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00415_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r0971" name="r0971" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00505_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00505_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1031" name="r1031" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00040_r" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1032" name="r1032" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1049" name="r1049" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01939_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01939_l" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1056" name="r1056" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01943_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01943_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1059" name="r1059" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00065_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00065_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1064" name="r1064" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00067_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00067_l" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1065" name="r1065" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00045_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00045_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1067" name="r1067" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00133_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00133_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1068" name="r1068" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00121_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00121_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1071" name="r1071" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00053_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00053_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1075" name="r1075" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00145_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00145_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1076" name="r1076" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00068_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00068_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1077" name="r1077" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00080_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00080_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1080" name="r1080" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00085_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00085_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1087" name="r1087" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00042_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00042_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1091" name="r1091" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00018_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00016_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1095" name="r1095" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="275" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="150" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="207" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="115" constant="true"/>
+          <speciesReference species="M_HC00334_c" stoichiometry="285" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="533" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="79" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="224" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="171" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="392" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="300" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="37" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="151" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="252" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="230" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="298" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="18244" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="18244" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="247" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="233" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="357" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00005_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="4561" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="4561" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="13683" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="13683" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1100" name="r1100" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="15" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="396" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="396" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="6" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00008_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="99" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="99" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="297" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="297" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1103" name="r1103" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="37" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="42" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="48" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="62" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="24" constant="true"/>
+          <speciesReference species="M_HC00334_c" stoichiometry="22" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="48" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="69" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="56" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="61" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="30" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="48" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="31" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="56" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="3240" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="3240" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="40" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="36" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="49" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC01942_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="810" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="810" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="2430" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="2430" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1113" name="r1113" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="23" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="17" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="30" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="41" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="10" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="16" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="15" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="1068" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1068" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="16" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="22" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00004_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="267" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="267" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="801" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="801" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1133" name="r1133" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00008_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00008_r" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1140" name="r1140" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00174_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00174_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1185" name="r1185" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00150_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00095_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00020_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02029_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1187" name="r1187" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00338_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00095_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00020_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02031_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1188" name="r1188" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00400_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00095_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02032_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1189" name="r1189" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01983_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00095_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02033_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1223" name="r1223" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02062_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02061_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02055_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1224" name="r1224" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02062_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02063_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02055_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1293" name="r1293" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="10" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00334_c" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="420" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="420" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="3" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00289_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="105" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="105" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="315" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="315" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1294" name="r1294" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="10" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00334_c" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="15" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="4" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="10" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="17" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="2" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="664" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="664" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="4" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02224_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="166" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="166" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="498" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="498" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1296" name="r1296" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00418_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00023_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1306" name="r1306" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02089_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02089_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1307" name="r1307" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02089_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00095_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00020_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02091_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1308" name="r1308" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02093_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00020_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02089_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02091_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1309" name="r1309" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02093_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00066_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02094_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00023_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1310" name="r1310" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02094_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00095_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00060_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02095_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1311" name="r1311" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02095_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02096_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1312" name="r1312" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02096_m" stoichiometry="2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02087_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1322" name="r1322" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00014_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00013_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02112_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1326" name="r1326" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00015_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02113_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00016_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1337" name="r1337" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00003_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_c" stoichiometry="20" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="51" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="10" constant="true"/>
+          <speciesReference species="M_HC00048_c" stoichiometry="26" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="13" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="27" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="18" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="32" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="24" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="27" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="30" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="24" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="34" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1338" name="r1338" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_l" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00011_l" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00003_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_l" stoichiometry="20" constant="true"/>
+          <speciesReference species="M_HC00121_l" stoichiometry="51" constant="true"/>
+          <speciesReference species="M_HC00075_l" stoichiometry="10" constant="true"/>
+          <speciesReference species="M_HC00048_l" stoichiometry="26" constant="true"/>
+          <speciesReference species="M_HC00065_l" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00133_l" stoichiometry="13" constant="true"/>
+          <speciesReference species="M_HC00080_l" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00174_l" stoichiometry="27" constant="true"/>
+          <speciesReference species="M_HC00018_l" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00019_l" stoichiometry="209" constant="true"/>
+          <speciesReference species="M_HC00067_l" stoichiometry="18" constant="true"/>
+          <speciesReference species="M_HC00034_l" stoichiometry="32" constant="true"/>
+          <speciesReference species="M_HC00099_l" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC00045_l" stoichiometry="24" constant="true"/>
+          <speciesReference species="M_HC00081_l" stoichiometry="27" constant="true"/>
+          <speciesReference species="M_HC00145_l" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00068_l" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00179_l" stoichiometry="30" constant="true"/>
+          <speciesReference species="M_HC00085_l" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00148_l" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00055_l" stoichiometry="24" constant="true"/>
+          <speciesReference species="M_HC00053_l" stoichiometry="34" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1341" name="r1341" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="2280" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="2280" constant="true"/>
+          <speciesReference species="M_HC00005_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_c" stoichiometry="285" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="533" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="79" constant="true"/>
+          <speciesReference species="M_HC00048_c" stoichiometry="275" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="150" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="115" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="37" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="252" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="2280" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="2280" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="230" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="298" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="207" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="224" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="171" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="392" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="300" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="151" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="247" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="233" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="357" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1351" name="r1351" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_l" stoichiometry="203" constant="true"/>
+          <speciesReference species="M_HC01939_l" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_l" stoichiometry="203" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_l" stoichiometry="18" constant="true"/>
+          <speciesReference species="M_HC00121_l" stoichiometry="31" constant="true"/>
+          <speciesReference species="M_HC00075_l" stoichiometry="5" constant="true"/>
+          <speciesReference species="M_HC00048_l" stoichiometry="30" constant="true"/>
+          <speciesReference species="M_HC00065_l" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00133_l" stoichiometry="13" constant="true"/>
+          <speciesReference species="M_HC00080_l" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC00174_l" stoichiometry="36" constant="true"/>
+          <speciesReference species="M_HC00018_l" stoichiometry="203" constant="true"/>
+          <speciesReference species="M_HC00019_l" stoichiometry="203" constant="true"/>
+          <speciesReference species="M_HC00067_l" stoichiometry="17" constant="true"/>
+          <speciesReference species="M_HC00034_l" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00099_l" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00045_l" stoichiometry="31" constant="true"/>
+          <speciesReference species="M_HC00081_l" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC00145_l" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00068_l" stoichiometry="18" constant="true"/>
+          <speciesReference species="M_HC00179_l" stoichiometry="22" constant="true"/>
+          <speciesReference species="M_HC00085_l" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00148_l" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00055_l" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00053_l" stoichiometry="35" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1352" name="r1352" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00012_c" stoichiometry="405" constant="true"/>
+          <speciesReference species="M_HC01942_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="405" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_c" stoichiometry="22" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="48" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="11" constant="true"/>
+          <speciesReference species="M_HC00048_c" stoichiometry="37" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="42" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="24" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="19" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="48" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="405" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="405" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="31" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="56" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="48" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="62" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="69" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="56" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="61" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="30" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="40" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="36" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="49" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1354" name="r1354" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC01943_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="311" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="311" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00334_c" stoichiometry="22" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="51" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00048_c" stoichiometry="42" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="44" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="13" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="14" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="37" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="311" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="311" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="26" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="51" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="26" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="49" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="33" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="38" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="36" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="21" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="35" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="29" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1362" name="r1362" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00034_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00034_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1387" name="r1387" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02131_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00038_c" stoichiometry="8" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00025_c" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC02132_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1388" name="r1388" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00038_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC02132_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02133_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00025_c" stoichiometry="3" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1389" name="r1389" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02133_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02134_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1390" name="r1390" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02134_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="3" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00103_c" stoichiometry="3" constant="true"/>
+          <speciesReference species="M_HC02135_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1391" name="r1391" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02135_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02136_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1392" name="r1392" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC02136_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02137_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1393" name="r1393" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02137_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="7" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02131_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00103_c" stoichiometry="7" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1402" name="r1402" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00048_c" stoichiometry="22" constant="true"/>
+          <speciesReference species="M_HC00099_c" stoichiometry="6" constant="true"/>
+          <speciesReference species="M_HC00034_c" stoichiometry="15" constant="true"/>
+          <speciesReference species="M_HC00081_c" stoichiometry="20" constant="true"/>
+          <speciesReference species="M_HC00045_c" stoichiometry="18" constant="true"/>
+          <speciesReference species="M_HC00133_c" stoichiometry="9" constant="true"/>
+          <speciesReference species="M_HC00334_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00121_c" stoichiometry="39" constant="true"/>
+          <speciesReference species="M_HC00075_c" stoichiometry="8" constant="true"/>
+          <speciesReference species="M_HC00145_c" stoichiometry="15" constant="true"/>
+          <speciesReference species="M_HC00067_c" stoichiometry="14" constant="true"/>
+          <speciesReference species="M_HC00065_c" stoichiometry="12" constant="true"/>
+          <speciesReference species="M_HC00068_c" stoichiometry="31" constant="true"/>
+          <speciesReference species="M_HC00179_c" stoichiometry="25" constant="true"/>
+          <speciesReference species="M_HC00174_c" stoichiometry="28" constant="true"/>
+          <speciesReference species="M_HC00080_c" stoichiometry="7" constant="true"/>
+          <speciesReference species="M_HC00085_c" stoichiometry="13" constant="true"/>
+          <speciesReference species="M_HC00012_c" stoichiometry="1400" constant="true"/>
+          <speciesReference species="M_HC00011_c" stoichiometry="1400" constant="true"/>
+          <speciesReference species="M_HC00055_c" stoichiometry="26" constant="true"/>
+          <speciesReference species="M_HC00053_c" stoichiometry="18" constant="true"/>
+          <speciesReference species="M_HC00148_c" stoichiometry="12" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02131_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00018_c" stoichiometry="1050" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1050" constant="true"/>
+          <speciesReference species="M_HC00030_c" stoichiometry="350" constant="true"/>
+          <speciesReference species="M_HC00023_c" stoichiometry="350" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1423" name="r1423" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00019_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1441" name="r1441" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02224_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC02224_m" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1452" name="r1452" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00505_c" stoichiometry="2" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00036_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00017_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1493" name="r1493" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00056_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00056_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1539" name="r1539" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_0_bound">
+        <listOfReactants>
+          <speciesReference species="M_HC00040_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00763_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00040_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00763_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r1669" name="r1669" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00065_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00277_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00065_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00277_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r2078" name="r2078" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00083_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00177_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00083_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00177_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r2097" name="r2097" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00032_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00177_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00032_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00177_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r2471" name="r2471" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00068_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00083_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00068_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00083_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r2472" name="r2472" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00095_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_m" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00095_m" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r2473" name="r2473" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00094_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_r" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00094_r" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00019_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_r2478" name="r2478" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00068_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00763_s" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00083_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_HC00068_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00763_c" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_HC00083_s" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_EX_HC00011_s" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC00011_s" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="R_EX_HC02131_c" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_HC02131_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+    </listOfReactions>
+    <fbc:listOfObjectives fbc:activeObjective="obj">
+      <fbc:objective fbc:id="obj" fbc:type="maximize">
+        <fbc:listOfFluxObjectives>
+          <fbc:fluxObjective fbc:reaction="R_r1032" fbc:coefficient="1"/>
+        </fbc:listOfFluxObjectives>
+      </fbc:objective>
+    </fbc:listOfObjectives>
+  </model>
+</sbml>

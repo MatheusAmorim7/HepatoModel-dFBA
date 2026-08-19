@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <PhysiCell_settings version="devel-version">
 
     <domain>
@@ -276,7 +277,7 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_pan_zonal_official_fastcore_reduced.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
@@ -284,7 +285,7 @@
                             <fba_flux>R_EX_HC00017_s</fba_flux>
                             <Km units="mM">0.01</Km>
                             <Vmax units="mmol/gDW/h">11.35</Vmax>
-                        </exchange>
+                        <minimum_uptake_fraction>0.05</minimum_uptake_fraction></exchange>
                         <exchange substrate="glucose">
                             <fba_flux>R_EX_HC00040_s</fba_flux>
                             <Km units="mM">17</Km>
@@ -487,7 +488,7 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_pan_zonal_official_fastcore_reduced.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
@@ -495,7 +496,7 @@
                             <fba_flux>R_EX_HC00017_s</fba_flux>
                             <Km units="mM">0.01</Km>
                             <Vmax units="mmol/gDW/h">9.50</Vmax>
-                        </exchange>
+                        <minimum_uptake_fraction>0.05</minimum_uptake_fraction></exchange>
                         <exchange substrate="glucose">
                             <fba_flux>R_EX_HC00040_s</fba_flux>
                             <Km units="mM">17</Km>
@@ -698,7 +699,7 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet_zone3.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_pan_zonal_official_fastcore_reduced.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
@@ -730,7 +731,7 @@
                         <cell_density units="g/ml">1.05</cell_density>
                         <reference_volume units="pg">2494</reference_volume>
                         <max_growth_rate units="1/min">1</max_growth_rate>
-                        <objective_reaction>R_r1389</objective_reaction>
+                        <objective_reaction>R_r1032</objective_reaction>
                     </growth_model>    
                 </intracellular>
             </phenotype>
@@ -911,7 +912,7 @@
                     <damage_rate units="1/min">0.0</damage_rate>
                     <damage_repair_rate units="1/min">0.0</damage_repair_rate>
                 </cell_integrity>
-                <!-- SEM bloco intracellular — source_sink não roda dFBA -->
+                
             </phenotype>
             <custom_data>
                 <sample conserved="false" units="dimensionless" description="">1.0</sample>
