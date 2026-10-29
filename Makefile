@@ -92,7 +92,7 @@ name:
 # ---------------------------------------------------------------
 # dFBA addon sources
 # ---------------------------------------------------------------
-dfba_intracellular.o: $(DFBA_SRC)/dfba_intracellular.cpp
+dfba_intracellular.o: $(DFBA_SRC)/dfba_intracellular.cpp $(DFBA_SRC)/dfba_lactate_rules.h
 	$(COMPILE_COMMAND) -c $< -o $@
 
 dfba_Model.o: $(DFBA_SRC)/dfba_Model.cpp

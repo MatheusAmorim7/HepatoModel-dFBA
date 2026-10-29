@@ -1,12 +1,14 @@
 #include "dfba_Reaction.h"
 #include "dfba_Model.h"
 #include "dfba_intracellular.h"
+#include "dfba_lactate_rules.h"
 
 #include <sstream>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <mutex>
+#include <stdexcept>
 
 
 namespace PhysiCelldFBA {
@@ -64,6 +66,10 @@ dFBAIntracellular::dFBAIntracellular(const dFBAIntracellular& copy) : Intracellu
     reference_volume = copy.reference_volume;
     max_growth_rate = copy.max_growth_rate;
     current_growth_rate = copy.current_growth_rate;
+    experimental_culture = copy.experimental_culture;
+    culture_dry_mass_g = copy.culture_dry_mass_g;
+    culture_flux_scale = copy.culture_flux_scale;
+    culture_pool_fraction = copy.culture_pool_fraction;
     last_solution_status = copy.last_solution_status;
     next_dfba_run = copy.next_dfba_run;
     dfba_time_step = copy.dfba_time_step; // Copy the time step
@@ -331,6 +337,19 @@ void dFBAIntracellular::initialize_intracellular_from_pugixml(pugi::xml_node& no
     
     // Parse dFBA sbml_filename and time step from XML settings
     pugi::xml_node node_settings = node.child("settings");
+    experimental_culture = false;
+    auto culture = node_settings.child("experimental_culture");
+    if (culture && culture.attribute("enabled").as_bool())
+    {
+        experimental_culture = true;
+        culture_dry_mass_g = culture.child("dry_mass_g").text().as_double();
+        culture_flux_scale = culture.child("flux_scale_mmol_gDW_h").text().as_double();
+        culture_pool_fraction = culture.child("available_pool_fraction").text().as_double();
+        if (!(std::isfinite(culture_dry_mass_g) && culture_dry_mass_g > 0 &&
+              std::isfinite(culture_flux_scale) && culture_flux_scale > 0 &&
+              culture_pool_fraction > 0 && culture_pool_fraction <= 1))
+            throw std::runtime_error("Invalid experimental culture mass/scale/pool settings");
+    }
     if (node_settings) 
     {
         pugi::xml_node node_intracellular_dt = node_settings.child("intracellular_dt");
@@ -446,8 +465,13 @@ void dFBAIntracellular::initialize_intracellular_from_pugixml(pugi::xml_node& no
     }
     dFBAReaction* growth_rxn = this->sbml_model.getReaction(this->objective_reaction);
     assert( growth_rxn != nullptr );
-    this->sbml_model.setReactionLowerBound(this->objective_reaction, 0.0);
-    this->sbml_model.setReactionUpperBound(this->objective_reaction, this->max_growth_rate);
+    if (experimental_culture && (!sbml_model.hasReaction("R_CULTURE_ATPM") || dfba_time_step <= 0))
+        throw std::runtime_error("Culture pilot requires R_CULTURE_ATPM and a positive time step");
+    if (!experimental_culture)
+    {
+        this->sbml_model.setReactionLowerBound(this->objective_reaction, 0.0);
+        this->sbml_model.setReactionUpperBound(this->objective_reaction, this->max_growth_rate);
+    }
 
     if(this->use_metabolic_death && !this->death_trigger_flux.empty()){
         dFBAReaction* death_rxn = this->sbml_model.getReaction(this->death_trigger_flux);
@@ -482,6 +506,33 @@ void dFBAIntracellular::start()
 
 
 void dFBAIntracellular::update_dfba_inputs( PhysiCell::Cell* pCell, PhysiCell::Phenotype& phenotype, double dt ){
+
+    if (experimental_culture)
+    {
+        const int voxel = pCell->get_current_voxel_index();
+        double count = 0.0;
+        // The mechanical grid may differ from the diffusion grid.
+        for (auto cell : *PhysiCell::all_cells)
+            if (cell->get_current_voxel_index() == voxel) count += 1.0;
+        count = std::max(count, 1.0);
+        const double volume_l = microenvironment.voxels(voxel).volume / liter_micron_cubes_conversion;
+        for (const auto& item : substrate_exchanges)
+        {
+            const auto& ex = item.second;
+            auto rxn = sbml_model.getReaction(ex.fba_flux_id);
+            const double concentration = std::max(0.0, pCell->nearest_density_vector()[ex.density_index]);
+            // Constant capacities match the culture notebook; Vmax is physical mmol/gDW/h.
+            double cap = ex.allow_uptake ? ex.Vmax.value / culture_flux_scale : 0.0;
+            double pool_cap = culture_pool_fraction * concentration * volume_l /
+                (count * culture_dry_mass_g * culture_flux_scale * dfba_time_step / 60.0);
+            cap = std::min(cap, pool_cap);
+            sbml_model.setReactionLowerBound(ex.fba_flux_id, -cap);
+            // Preserve export-only/uptake-only directions saved in the SBML.
+            if (rxn->getUpperBound() < 0)
+                throw std::runtime_error("Forced uptake is unsupported in experimental culture");
+        }
+        return;
+    }
 
     // HeLa cell mass 2.3 ng
     // cell volume fL (um³)
@@ -602,7 +653,7 @@ void dFBAIntracellular::update_dfba_inputs( PhysiCell::Cell* pCell, PhysiCell::P
 
 void dFBAIntracellular::update(){
     // Only run dFBA if current_time >= next_dfba_run
-    dFBASolution solution = this->sbml_model.optimize();
+    dFBASolution solution = experimental_culture ? this->sbml_model.optimizeParsimonious() : this->sbml_model.optimize();
     this->last_solution_status = solution.status;
 
     // Detailed per-cell dFBA logging is disabled by default; use fba_exchanges.csv
@@ -619,7 +670,7 @@ void dFBAIntracellular::update(){
         exit(1);
     }
     else{
-        this->current_growth_rate = solution.getObjectiveValue();
+        this->current_growth_rate = experimental_culture ? 0.0 : solution.getObjectiveValue();
         this->flag_for_death = false;
     }
 }
@@ -628,6 +679,29 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
 {
     static std::mutex save_fluxes_mutex;
     std::lock_guard<std::mutex> lock(save_fluxes_mutex);
+    if (experimental_culture)
+    {
+        static bool culture_header = false;
+        std::ofstream file(output_folder + "/culture_exchanges.csv", culture_header ? std::ios::app : std::ios::out);
+        if (!culture_header)
+            file << "time_min,cell_id,cell_type,status,substrate,reaction,flux_lb_normalized,flux_ub_normalized,flux_normalized,flux_mmol_gDW_h,rate_mmol_min,concentration_mM,ATP_flux_normalized,dry_mass_g\n";
+        culture_header = true;
+        file << std::setprecision(17);
+        for (const auto& item : substrate_exchanges)
+        {
+            const auto& ex = item.second;
+            auto rxn = sbml_model.getReaction(ex.fba_flux_id);
+            const double v = rxn->getFluxValue();
+            file << current_time << ',' << pCell->ID << ',' << pCell->type_name << ',' << last_solution_status
+                 << ',' << ex.density_name << ',' << ex.fba_flux_id << ',' << rxn->getLowerBound()
+                 << ',' << rxn->getUpperBound() << ',' << v << ',' << v*culture_flux_scale
+                 << ',' << v*culture_flux_scale*culture_dry_mass_g/60.0
+                 << ',' << pCell->nearest_density_vector()[ex.density_index]
+                 << ',' << sbml_model.getReaction("R_CULTURE_ATPM")->getFluxValue()
+                 << ',' << culture_dry_mass_g << '\n';
+        }
+        return;
+    }
     static bool header_summary = false;
     std::string path_summary = output_folder + "/fba_summary.csv";
     std::ofstream f_summary;
@@ -692,7 +766,7 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
     {
         lactate_conc_for_exchange = std::max(density_vector[lactate_exchange_for_exchange->second.density_index], 0.0);
     }
-    const double lactate_hypoxia_threshold = 0.06; // mM, experimental hypoxic lactate test threshold
+    const double lactate_hypoxia_threshold = lactate_oxygen_switch_mM;
     const double lactate_anoxia_threshold = 0.02; // mM
     double hypoxia_fraction_for_lactate = 0.0;
     if( oxygen_conc_for_lactate < lactate_hypoxia_threshold )
@@ -700,13 +774,8 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
         hypoxia_fraction_for_lactate = (lactate_hypoxia_threshold - oxygen_conc_for_lactate) / (lactate_hypoxia_threshold - lactate_anoxia_threshold);
         hypoxia_fraction_for_lactate = std::min(1.0, std::max(0.0, hypoxia_fraction_for_lactate));
     }
-    const double lactate_oxidation_o2_threshold = 0.06; // mM
-    double oxygen_fraction_for_lactate_uptake = 0.0;
-    if( oxygen_conc_for_lactate > lactate_hypoxia_threshold )
-    {
-        oxygen_fraction_for_lactate_uptake = (oxygen_conc_for_lactate - lactate_hypoxia_threshold) / (lactate_oxidation_o2_threshold - lactate_hypoxia_threshold);
-        oxygen_fraction_for_lactate_uptake = std::min(1.0, std::max(0.0, oxygen_fraction_for_lactate_uptake));
-    }
+    const double oxygen_fraction_for_lactate_uptake =
+        lactate_auxiliary_uptake_oxygen_gate(oxygen_conc_for_lactate);
     double lactate_zone_uptake_factor = 0.25;
     if( pCell->type_name == "zone_1" )
     {
@@ -759,11 +828,7 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
                 * hypoxia_fraction_for_lactate
                 * lactate_release_zone_factor;
 
-            if( flux_value > 0.0 )
-            {
-                flux_value = std::min(flux_value, hypoxic_lactate_release);
-            }
-            else if( std::abs(flux_value) <= 1e-12 && hypoxic_lactate_release > 0.0 )
+            if( hypoxic_lactate_release > 0.0 )
             {
                 flux_value = hypoxic_lactate_release;
             }
@@ -831,11 +896,7 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
                 * hypoxia_fraction_for_lactate
                 * lactate_release_zone_factor;
 
-            if( flux_value > 0.0 )
-            {
-                flux_value = std::min(flux_value, hypoxic_lactate_release);
-            }
-            else if( std::abs(flux_value) <= 1e-12 && hypoxic_lactate_release > 0.0 )
+            if( hypoxic_lactate_release > 0.0 )
             {
                 flux_value = hypoxic_lactate_release;
             }
@@ -862,6 +923,21 @@ void dFBAIntracellular::save_fluxes_to_csv(PhysiCell::Cell* pCell, double curren
 
 void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::Phenotype& phenotype, double dt )
 {
+    if (experimental_culture)
+    {
+        for (const auto& item : substrate_exchanges)
+        {
+            const auto& ex = item.second;
+            const double flux = sbml_model.getReaction(ex.fba_flux_id)->getFluxValue();
+            phenotype.secretion.secretion_rates[ex.density_index] = 0.0;
+            phenotype.secretion.uptake_rates[ex.density_index] = 0.0;
+            phenotype.secretion.net_export_rates[ex.density_index] =
+                flux * culture_flux_scale * culture_dry_mass_g / 60.0 * liter_micron_cubes_conversion;
+        }
+        pCell->set_internal_uptake_constants(dt);
+        save_fluxes_to_csv(pCell, PhysiCell::PhysiCell_globals.current_time, PhysiCell::PhysiCell_settings.folder);
+        return;
+    }
     // Metabolic-dependent death check
     //std::cout << "Cell ready to die? --> " << this->flag_for_death << std::endl;
     //std::cout << "Death parameters: " << this->use_metabolic_death << " " << this->death_trigger_flux << " " << this->death_flux_threshold << " " << this->death_rate_increase << std::endl;
@@ -982,7 +1058,7 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
     {
         lactate_conc_for_exchange_output = std::max(density_vector[lactate_exchange_for_exchange_output->second.density_index], 0.0);
     }
-    const double lactate_hypoxia_threshold_output = 0.06; // mM, experimental hypoxic lactate test threshold
+    const double lactate_hypoxia_threshold_output = lactate_oxygen_switch_mM;
     const double lactate_anoxia_threshold_output = 0.02; // mM
     double hypoxia_fraction_for_lactate_output = 0.0;
     if( oxygen_conc_for_lactate_output < lactate_hypoxia_threshold_output )
@@ -990,13 +1066,8 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
         hypoxia_fraction_for_lactate_output = (lactate_hypoxia_threshold_output - oxygen_conc_for_lactate_output) / (lactate_hypoxia_threshold_output - lactate_anoxia_threshold_output);
         hypoxia_fraction_for_lactate_output = std::min(1.0, std::max(0.0, hypoxia_fraction_for_lactate_output));
     }
-    const double lactate_oxidation_o2_threshold_output = 0.06; // mM
-    double oxygen_fraction_for_lactate_uptake_output = 0.0;
-    if( oxygen_conc_for_lactate_output > lactate_hypoxia_threshold_output )
-    {
-        oxygen_fraction_for_lactate_uptake_output = (oxygen_conc_for_lactate_output - lactate_hypoxia_threshold_output) / (lactate_oxidation_o2_threshold_output - lactate_hypoxia_threshold_output);
-        oxygen_fraction_for_lactate_uptake_output = std::min(1.0, std::max(0.0, oxygen_fraction_for_lactate_uptake_output));
-    }
+    const double oxygen_fraction_for_lactate_uptake_output =
+        lactate_auxiliary_uptake_oxygen_gate(oxygen_conc_for_lactate_output);
     double lactate_zone_uptake_factor_output = 0.25;
     if( pCell->type_name == "zone_1" )
     {
@@ -1073,11 +1144,7 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
                 * hypoxia_fraction_for_lactate_output
                 * lactate_release_zone_factor_output;
 
-            if( flux_value > 0.0 )
-            {
-                flux_value = std::min(flux_value, hypoxic_lactate_release_output);
-            }
-            else if( std::abs(flux_value) <= 1e-12 && hypoxic_lactate_release_output > 0.0 )
+            if( hypoxic_lactate_release_output > 0.0 )
             {
                 flux_value = hypoxic_lactate_release_output;
             }
@@ -1139,7 +1206,11 @@ void dFBAIntracellular::update_dfba_outputs(PhysiCell::Cell* pCell, PhysiCell::P
         }
     }
 
-    save_fluxes_to_csv(pCell, PhysiCell::PhysiCell_globals.current_time, "./output");
+    save_fluxes_to_csv(
+        pCell,
+        PhysiCell::PhysiCell_globals.current_time,
+        PhysiCell::PhysiCell_settings.folder
+    );
     return;
 }
 

@@ -72,6 +72,8 @@
 #include <cmath>
 #include <omp.h>
 #include <fstream>
+#include <sstream>
+#include <string>
 
 #include "./core/PhysiCell.h"
 #include "./modules/PhysiCell_standard_modules.h"
@@ -86,6 +88,69 @@
 
 using namespace BioFVM;
 using namespace PhysiCell;
+
+struct MemoryUsage
+{
+	double resident_MB = -1.0;
+	double peak_resident_MB = -1.0;
+	double virtual_MB = -1.0;
+};
+
+static double parse_memory_line_MB( const std::string& line )
+{
+	std::istringstream stream( line );
+	std::string key;
+	double value_kB = -1.0;
+	std::string units;
+	stream >> key >> value_kB >> units;
+	if( value_kB < 0.0 )
+	{ return -1.0; }
+	return value_kB / 1024.0;
+}
+
+static MemoryUsage get_process_memory_usage()
+{
+	MemoryUsage usage;
+	std::ifstream status_file( "/proc/self/status" );
+	std::string line;
+
+	while( std::getline( status_file, line ) )
+	{
+		if( line.find( "VmRSS:" ) == 0 )
+		{ usage.resident_MB = parse_memory_line_MB( line ); }
+		else if( line.find( "VmHWM:" ) == 0 )
+		{ usage.peak_resident_MB = parse_memory_line_MB( line ); }
+		else if( line.find( "VmSize:" ) == 0 )
+		{ usage.virtual_MB = parse_memory_line_MB( line ); }
+	}
+
+	return usage;
+}
+
+static void log_memory_usage( std::ostream& os, std::ofstream& memory_file )
+{
+	MemoryUsage usage = get_process_memory_usage();
+	size_t total_agents = 0;
+	if( all_cells != NULL )
+	{ total_agents = all_cells->size(); }
+
+	os << "memory usage: "
+	   << "RSS " << usage.resident_MB << " MB, "
+	   << "peak RSS " << usage.peak_resident_MB << " MB, "
+	   << "VmSize " << usage.virtual_MB << " MB"
+	   << std::endl << std::endl;
+
+	if( memory_file.is_open() )
+	{
+		memory_file << PhysiCell_globals.current_time << ","
+		            << total_agents << ","
+		            << usage.resident_MB << ","
+		            << usage.peak_resident_MB << ","
+		            << usage.virtual_MB << std::endl;
+	}
+
+	return;
+}
 
 int main( int argc, char* argv[] )
 {
@@ -172,6 +237,11 @@ int main( int argc, char* argv[] )
 	BioFVM::TIC();
 
 	std::ofstream report_file;
+	std::ofstream memory_file;
+	sprintf( filename , "%s/memory_usage.csv" , PhysiCell_settings.folder.c_str() );
+	memory_file.open( filename );
+	memory_file << "time_min,total_agents,rss_MB,peak_rss_MB,virtual_MB" << std::endl;
+
 	if( PhysiCell_settings.enable_legacy_saves == true )
 	{
 		sprintf( filename , "%s/simulation_report.txt" , PhysiCell_settings.folder.c_str() );
@@ -190,6 +260,7 @@ int main( int argc, char* argv[] )
 			if( PhysiCell_globals.current_time > PhysiCell_globals.next_full_save_time - 0.5 * diffusion_dt )
 			{
 				display_simulation_status( std::cout );
+				log_memory_usage( std::cout, memory_file );
 				if( PhysiCell_settings.enable_legacy_saves == true )
 				{
 					log_output( PhysiCell_globals.current_time , PhysiCell_globals.full_output_index, microenvironment, report_file);
@@ -253,6 +324,10 @@ int main( int argc, char* argv[] )
 
 	sprintf( filename , "%s/final.svg" , PhysiCell_settings.folder.c_str() );
 	SVG_plot( filename , microenvironment, 0.0 , PhysiCell_globals.current_time, cell_coloring_function, substrate_coloring_function );
+
+	log_memory_usage( std::cout, memory_file );
+	if( memory_file.is_open() )
+	{ memory_file.close(); }
 
 	// timer
 

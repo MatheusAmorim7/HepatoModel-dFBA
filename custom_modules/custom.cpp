@@ -72,6 +72,23 @@ using namespace BioFVM;
 #include <cmath> 
 #include <vector>
 
+namespace
+{
+double double_parameter_or_default( const std::string& name, double fallback )
+{
+    if( parameters.doubles.find_index( name ) >= 0 )
+    { return parameters.doubles( name ); }
+    return fallback;
+}
+
+bool bool_parameter_or_default( const std::string& name, bool fallback )
+{
+    if( parameters.bools.find_index( name ) >= 0 )
+    { return parameters.bools( name ); }
+    return fallback;
+}
+}
+
 // =============================================================================
 // fixed_volume_update_function: substitui standard_volume_update_function.
 //
@@ -205,10 +222,9 @@ void initialize_oxygen_zones()
     double x_center = 0.5 * (microenvironment.mesh.bounding_box[0] + microenvironment.mesh.bounding_box[3]);
     double y_center = 0.5 * (microenvironment.mesh.bounding_box[1] + microenvironment.mesh.bounding_box[4]);
 
-    // parâmetros do gradiente
-    double radius_max = 330.0; // alcance da zona 1 (periferia)
-    double o2_max = 0.13;      // oxigênio máximo (zona 1)
-    double o2_min = 0.02;      // oxigênio mínimo (zona 3, centro)
+    double radius_max = double_parameter_or_default( "sinusoidal_radius", 490.0 );
+    double o2_max = double_parameter_or_default( "oxygen_portal_target", 0.09 );
+    double o2_min = double_parameter_or_default( "oxygen_central_target", 0.045 );
 
     for (int n = 0; n < microenvironment.number_of_voxels(); n++)
     {
@@ -230,9 +246,9 @@ void initialize_glucose_zones()
     double x_center = 0.5 * (microenvironment.mesh.bounding_box[0] + microenvironment.mesh.bounding_box[3]);
     double y_center = 0.5 * (microenvironment.mesh.bounding_box[1] + microenvironment.mesh.bounding_box[4]);
 
-    double radius_max = 330.0;
-    double glc_max = 5.0;   // mM portal (periferia)
-    double glc_min = 1.0;   // mM veia central
+    double radius_max = double_parameter_or_default( "sinusoidal_radius", 490.0 );
+    double glc_max = double_parameter_or_default( "glucose_portal_target", 5.0 );
+    double glc_min = double_parameter_or_default( "glucose_central_target", 3.5 );
 
     for (int n = 0; n < microenvironment.number_of_voxels(); n++)
     {
@@ -250,6 +266,8 @@ void setup_microenvironment()
 {
     // inicializa microambiente
     initialize_microenvironment();
+
+    if (bool_parameter_or_default("culture_pilot", false)) return;
 
     initialize_oxygen_zones();
 
@@ -275,7 +293,7 @@ void dynamic_oxygen_supply(double dt)
     double fator_escala = std::max(1.0, n_cells / 9.0);
 
     std::vector<std::array<double,3>> fontes;
-    double radius_max = 450.0;
+    double radius_max = 490.0;
     int n_sources = 6;
     for(int i = 0; i < n_sources; i++)
     {
@@ -319,6 +337,9 @@ void dynamic_oxygen_supply(double dt)
 
 void setup_peripheral_sources()
 {
+    if( !bool_parameter_or_default( "peripheral_sources_enabled", true ) )
+    { return; }
+
     int oxygen_index = microenvironment.find_density_index("oxygen");
     int glucose_index = microenvironment.find_density_index("glucose");
 
@@ -328,7 +349,10 @@ void setup_peripheral_sources()
     double y_center = 0.5 * (microenvironment.mesh.bounding_box[1] + microenvironment.mesh.bounding_box[4]);
     double z_center = 0.5 * (microenvironment.mesh.bounding_box[2] + microenvironment.mesh.bounding_box[5]);
 
-    double radius_max = 450.0; // periferia
+    double radius_max = double_parameter_or_default( "sinusoidal_radius", 490.0 );
+    double secretion_rate = double_parameter_or_default( "peripheral_source_secretion_rate", 0.2 );
+    double oxygen_target = double_parameter_or_default( "oxygen_portal_target", 0.12 );
+    double glucose_target = double_parameter_or_default( "glucose_portal_target", 5.0 );
     int n_sources = 6;
 
     for(int i = 0; i < n_sources; i++)
@@ -344,17 +368,18 @@ void setup_peripheral_sources()
         source->phenotype.intracellular = nullptr;
 
         source->phenotype.secretion.uptake_rates[oxygen_index] = 0.0;    // não consome
-        source->phenotype.secretion.secretion_rates[oxygen_index] = 0.2; // secreta oxigênio
-        source->phenotype.secretion.saturation_densities[oxygen_index] = 0.13; // máximo
+        source->phenotype.secretion.secretion_rates[oxygen_index] = secretion_rate;
+        source->phenotype.secretion.saturation_densities[oxygen_index] = oxygen_target;
 
         source->phenotype.secretion.uptake_rates[glucose_index] = 0.0;
-        source->phenotype.secretion.secretion_rates[glucose_index] = 0.2;
-        source->phenotype.secretion.saturation_densities[glucose_index] = 5.0; // mM
+        source->phenotype.secretion.secretion_rates[glucose_index] = secretion_rate;
+        source->phenotype.secretion.saturation_densities[glucose_index] = glucose_target;
     }
 }
 
 void setup_tissue(void) 
 { 
+    if (bool_parameter_or_default("culture_pilot", false)) return;
     int oxygen_substrate = microenvironment.find_density_index("oxygen");
     int glucose_index = microenvironment.find_density_index("glucose");
     int co2_index = microenvironment.find_density_index("CO2");
@@ -371,7 +396,8 @@ void setup_tissue(void)
 
     sink->phenotype.intracellular = nullptr;
 
-    sink->phenotype.secretion.uptake_rates[oxygen_substrate] = 0.05; //Diminuir para maior hipoxia central(Faz demorar consumo de O2 no centro)
+    sink->phenotype.secretion.uptake_rates[oxygen_substrate] =
+        double_parameter_or_default( "central_oxygen_sink_rate", 0.05 );
     sink->phenotype.secretion.secretion_rates[oxygen_substrate] = 0.0;
     sink->phenotype.secretion.saturation_densities[oxygen_substrate] = 0.0;
 
@@ -383,7 +409,8 @@ void setup_tissue(void)
     // Dreno de CO2: representa a drenagem venosa do CO2 metabólico produzido no lóbulo.
     // O sink não tem dFBA (intracellular = nullptr), então o consumo aqui é puramente
     // fenomenológico (uptake de primeira ordem do PhysiCell), não uma reação de troca do LP.
-    sink->phenotype.secretion.uptake_rates[co2_index] = 0.0005;   // /min -- ponto de partida, calibrar conforme item abaixo
+    sink->phenotype.secretion.uptake_rates[co2_index] =
+        double_parameter_or_default( "central_co2_sink_rate", 0.0005 );
     sink->phenotype.secretion.secretion_rates[co2_index] = 0.0;
     sink->phenotype.secretion.saturation_densities[co2_index] = 0.0;
 
@@ -407,7 +434,7 @@ void dynamic_glucose_supply(double dt)
     double fator_escala = std::max(1.0, n_cells / 9.0);
 
     std::vector<std::array<double,3>> fontes;
-    double radius_max = 450.0;
+    double radius_max = 490.0;
     int n_sources = 6;
     for(int i = 0; i < n_sources; i++)
     {
@@ -451,6 +478,9 @@ void dynamic_glucose_supply(double dt)
 
 void sinusoidal_distributed_supply(double dt)
 {
+    if( !bool_parameter_or_default( "sinusoidal_supply_enabled", true ) )
+    { return; }
+
     int oxygen_index = microenvironment.find_density_index("oxygen");
     int glucose_index = microenvironment.find_density_index("glucose");
 
@@ -462,15 +492,15 @@ void sinusoidal_distributed_supply(double dt)
 
     // Level 1 sinusoidal perfusion approximation:
     // weak radial relaxation toward portal-to-central blood-side targets.
-    const double radius_max = 450.0;
+    const double radius_max = double_parameter_or_default( "sinusoidal_radius", 490.0 );
 
-    const double o2_portal_target = 0.12;   // mM, periportal/sinusoidal inlet side
-    const double o2_central_target = 0.02; // mM, pericentral/sinusoidal outlet side
-    const double glc_portal_target = 5.0;   // mM
-    const double glc_central_target = 3.5;  // mM
+    const double o2_portal_target = double_parameter_or_default( "oxygen_portal_target", 0.12 );
+    const double o2_central_target = double_parameter_or_default( "oxygen_central_target", 0.02 );
+    const double glc_portal_target = double_parameter_or_default( "glucose_portal_target", 5.0 );
+    const double glc_central_target = double_parameter_or_default( "glucose_central_target", 3.5 );
 
-    const double k_o2 = 0.02;  // 1/min
-    const double k_glc = 0.01; // 1/min
+    const double k_o2 = double_parameter_or_default( "sinusoidal_oxygen_exchange_rate", 0.02 );
+    const double k_glc = double_parameter_or_default( "sinusoidal_glucose_exchange_rate", 0.01 );
 
     for( int n = 0; n < microenvironment.number_of_voxels(); n++ )
     {
@@ -603,4 +633,4 @@ void custom_function( Cell* pCell, Phenotype& phenotype, double dt )
 }
 
 void contact_function( Cell* pMe, Phenotype& phenoMe , Cell* pOther, Phenotype& phenoOther , double dt )
-{ return; } 
+{ return; }

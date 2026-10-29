@@ -63,6 +63,11 @@ class dFBAIntracellular : public PhysiCell::Intracellular
 	double cell_density = 0.0;
 	double max_growth_rate = 0;
 	double current_growth_rate = 0;
+    // Opt-in culture pilot: explicit dry mass and normalized-to-physical flux scale.
+    bool experimental_culture = false;
+    double culture_dry_mass_g = 0.0;
+    double culture_flux_scale = 1.0;
+    double culture_pool_fraction = 0.9;
     std::string last_solution_status = "not_run";
 	double next_dfba_run = 0;
 	bool use_metabolic_death = true;
@@ -150,7 +155,7 @@ class dFBAIntracellular : public PhysiCell::Intracellular
 			double v_ref = this->reference_volume;
 
 			// Only start checking after ~1.6 × reference volume
-			if (v >= 1.6 * v_ref) {
+			if (!experimental_culture && v >= 1.6 * v_ref) {
 				// normalized progress from 0 (at 1.6×) to 1 (at 2×)
 				double progress = (v - 1.6 * v_ref) / (0.4 * v_ref);
 				if (progress < 0.0) progress = 0.0;

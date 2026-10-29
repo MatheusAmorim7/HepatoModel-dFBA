@@ -57,7 +57,7 @@
     <microenvironment_setup>
         <variable name="oxygen" units="mM" ID="0">
             <physical_parameter_set>
-                <diffusion_coefficient units="micron^2/min">140.000</diffusion_coefficient>
+                <diffusion_coefficient units="micron^2/min">175200</diffusion_coefficient>
                 <decay_rate units="1/min">0.001</decay_rate>
             </physical_parameter_set>
             <initial_condition units="mM">0.07</initial_condition>
@@ -73,7 +73,7 @@
         </variable>
         <variable name="glucose" units="mM" ID="1">
             <physical_parameter_set>
-                <diffusion_coefficient units="micron^2/min">7.800</diffusion_coefficient>
+                <diffusion_coefficient units="micron^2/min">54000</diffusion_coefficient>
                 <decay_rate units="1/min">0.001</decay_rate>
             </physical_parameter_set>
             <initial_condition units="mM">6.0</initial_condition>
@@ -89,7 +89,7 @@
         </variable>
         <variable name="lactate" units="mM" ID="2">
             <physical_parameter_set>
-                <diffusion_coefficient units="micron^2/min">10000</diffusion_coefficient>
+                <diffusion_coefficient units="micron^2/min">60600</diffusion_coefficient>
                 <decay_rate units="1/min">0.001</decay_rate>
             </physical_parameter_set>
             <initial_condition units="mM">0.0</initial_condition>
@@ -105,7 +105,7 @@
         </variable>
         <variable name="CO2" units="mM" ID="3">
             <physical_parameter_set>
-                <diffusion_coefficient units="micron^2/min">140.000</diffusion_coefficient>
+                <diffusion_coefficient units="micron^2/min">120000</diffusion_coefficient>
                 <decay_rate units="1/min">0.01</decay_rate>
             </physical_parameter_set>
             <initial_condition units="mM">0.0</initial_condition>
@@ -277,14 +277,14 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet_pan_zonal_official_fastcore_reduced.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_pan_zonal_curated_fastcore_reduced.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
                         <exchange substrate="oxygen">
                             <fba_flux>R_EX_HC00017_s</fba_flux>
                             <Km units="mM">0.01</Km>
-                            <Vmax units="mmol/gDW/h">11.35</Vmax>
+                            <Vmax units="mmol/gDW/h">9.5</Vmax>
                         <minimum_uptake_fraction>0.05</minimum_uptake_fraction></exchange>
                         <exchange substrate="glucose">
                             <fba_flux>R_EX_HC00040_s</fba_flux>
@@ -488,7 +488,7 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet_pan_zonal_official_fastcore_reduced.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_pan_zonal_curated_fastcore_reduced.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
@@ -699,14 +699,14 @@
                 </cell_integrity>
                 <intracellular type="dfba">
                     <settings>
-                        <sbml_filename>./config/hepatonet_pan_zonal_official_fastcore_reduced.xml</sbml_filename>
+                        <sbml_filename>./config/hepatonet_pan_zonal_curated_fastcore_reduced.xml</sbml_filename>
                         <intracellular_dt units="min">2</intracellular_dt>
                     </settings>
                     <transport_model>
                         <exchange substrate="oxygen">
                             <fba_flux>R_EX_HC00017_s</fba_flux>
                             <Km units="mM">0.01</Km>
-                            <Vmax units="mmol/gDW/h">7.50</Vmax>
+                            <Vmax units="mmol/gDW/h">9.50</Vmax>
                             <minimum_uptake_fraction>0.05</minimum_uptake_fraction>
                         </exchange>
                         <exchange substrate="glucose">
@@ -939,5 +939,17 @@
 
     <user_parameters>
         <number_of_cells type="int" units="none" description="initial number of cells (for each cell type)">0</number_of_cells>
+        <sinusoidal_supply_enabled type="bool" units="dimensionless" description="enable the level-1 distributed sinusoidal exchange approximation">true</sinusoidal_supply_enabled>
+        <sinusoidal_radius type="double" units="micron" description="radial distance from the central vein to the portal-side target">490.0</sinusoidal_radius>
+        <oxygen_portal_target type="double" units="mM" description="portal-side oxygen target for distributed sinusoidal exchange">0.09</oxygen_portal_target>
+        <oxygen_central_target type="double" units="mM" description="central-side oxygen target for distributed sinusoidal exchange">0.045</oxygen_central_target>
+        <glucose_portal_target type="double" units="mM" description="portal-side glucose target for distributed sinusoidal exchange">5.0</glucose_portal_target>
+        <glucose_central_target type="double" units="mM" description="central-side glucose target for distributed sinusoidal exchange">3.5</glucose_central_target>
+        <sinusoidal_oxygen_exchange_rate type="double" units="1/min" description="relaxation rate toward the local sinusoidal oxygen target">20.0</sinusoidal_oxygen_exchange_rate>
+        <sinusoidal_glucose_exchange_rate type="double" units="1/min" description="relaxation rate toward the local sinusoidal glucose target">5.0</sinusoidal_glucose_exchange_rate>
+        <peripheral_sources_enabled type="bool" units="dimensionless" description="enable the six portal-side source agents">true</peripheral_sources_enabled>
+        <peripheral_source_secretion_rate type="double" units="1/min" description="oxygen and glucose secretion rate of each portal-side source agent">0.2</peripheral_source_secretion_rate>
+        <central_oxygen_sink_rate type="double" units="1/min" description="phenomenological central oxygen sink; set to zero to disable">0.0</central_oxygen_sink_rate>
+        <central_co2_sink_rate type="double" units="1/min" description="phenomenological central carbon-dioxide drainage rate">0.0005</central_co2_sink_rate>
     </user_parameters>
 </PhysiCell_settings>
