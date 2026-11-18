@@ -1,0 +1,34 @@
+set(VENDOR_SOURCES
+  vendor/BioFVM/BioFVM_MultiCellDS.cpp
+  vendor/BioFVM/BioFVM_agent_container.cpp
+  vendor/BioFVM/BioFVM_basic_agent.cpp
+  vendor/BioFVM/BioFVM_matlab.cpp
+  vendor/BioFVM/BioFVM_mesh.cpp
+  vendor/BioFVM/BioFVM_microenvironment.cpp
+  vendor/BioFVM/BioFVM_solvers.cpp
+  vendor/BioFVM/BioFVM_utilities.cpp
+  vendor/BioFVM/BioFVM_vector.cpp
+  vendor/BioFVM/pugixml.cpp
+  vendor/addons/dFBA/src/dfba_Metabolite.cpp
+  vendor/addons/dFBA/src/dfba_Model.cpp
+  vendor/addons/dFBA/src/dfba_Reaction.cpp
+  vendor/addons/dFBA/src/dfba_Solution.cpp
+  vendor/addons/dFBA/src/dfba_intracellular.cpp
+  vendor/core/PhysiCell_basic_signaling.cpp
+  vendor/core/PhysiCell_cell.cpp
+  vendor/core/PhysiCell_cell_container.cpp
+  vendor/core/PhysiCell_constants.cpp
+  vendor/core/PhysiCell_custom.cpp
+  vendor/core/PhysiCell_phenotype.cpp
+  vendor/core/PhysiCell_rules.cpp
+  vendor/core/PhysiCell_signal_behavior.cpp
+  vendor/core/PhysiCell_standard_models.cpp
+  vendor/core/PhysiCell_utilities.cpp
+  vendor/modules/PhysiCell_MultiCellDS.cpp
+  vendor/modules/PhysiCell_SVG.cpp
+  vendor/modules/PhysiCell_geometry.cpp
+  vendor/modules/PhysiCell_pathology.cpp
+  vendor/modules/PhysiCell_pugixml.cpp
+  vendor/modules/PhysiCell_settings.cpp
+  vendor/modules/PhysiCell_various_outputs.cpp
+)

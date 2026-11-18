@@ -1,0 +1,346 @@
+{
+  "upstream_handoff_sha256": "161c5c60da27d346b998a1f270d1e302b236e4dd12ee936d2596bf8935490550",
+  "sources": {
+    "vendor/core/PhysiCell_cell.cpp": {
+      "source": "core/PhysiCell_cell.cpp",
+      "sha256": "5a70b22eb77f54f510ba7280bf1f3de03c7439d749f191af8c020f236180be4a"
+    },
+    "vendor/core/PhysiCell_signal_behavior.cpp": {
+      "source": "core/PhysiCell_signal_behavior.cpp",
+      "sha256": "2a376006b8e1adb26a0f579a7f07af2cde3ddae894c274f3afcdb89277685ef9"
+    },
+    "vendor/core/PhysiCell_digital_cell_line.h": {
+      "source": "core/PhysiCell_digital_cell_line.h",
+      "sha256": "a4a7c5ec53259ba58ae439b43706b02a741ef3043217a4b3f8db9d32f1b95c64"
+    },
+    "vendor/core/PhysiCell_basic_signaling.cpp": {
+      "source": "core/PhysiCell_basic_signaling.cpp",
+      "sha256": "400d74a4e712057904cd513d23cd6901a1f0ab7f3bafd7de204636a39307492d"
+    },
+    "vendor/core/PhysiCell_cell_container.h": {
+      "source": "core/PhysiCell_cell_container.h",
+      "sha256": "a4f9e9a3fd40176053207dee6958a0c001d88f103f87e5f7e12f4dc546793501"
+    },
+    "vendor/core/PhysiCell_phenotype.h": {
+      "source": "core/PhysiCell_phenotype.h",
+      "sha256": "38024dbc272b49f87095afa5fd602d815b2216afd64e5df4d3edfb828f585572"
+    },
+    "vendor/core/PhysiCell_cell_container.cpp": {
+      "source": "core/PhysiCell_cell_container.cpp",
+      "sha256": "013ba6ee438a9e43057d5f28d8f72ed6cedbf519eb80d8c8cc33ea2d26ee5b9f"
+    },
+    "vendor/core/PhysiCell_cell.h": {
+      "source": "core/PhysiCell_cell.h",
+      "sha256": "a8b024e6733ed8ff81f6b66cea98f73a68753d326628db339dfaadefd72ece16"
+    },
+    "vendor/core/PhysiCell_basic_signaling.h": {
+      "source": "core/PhysiCell_basic_signaling.h",
+      "sha256": "23417e2f53eb9374f5d64e0ae63c6492d2b90965d164f710ef738ea7b172a4b9"
+    },
+    "vendor/core/PhysiCell_standard_models.h": {
+      "source": "core/PhysiCell_standard_models.h",
+      "sha256": "d5bcfa12ce0572f29851832a13c4a70099743c08f2e54bf762d7c0243f05e774"
+    },
+    "vendor/core/PhysiCell_utilities.cpp": {
+      "source": "core/PhysiCell_utilities.cpp",
+      "sha256": "313c3996c834ccc292cfe34ef6ca48846f7d6b3917b711f67a1c058d3b6d8a32"
+    },
+    "vendor/core/PhysiCell_digital_cell_line.cpp": {
+      "source": "core/PhysiCell_digital_cell_line.cpp",
+      "sha256": "3a31554ac99590aca6cdb22ee88b83ce93cc3ed94a1ba643b6837602561feb9c"
+    },
+    "vendor/core/PhysiCell_custom.cpp": {
+      "source": "core/PhysiCell_custom.cpp",
+      "sha256": "d9930de1641e3dbea73b48652c38648f0e14bb4faaa6c8b1d8a22b9077e9ea42"
+    },
+    "vendor/core/PhysiCell_rules.h": {
+      "source": "core/PhysiCell_rules.h",
+      "sha256": "861d2edb5336d6ec44504105538046e55a91297d999dd9a6c21c45200b4ab5ad"
+    },
+    "vendor/core/PhysiCell_constants.cpp": {
+      "source": "core/PhysiCell_constants.cpp",
+      "sha256": "4097797260a2aee07f94a901b7a104f038c92e724c46324ec5894682dbfdea0e"
+    },
+    "vendor/core/PhysiCell_signal_behavior.h": {
+      "source": "core/PhysiCell_signal_behavior.h",
+      "sha256": "06e7e6cb06f925cfaeec1ff11ec296c0304e23fcad2eaa5e0c8dfc3a37234a41"
+    },
+    "vendor/core/PhysiCell_rules.cpp": {
+      "source": "core/PhysiCell_rules.cpp",
+      "sha256": "43770a6c7f1e522b5d82b0a587ac1c8c1b361285c6ebc8fb08076483b528ae5c"
+    },
+    "vendor/core/PhysiCell_utilities.h": {
+      "source": "core/PhysiCell_utilities.h",
+      "sha256": "fb99673af38ec02adadf48368dcc5dc03db82a5421a6407902c3df53d7f1efc8"
+    },
+    "vendor/core/PhysiCell_phenotype.cpp": {
+      "source": "core/PhysiCell_phenotype.cpp",
+      "sha256": "43552fb92450bd092b99046ca3a5f986b67b118a6533b33466bfd72126c6dc68"
+    },
+    "vendor/core/PhysiCell.h": {
+      "source": "core/PhysiCell.h",
+      "sha256": "8573b99d459e2b2ec02b33ad5f21e01a3710275554798f606d387ea0a60b10fc"
+    },
+    "vendor/core/PhysiCell_standard_models.cpp": {
+      "source": "core/PhysiCell_standard_models.cpp",
+      "sha256": "fe8200661447399dd11e1f6ab1d56ca18e4ba454d690ffaae96a94ccd525c39f"
+    },
+    "vendor/core/PhysiCell_custom.h": {
+      "source": "core/PhysiCell_custom.h",
+      "sha256": "416c7b8fcc1eb4e7d3af68985b989ef9cc3708f53c038c12356e86ebaac655bc"
+    },
+    "vendor/core/PhysiCell_constants.h": {
+      "source": "core/PhysiCell_constants.h",
+      "sha256": "d3684cfa0369f5d14a4cf0cbd5f33eff09051a9c8b1e827dc965aee255301721"
+    },
+    "vendor/BioFVM/BioFVM_mesh.h": {
+      "source": "BioFVM/BioFVM_mesh.h",
+      "sha256": "6041c9358c4812e3950a5d3766408a9e056cb9ec496aa222e0f3156196f8d37f"
+    },
+    "vendor/BioFVM/BioFVM_matlab.cpp": {
+      "source": "BioFVM/BioFVM_matlab.cpp",
+      "sha256": "ae4e924f2e46f749de56565fa212b8546534b0da402ebfe6676b64bb8b99b5a1"
+    },
+    "vendor/BioFVM/BioFVM_agent_container.cpp": {
+      "source": "BioFVM/BioFVM_agent_container.cpp",
+      "sha256": "c8febb39f1732b952401754f70375a280eb6613c901a1c0b19c10ccb8d27d93d"
+    },
+    "vendor/BioFVM/BioFVM_MultiCellDS.cpp": {
+      "source": "BioFVM/BioFVM_MultiCellDS.cpp",
+      "sha256": "5b20ea30a76e3e3c4e2bfff44800279c26b7671ab1480aabff4f9f8b2f55f31d"
+    },
+    "vendor/BioFVM/BioFVM_utilities.h": {
+      "source": "BioFVM/BioFVM_utilities.h",
+      "sha256": "414269bb51e443b0c242960a33baa701b7746be56182da4993a8bbd5e2c6c078"
+    },
+    "vendor/BioFVM/BioFVM_MultiCellDS.h": {
+      "source": "BioFVM/BioFVM_MultiCellDS.h",
+      "sha256": "9c6877be75631a927db1048903d9382b8d82ec24dfbd2cf053bbb7db6506012f"
+    },
+    "vendor/BioFVM/BioFVM_vector.h": {
+      "source": "BioFVM/BioFVM_vector.h",
+      "sha256": "657f77ad146cce1ccda0d6a36c4f9665f3e4a11f02b17cf6d7b99b28c6254950"
+    },
+    "vendor/BioFVM/BioFVM.h": {
+      "source": "BioFVM/BioFVM.h",
+      "sha256": "94083297d8f3e7c40c0b4a5014c0e3494506f6d3d36f02f4cb58b7759d958477"
+    },
+    "vendor/BioFVM/pugixml.cpp": {
+      "source": "BioFVM/pugixml.cpp",
+      "sha256": "7be78180d0357f4afeb39637fcf8f8ca63740eb8b613f21c2150747b344f53b1"
+    },
+    "vendor/BioFVM/BioFVM_microenvironment.cpp": {
+      "source": "BioFVM/BioFVM_microenvironment.cpp",
+      "sha256": "0a17c495fd2b4ec24bc673a07b78dc902eda925ea23622c2c8043613f74fc698"
+    },
+    "vendor/BioFVM/BioFVM_utilities.cpp": {
+      "source": "BioFVM/BioFVM_utilities.cpp",
+      "sha256": "4acd2849e18150660669b1830595ab9634ae10b257dd689a81e41dd092abd671"
+    },
+    "vendor/BioFVM/BioFVM_agent_container.h": {
+      "source": "BioFVM/BioFVM_agent_container.h",
+      "sha256": "167b72b8215228b029cc1d1fa8dc9fe8a527cb7620e37d37c7730fd388fe283e"
+    },
+    "vendor/BioFVM/BioFVM_basic_agent.cpp": {
+      "source": "BioFVM/BioFVM_basic_agent.cpp",
+      "sha256": "4642b1072fd15a1c3880d251d17ad969f8d539ffc37381079756b340384ff739"
+    },
+    "vendor/BioFVM/BioFVM_matlab.h": {
+      "source": "BioFVM/BioFVM_matlab.h",
+      "sha256": "a181f944e01f5456b382b082faabc8f85504d8203fef108fbca5c5eac3485c34"
+    },
+    "vendor/BioFVM/BioFVM_microenvironment.h": {
+      "source": "BioFVM/BioFVM_microenvironment.h",
+      "sha256": "8d2dd0892ea0c6608478dab13554923353985a13daefb3615c84227fabd97a91"
+    },
+    "vendor/BioFVM/BioFVM_solvers.h": {
+      "source": "BioFVM/BioFVM_solvers.h",
+      "sha256": "2199c06496c7e840034ec385c685c6182a649da67177d3bfcee60b5265de72b5"
+    },
+    "vendor/BioFVM/BioFVM_solvers.cpp": {
+      "source": "BioFVM/BioFVM_solvers.cpp",
+      "sha256": "1a7e022d1b4d5d14bc053071190ce0e5c2f759cb9467a086de6abdff0fee9188"
+    },
+    "vendor/BioFVM/BioFVM_mesh.cpp": {
+      "source": "BioFVM/BioFVM_mesh.cpp",
+      "sha256": "1475228f68b353c6243d76b27f8f236b6e8c6307abb98f63880c395d98ac1631"
+    },
+    "vendor/BioFVM/BioFVM_basic_agent.h": {
+      "source": "BioFVM/BioFVM_basic_agent.h",
+      "sha256": "729dd0ce90e5dc7d584de71b15a8c7f1c37385f8e6652148effcc65fe6bd416a"
+    },
+    "vendor/BioFVM/BioFVM_vector.cpp": {
+      "source": "BioFVM/BioFVM_vector.cpp",
+      "sha256": "69f2f69f413866efa09c9a79868606c3764360254a59a76f81897c707170f42a"
+    },
+    "vendor/modules/PhysiCell_geometry.cpp": {
+      "source": "modules/PhysiCell_geometry.cpp",
+      "sha256": "3d1713e20882f7dd6efeec1d03ea905643b0c51ca421c0e6753293c418d104c0"
+    },
+    "vendor/modules/PhysiCell_geometry.h": {
+      "source": "modules/PhysiCell_geometry.h",
+      "sha256": "ee7df14c14973d3fd7e0b77a6841317a724c40494a0af3e4fda1a670b293c0a0"
+    },
+    "vendor/modules/PhysiCell_SVG.h": {
+      "source": "modules/PhysiCell_SVG.h",
+      "sha256": "81b2061742bc3a60c5518a3a8d6261e55a541346a81d5f9b16439256d822ad0c"
+    },
+    "vendor/modules/PhysiCell_settings.cpp": {
+      "source": "modules/PhysiCell_settings.cpp",
+      "sha256": "b9186b8d888823551c35ae13f28bc5e66559bf1056b3fa2b923c1de872f59789"
+    },
+    "vendor/modules/PhysiCell_standard_modules.h": {
+      "source": "modules/PhysiCell_standard_modules.h",
+      "sha256": "756ab155bd65da90fd28f6895dbe65cc3446aec28dcea867d65f3643b514c8c4"
+    },
+    "vendor/modules/PhysiCell_pugixml.cpp": {
+      "source": "modules/PhysiCell_pugixml.cpp",
+      "sha256": "8c3a072cc54e79b04c4dfafbcd64c5a83a0c53b3bee4ceed42a1f0bf34ee0a0d"
+    },
+    "vendor/modules/PhysiCell_various_outputs.cpp": {
+      "source": "modules/PhysiCell_various_outputs.cpp",
+      "sha256": "34fafdfadb0bae022471be471e253614f252c2963cfe7b983d6c939a37f41abc"
+    },
+    "vendor/modules/PhysiCell_SVG.cpp": {
+      "source": "modules/PhysiCell_SVG.cpp",
+      "sha256": "1096996100c827b6a3ba0dceaa373e7b0a744ac7c693bd123c3e18a894e77b45"
+    },
+    "vendor/modules/PhysiCell_MultiCellDS.h": {
+      "source": "modules/PhysiCell_MultiCellDS.h",
+      "sha256": "e248cb6fb63361805df5c46561eaa05eac3c72dd508fd4957d17c443f1991b24"
+    },
+    "vendor/modules/PhysiCell_POV.h": {
+      "source": "modules/PhysiCell_POV.h",
+      "sha256": "42cf8dd27fc0fc8e8a4eca5187c3704846a8f0db16778d4aeebfd11a0616179a"
+    },
+    "vendor/modules/PhysiCell_POV.cpp": {
+      "source": "modules/PhysiCell_POV.cpp",
+      "sha256": "2b3929a1acebb741280b9787581d3aa147b5d9cff3d822da63dcf2967e1ba448"
+    },
+    "vendor/modules/PhysiCell_various_outputs.h": {
+      "source": "modules/PhysiCell_various_outputs.h",
+      "sha256": "3242c6caa06313d6e26b8f81b4405dc1b130a12681f1d8701e53cd48fecd4000"
+    },
+    "vendor/modules/PhysiCell_MultiCellDS.cpp": {
+      "source": "modules/PhysiCell_MultiCellDS.cpp",
+      "sha256": "ee3eb33fa312d181f0814929939edfbf809ecc1b48f002b63aea353c0af6871c"
+    },
+    "vendor/modules/PhysiCell_pathology.h": {
+      "source": "modules/PhysiCell_pathology.h",
+      "sha256": "74ce59e2ff924fecabb0acf7f0e91575f4451e424c59b98c053c70f3b5647ae5"
+    },
+    "vendor/modules/PhysiCell_pugixml.h": {
+      "source": "modules/PhysiCell_pugixml.h",
+      "sha256": "9047208fedc8470691a837999e6c8b37d04cea461897f49c4dd228b6c994050f"
+    },
+    "vendor/modules/PhysiCell_pathology.cpp": {
+      "source": "modules/PhysiCell_pathology.cpp",
+      "sha256": "2e343fe482255f2572588e2f460625357e5ad19fec58c07d0e7dceb72a3e8f91"
+    },
+    "vendor/modules/PhysiCell_settings.h": {
+      "source": "modules/PhysiCell_settings.h",
+      "sha256": "dc916d07804c0806454aa400b2dfc8e71f4c5e3d8ddf49e63682731f21ca6104"
+    },
+    "vendor/addons/dFBA/src/dfba_Reaction.h": {
+      "source": "addons/dFBA/src/dfba_Reaction.h",
+      "sha256": "676a39c97594e6d3e8f376b2a262a81a24fc43fa1b2135883ca2099383b013f6"
+    },
+    "vendor/addons/dFBA/src/dfba_lactate_rules.h": {
+      "source": "addons/dFBA/src/dfba_lactate_rules.h",
+      "sha256": "e3c0b04b294ae07431bfc19184f4681692ed2ddab56aa3a26a910564a7ac8b58"
+    },
+    "vendor/addons/dFBA/src/dfba_Solution.cpp": {
+      "source": "addons/dFBA/src/dfba_Solution.cpp",
+      "sha256": "ab60d59666f4445c6f83065cccb9941a97b538815a4a8dd3865dd062160d740d"
+    },
+    "vendor/addons/dFBA/src/dfba_Metabolite.cpp": {
+      "source": "addons/dFBA/src/dfba_Metabolite.cpp",
+      "sha256": "8c2847dbea4a882164b44f18b8d52408f1f822ec606663c1849014c915f530ee"
+    },
+    "vendor/addons/dFBA/src/dfba_intracellular.h": {
+      "source": "addons/dFBA/src/dfba_intracellular.h",
+      "sha256": "06398c4efefb7eb7d191b93cc8271ca11bc71f6c79b96f130fd5b0ed6e58926d"
+    },
+    "vendor/addons/dFBA/src/dfba_Solution.h": {
+      "source": "addons/dFBA/src/dfba_Solution.h",
+      "sha256": "db47607f26be5d507c5ad7f17d907a35d86d16f3605f39a6b716edb3ac3eaeff"
+    },
+    "vendor/addons/dFBA/src/dfba_exchange_rates.h": {
+      "source": "addons/dFBA/src/dfba_exchange_rates.h",
+      "sha256": "4281959df1a309a5293e16736f627b2a806d31987c845f1c5a032965ce97cec0"
+    },
+    "vendor/addons/dFBA/src/dfba_Model.h": {
+      "source": "addons/dFBA/src/dfba_Model.h",
+      "sha256": "328d85a9f04f32e610ae1281dcf367750ee31932ea856504babadbf4b053c194"
+    },
+    "vendor/addons/dFBA/src/dfba_Model.cpp": {
+      "source": "addons/dFBA/src/dfba_Model.cpp",
+      "sha256": "8038fcfd82f56b0934ea3b744b24d290dbd00cd2ff38dcef55561056de3f9689"
+    },
+    "vendor/addons/dFBA/src/dfba_Metabolite.h": {
+      "source": "addons/dFBA/src/dfba_Metabolite.h",
+      "sha256": "37cd068b2d53fb4c047f432c67006eca4d45c525b91cc6294cb294684a1b85d9"
+    },
+    "vendor/addons/dFBA/src/dfba_intracellular.cpp": {
+      "source": "addons/dFBA/src/dfba_intracellular.cpp",
+      "sha256": "dccd67e73c57620229ae72224099da47d11fc55c289617d534a333d13eb83abe"
+    },
+    "vendor/addons/dFBA/src/dfba_Reaction.cpp": {
+      "source": "addons/dFBA/src/dfba_Reaction.cpp",
+      "sha256": "395c73d8e8faee61edacfb2f9f6e56dbd3c759c6a7c0db2a4ea8038856fc7c0f"
+    },
+    "licenses/PhysiCell.txt": {
+      "source": "licenses/PhysiCell.txt",
+      "sha256": "651e63b7c6ec69bb360dcc8eeffe24771b436cb10d320098bb437e4e24c975d6"
+    },
+    "licenses/BioFVM.txt": {
+      "source": "licenses/BioFVM.txt",
+      "sha256": "5afc96d70559af3a2c07532c5258ab374ad07f25897529a5eb9e3a0dc0fc9cf3"
+    },
+    "licenses/pugixml.txt": {
+      "source": "licenses/pugixml.txt",
+      "sha256": "998677dfd6f6b610cf8a1fba34bcda6483d4e67e0dbc04180d10e99faf97b54a"
+    },
+    "native.cpp": {
+      "source": "notebooks/lobule_native_atomic_worker_v3_2026_11_18/native.cpp",
+      "sha256": "961c0395e3d858eecbd8c78c561815bc8a8b231bf99818fed999977957cbd9ce"
+    },
+    "support/legacy_lp.cpp": {
+      "source": "notebooks/zonation_2d_native_groups_2026_11_15/native.cpp",
+      "sha256": "df3b17f194799a3db96c3fc6e553f50d68dba3eb07df9a946088f5762ba93ec3"
+    },
+    "support/groups.h": {
+      "source": "notebooks/zonation_2d_native_groups_2026_11_15/groups.h",
+      "sha256": "1d506b3a06d631516feb53de15c41fc82b6b3d306c7e1b60c3aeb8097ddf4113"
+    },
+    "support/oxygen_operator.cpp": {
+      "source": "notebooks/lobule_native_acellular_2026_11_18/native.cpp",
+      "sha256": "640aa350d9a10c5e16c1da2acd1e38744a48e25fd1dd2cb96890d1ade2769e34"
+    },
+    "support/joint.h": {
+      "source": "notebooks/lobule_cell_capacity_2026_11_15/joint.h",
+      "sha256": "0779367a574dff85d22bc8634811d7b37d3d19fcf3a7cf8421a1856f1bdb943f"
+    },
+    "data/hosts.txt": {
+      "source": "notebooks/lobule_passive_scheduler_v3_2026_11_18/hosts.txt",
+      "sha256": "0dcb7139d283373aace201cf889d95a9fe8fb663a7188761d114a05271ade435"
+    },
+    "data/oxygen.txt": {
+      "source": "notebooks/lobule_native_acellular_2026_11_18/inputs/m1_chi0p5.txt",
+      "sha256": "295f1443d46e20489c6c61e1b697fb6ee07ccb30fbe5fffc933989d25876afe1"
+    },
+    "data/host.xml": {
+      "source": "notebooks/lobule_metabolic_cadence_2026_11_17/host.xml",
+      "sha256": "922f2f73aeb0c710b9b4ede4f48aaaa1d9f2d387eaa6638b91cf2e300ea4b250"
+    },
+    "vendor/BioFVM/pugiconfig.hpp": {
+      "source": "BioFVM/pugiconfig.hpp",
+      "sha256": "9d6af23b95c6c15d285218aa8f97368213711b7dc3a03421e61ad40ddd86e33e"
+    },
+    "vendor/BioFVM/pugixml.hpp": {
+      "source": "BioFVM/pugixml.hpp",
+      "sha256": "65f48d734c0e534a9eabb5dc24d12790aa1bb863177800a0d6b3112f5ea860aa"
+    }
+  },
+  "note": "Portable include paths are patched separately. No scientific parameter changes."
+}

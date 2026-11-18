@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.16)
+project(lobule_3000_reviewers LANGUAGES CXX)
+if(NOT CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  message(FATAL_ERROR "This demo requires Linux /proc and fork. Use Ubuntu or WSL2.")
+endif()
+set(CMAKE_CXX_STANDARD 11)
+find_package(OpenMP REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(SBML REQUIRED IMPORTED_TARGET libsbml)
+find_package(LAPACK REQUIRED)
+find_library(CLP Clp REQUIRED)
+find_library(COINUTILS CoinUtils REQUIRED)
+include(VENDOR_SOURCES.cmake)
+add_executable(lobule_3000 native.cpp ${VENDOR_SOURCES})
+target_compile_definitions(lobule_3000 PRIVATE ADDON_PHYSIDFBA)
+target_include_directories(lobule_3000 PRIVATE vendor)
+target_link_libraries(lobule_3000 PRIVATE OpenMP::OpenMP_CXX PkgConfig::SBML ${CLP} ${COINUTILS} ${LAPACK_LIBRARIES})
+target_link_options(lobule_3000 PRIVATE
+  -Wl,--wrap=_ZN6BioFVM11Basic_Agent29simulate_secretion_and_uptakeEPNS_16MicroenvironmentEd
+  -Wl,--wrap=_ZN6BioFVM16Microenvironment24simulate_diffusion_decayEd
+  -Wl,--wrap=_Z32custom_microenvironment_functiond)

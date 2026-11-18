@@ -1,0 +1,42 @@
+name: Reviewer Demo
+on:
+  push:
+    branches: [demo/lobule-3000-reviewers]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake pkg-config coinor-libclp-dev liblapack-dev libsbml5-dev python3-venv
+          python3 -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+      - name: Build from included source
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build -j 2
+      - name: Native step and independent checks
+        run: |
+          .venv/bin/python run_demo.py
+          .venv/bin/python verify_demo.py results/normal/demo_committed.f64
+          .venv/bin/python plot_demo.py --result results/normal/demo_committed.f64 --output results/normal/lobule.png
+      - name: Replacement fault must be rejected
+        run: .venv/bin/python run_demo.py --mode candidate_replace --output results/rejected
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reviewer-demo-diagnostics
+          path: |
+            results/**/*.json
+            results/**/*.log
+            results/**/*.png
+          retention-days: 7

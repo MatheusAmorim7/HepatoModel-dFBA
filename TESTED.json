@@ -1,0 +1,15 @@
+{
+  "platform": "Ubuntu 24.04 / WSL2 x86_64",
+  "compiler": "GCC 13.3.0",
+  "libsbml": "5.20.2 (system shared library)",
+  "build": "fresh CMake build from included source; no archived object files",
+  "normal_native_step": "passed",
+  "replacement_fault": "rejected_as_expected",
+  "host_count": 3000,
+  "model_seconds": 0.0075,
+  "independent_Sv_max": 4.1744385725905886e-14,
+  "independent_bound_violation": 0.0,
+  "independent_gross_stock_excess_pmol": 0.0,
+  "biological_validation": false,
+  "remote_CI_status": "not yet observed; consult GitHub Actions"
+}
