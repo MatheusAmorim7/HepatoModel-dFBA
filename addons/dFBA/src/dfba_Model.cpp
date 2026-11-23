@@ -34,6 +34,7 @@ dFBAModel::~dFBAModel() {
 dFBAModel::dFBAModel(const dFBAModel& copy) {
     // Copy primitive members
     this->id = copy.id;
+    this->objective_type = copy.objective_type;
     this->is_initialized = copy.is_initialized;
 
     // Deep copy metabolites
@@ -90,6 +91,7 @@ dFBAModel& dFBAModel::operator=(const dFBAModel& other) {
 
     // Copy primitive members
     this->id = other.id;
+    this->objective_type = other.objective_type;
     this->is_initialized = other.is_initialized;
 
     // Deep copy metabolites
@@ -664,6 +666,51 @@ dFBASolution dFBAModel::optimize()
 }
 
 
+dFBASolution dFBAModel::optimizeParsimonious()
+{
+    dFBASolution primary = optimize();
+    if (primary.status != "optimal")
+        return primary;
+    const int n = getNumReactions();
+    ClpSimplex secondary(problem);
+    secondary.setLogLevel(0);
+    secondary.setPrimalTolerance(1e-9);
+    secondary.setDualTolerance(1e-9);
+    CoinPackedVector objective_row;
+    for (int j = 0; j < n; ++j)
+    {
+        double c = problem.objective()[j];
+        if (c != 0.0) objective_row.insert(j, c);
+        secondary.setObjectiveCoefficient(j, 0.0);
+    }
+    if (objective_row.getNumElements())
+        secondary.addRow(objective_row.getNumElements(), objective_row.getIndices(),
+                         objective_row.getElements(), primary.objective_value, primary.objective_value);
+    // Auxiliary t_j bounds both v_j and -v_j from above.
+    for (int j = 0; j < n; ++j)
+    {
+        secondary.addColumn(0, nullptr, nullptr, 0.0, COIN_DBL_MAX, 1.0);
+        int indices[] = {j, n+j};
+        double positive[] = {1.0, -1.0};
+        double negative[] = {-1.0, -1.0};
+        secondary.addRow(2, indices, positive, -COIN_DBL_MAX, 0.0);
+        secondary.addRow(2, indices, negative, -COIN_DBL_MAX, 0.0);
+    }
+    secondary.setOptimizationDirection(1);
+    secondary.dual();
+    solution.fluxes.clear();
+    solution.status = secondary.isProvenOptimal() ? "optimal" :
+        (secondary.isProvenPrimalInfeasible() ? "infeasible" : "unknown");
+    solution.objective_value = solution.status == "optimal" ? primary.objective_value : 0.0;
+    for (int j = 0; j < n; ++j)
+    {
+        double value = solution.status == "optimal" ? secondary.primalColumnSolution()[j] : 0.0;
+        reactions[j]->setFluxValue(value);
+        solution.fluxes[reactions[j]->getId()] = value;
+    }
+    return solution;
+}
+
 bool dFBAModel::getSolutionStatus()
 {
     if (this->is_initialized)
@@ -685,5 +732,4 @@ double dFBAModel::getObjectiveValue()
 bool dFBAModel::isInitialized(){
     return this->is_initialized;
 }
-
 

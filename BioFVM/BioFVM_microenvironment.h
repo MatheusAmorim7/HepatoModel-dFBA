@@ -172,6 +172,9 @@ class Microenvironment
 
  	
 	void auto_choose_diffusion_decay_solver( void ); 
+
+	// Thomas coefficients include dt; invalidate before changing the transport step.
+	void invalidate_diffusion_solver_cache( void ) { diffusion_solver_setup_done = false; }
 	
 	// Only use this on non-Cartesian meshes. It's a fail-safe. 
 	void resize_voxels( int new_number_of_voxes ); 

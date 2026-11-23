@@ -150,6 +150,9 @@ class dFBAModel
 		/** \brief Run FBA using primal method */
 		dFBASolution optimize();
 
+        // Fix the primary optimum, then minimize the sum of absolute fluxes.
+        dFBASolution optimizeParsimonious();
+
 		/** \brief Get solution status */
 		std::string getId() { return this->id; };
 
