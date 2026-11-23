@@ -1,0 +1,136 @@
+{
+ "organ_totals_late_pmol_min_(t>=10min)": {
+  "Z0_uniform": {
+   "lactate": 8.2755,
+   "glycerol": 1.1289,
+   "oxygen": 13.9601,
+   "ammonia": 1.0945,
+   "alanine": 0.6946,
+   "palmitate": 0.5705
+  },
+  "Z3_s3_k15": {
+   "lactate": 8.2755,
+   "glycerol": 1.1289,
+   "oxygen": 13.9601,
+   "ammonia": 1.0945,
+   "alanine": 0.6946,
+   "palmitate": 0.5705
+  },
+  "Z10_s10_k15": {
+   "lactate": 8.2755,
+   "glycerol": 1.1289,
+   "oxygen": 13.9601,
+   "ammonia": 1.0945,
+   "alanine": 0.6946,
+   "palmitate": 0.5705
+  }
+ },
+ "glucose_export_mean_per_host": {
+  "Z0_uniform": 2.14,
+  "Z3_s3_k15": 2.14,
+  "Z10_s10_k15": 2.14
+ },
+ "P3_organ_total_difference_vs_Z0_pct": {
+  "Z3_s3_k15": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  },
+  "Z10_s10_k15": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  }
+ },
+ "P4_PEPCK_by_segment": {
+  "Z0_uniform": [
+   1.493,
+   1.5009,
+   1.521,
+   1.5447,
+   1.5583,
+   1.567,
+   1.5645,
+   1.5463
+  ],
+  "Z3_s3_k15": [
+   1.8958,
+   1.7198,
+   1.556,
+   1.3959,
+   1.2255,
+   1.0504,
+   0.8639,
+   0.6618
+  ],
+  "Z10_s10_k15": [
+   2.0979,
+   1.8297,
+   1.5736,
+   1.3211,
+   1.0585,
+   0.791,
+   0.5123,
+   0.2179
+  ]
+ },
+ "P4_ratio_seg0_over_seg7": {
+  "Z0_uniform": 0.966,
+  "Z3_s3_k15": 2.864,
+  "Z10_s10_k15": 9.628
+ },
+ "P4_monotone_decreasing": {
+  "Z0_uniform": false,
+  "Z3_s3_k15": true,
+  "Z10_s10_k15": true
+ },
+ "P5_lactate_blood_PC_vs_PP_pct": {
+  "Z0_uniform": -21.43,
+  "Z3_s3_k15": -17.48,
+  "Z10_s10_k15": -15.35
+ },
+ "P6_glycerol_PP_fraction_segments0to2": {
+  "Z0_uniform": 0.672,
+  "Z3_s3_k15": 0.672,
+  "Z10_s10_k15": 0.672
+ },
+ "P6_glycerol_extraction_last": {
+  "Z0_uniform": 0.9461,
+  "Z3_s3_k15": 0.9461,
+  "Z10_s10_k15": 0.9461
+ },
+ "P7_drift_20_to_30_min_pct": {
+  "Z0_uniform": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  },
+  "Z3_s3_k15": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  },
+  "Z10_s10_k15": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  }
+ },
+ "P7_time_within_2pct_of_final_min": {
+  "Z0_uniform": {
+   "lactate": 2.1,
+   "glycerol": 2.8000000000000003,
+   "oxygen": 0.1
+  },
+  "Z3_s3_k15": {
+   "lactate": 2.1,
+   "glycerol": 2.8000000000000003,
+   "oxygen": 0.1
+  },
+  "Z10_s10_k15": {
+   "lactate": 2.1,
+   "glycerol": 2.8000000000000003,
+   "oxygen": 0.1
+  }
+ }
+}

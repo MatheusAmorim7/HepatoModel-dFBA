@@ -1,0 +1,318 @@
+{
+ "E0_uniform_k10": {
+  "glucose_export_per_host_by_segment": [
+   2.1345,
+   2.1305,
+   2.1205,
+   2.1086,
+   2.1018,
+   2.0975,
+   2.0987,
+   2.1079
+  ],
+  "glucose_export_mean_per_host": 2.1191,
+  "r0123_flux_over_cap": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "r0487_flux_over_cap": [
+   0.994,
+   0.989,
+   0.977,
+   0.963,
+   0.955,
+   0.95,
+   0.952,
+   0.962
+  ],
+  "r0396_flux_over_cap": [
+   0.997,
+   0.995,
+   0.99,
+   0.984,
+   0.981,
+   0.979,
+   0.98,
+   0.984
+  ],
+  "glycogen_over_cap": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "PEPCK_by_segment": [
+   1.482,
+   1.482,
+   1.482,
+   1.482,
+   1.482,
+   1.482,
+   1.482,
+   1.482
+  ],
+  "PEPCK_ratio_seg0_seg7": 1.0,
+  "cap_ratio_seg0_seg7": 1.0,
+  "lactate_uptake_late_pmol_min": 8.0244,
+  "lactate_extraction": 0.6061,
+  "vs_Z0_organ_totals_pct": {
+   "lactate": -3.03,
+   "glycerol": 0.0,
+   "oxygen": -1.19
+  },
+  "drift_20_30_pct": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  },
+  "t_within_2pct_min": 0.1,
+  "max_ledger_error_pmol": 8.654188476953095e-13
+ },
+ "E3_s3_k10": {
+  "glucose_export_per_host_by_segment": [
+   2.6109,
+   2.3894,
+   2.1619,
+   1.9294,
+   1.7009,
+   1.4753,
+   1.2538,
+   1.033
+  ],
+  "glucose_export_mean_per_host": 2.1158,
+  "r0123_flux_over_cap": [
+   1.0,
+   1.0,
+   1.0,
+   0.995,
+   0.988,
+   0.979,
+   0.963,
+   0.92
+  ],
+  "r0487_flux_over_cap": [
+   0.969,
+   0.975,
+   0.975,
+   0.969,
+   0.967,
+   0.969,
+   0.979,
+   0.997
+  ],
+  "r0396_flux_over_cap": [
+   0.987,
+   0.989,
+   0.989,
+   0.987,
+   0.986,
+   0.987,
+   0.991,
+   0.999
+  ],
+  "glycogen_over_cap": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "PEPCK_by_segment": [
+   1.8307,
+   1.6715,
+   1.5123,
+   1.3468,
+   1.1794,
+   1.0127,
+   0.843,
+   0.6591
+  ],
+  "PEPCK_ratio_seg0_seg7": 2.778,
+  "cap_ratio_seg0_seg7": 2.555,
+  "lactate_uptake_late_pmol_min": 7.9846,
+  "lactate_extraction": 0.6031,
+  "vs_Z0_organ_totals_pct": {
+   "lactate": -3.52,
+   "glycerol": 0.0,
+   "oxygen": -1.38
+  },
+  "drift_20_30_pct": {
+   "lactate": 0.0,
+   "glycerol": 0.0,
+   "oxygen": 0.0
+  },
+  "t_within_2pct_min": 0.1,
+  "max_ledger_error_pmol": 7.933653733971369e-13
+ },
+ "E0_uniform_k15": {
+  "glucose_export_per_host_by_segment": [
+   2.505,
+   2.501,
+   2.4738,
+   2.424,
+   2.3934,
+   2.3651,
+   2.3809,
+   2.4427
+  ],
+  "glucose_export_mean_per_host": 2.4575,
+  "r0123_flux_over_cap": [
+   1.0,
+   1.0,
+   0.984,
+   0.95,
+   0.929,
+   0.907,
+   0.921,
+   0.968
+  ],
+  "r0487_flux_over_cap": [
+   0.951,
+   0.948,
+   0.927,
+   0.888,
+   0.864,
+   0.842,
+   0.854,
+   0.902
+  ],
+  "r0396_flux_over_cap": [
+   0.787,
+   0.786,
+   0.777,
+   0.76,
+   0.75,
+   0.741,
+   0.746,
+   0.766
+  ],
+  "glycogen_over_cap": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "PEPCK_by_segment": [
+   2.223,
+   2.223,
+   2.1885,
+   2.1128,
+   2.0651,
+   2.0173,
+   2.0464,
+   2.1516
+  ],
+  "PEPCK_ratio_seg0_seg7": 1.033,
+  "cap_ratio_seg0_seg7": 1.0,
+  "lactate_uptake_late_pmol_min": 12.0859,
+  "lactate_extraction": 0.9129,
+  "vs_Z0_organ_totals_pct": {
+   "lactate": 46.05,
+   "glycerol": 0.0,
+   "oxygen": 18.11
+  },
+  "drift_20_30_pct": {
+   "lactate": -0.0,
+   "glycerol": 0.0,
+   "oxygen": -0.0
+  },
+  "t_within_2pct_min": 3.9000000000000004,
+  "max_ledger_error_pmol": 8.670841822322473e-13
+ },
+ "E3_s3_k15": {
+  "glucose_export_per_host_by_segment": [
+   3.03,
+   2.7641,
+   2.4973,
+   2.2229,
+   1.9714,
+   1.7351,
+   1.4845,
+   1.2299
+  ],
+  "glucose_export_mean_per_host": 2.4526,
+  "r0123_flux_over_cap": [
+   0.972,
+   0.966,
+   0.962,
+   0.953,
+   0.961,
+   0.987,
+   0.993,
+   0.98
+  ],
+  "r0487_flux_over_cap": [
+   0.91,
+   0.909,
+   0.906,
+   0.896,
+   0.906,
+   0.935,
+   0.957,
+   0.982
+  ],
+  "r0396_flux_over_cap": [
+   0.77,
+   0.769,
+   0.768,
+   0.764,
+   0.768,
+   0.78,
+   0.789,
+   0.8
+  ],
+  "glycogen_over_cap": [
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0,
+   1.0
+  ],
+  "PEPCK_by_segment": [
+   2.6688,
+   2.4209,
+   2.1831,
+   1.9339,
+   1.7203,
+   1.5323,
+   1.3044,
+   1.0527
+  ],
+  "PEPCK_ratio_seg0_seg7": 2.535,
+  "cap_ratio_seg0_seg7": 2.555,
+  "lactate_uptake_late_pmol_min": 12.0263,
+  "lactate_extraction": 0.9084,
+  "vs_Z0_organ_totals_pct": {
+   "lactate": 45.32,
+   "glycerol": 0.0,
+   "oxygen": 17.83
+  },
+  "drift_20_30_pct": {
+   "lactate": -0.0,
+   "glycerol": 0.0,
+   "oxygen": -0.0
+  },
+  "t_within_2pct_min": 4.0,
+  "max_ledger_error_pmol": 8.661960038125471e-13
+ }
+}
