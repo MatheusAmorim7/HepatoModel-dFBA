@@ -40,3 +40,19 @@ output/cells.csv
 .vscode/
 
 notebooks/
+
+# --- local tooling and repository clutter (never versioned) ---
+# Python virtual environments and caches
+.venv*/
+__pycache__/
+*.pyc
+# Windows download metadata and local backup copies
+*:Zone.Identifier
+*.backup_*
+*_before_*
+# run logs and generated binaries
+output_log.txt
+memory_usage.csv
+legacy_project
+# local tool state
+.setup/
