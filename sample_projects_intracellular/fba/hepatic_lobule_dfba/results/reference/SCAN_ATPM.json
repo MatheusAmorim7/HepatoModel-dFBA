@@ -1,0 +1,128 @@
+{
+ "max_feasible_ATPM_in_scenario": 23.181625712788392,
+ "scan": {
+  "5": {
+   "O2": -2.3083,
+   "palmitate": -0.0934,
+   "lactate": -1.3374,
+   "glycerol": -0.23,
+   "alanine": -0.1158,
+   "glucose": 2.14,
+   "urea": 0.19,
+   "glycogen": 0.1167,
+   "ammonia": -0.1824,
+   "CO2": 1.3705,
+   "glutamine": -0.0017,
+   "O2_mL_min_liver": 16.58,
+   "status": "optimal",
+   "L1": 125.919,
+   "at_ceiling": [
+    "EX_HC00114_s"
+   ]
+  },
+  "8": {
+   "O2": -2.9717,
+   "palmitate": -0.1222,
+   "lactate": -1.3374,
+   "glycerol": -0.23,
+   "alanine": -0.1158,
+   "glucose": 2.14,
+   "urea": 0.19,
+   "glycogen": 0.1167,
+   "ammonia": -0.1824,
+   "CO2": 1.832,
+   "glutamine": -0.0017,
+   "O2_mL_min_liver": 21.34,
+   "status": "optimal",
+   "L1": 151.649,
+   "at_ceiling": [
+    "EX_HC00114_s"
+   ]
+  },
+  "10": {
+   "O2": -3.414,
+   "palmitate": -0.1415,
+   "lactate": -1.3374,
+   "glycerol": -0.23,
+   "alanine": -0.1158,
+   "glucose": 2.14,
+   "urea": 0.19,
+   "glycogen": 0.1167,
+   "ammonia": -0.1824,
+   "CO2": 2.1397,
+   "glutamine": -0.0017,
+   "O2_mL_min_liver": 24.52,
+   "status": "optimal",
+   "L1": 168.803,
+   "at_ceiling": [
+    "EX_HC00114_s"
+   ]
+  },
+  "12": {
+   "O2": -3.8563,
+   "palmitate": -0.1607,
+   "lactate": -1.3374,
+   "glycerol": -0.23,
+   "alanine": -0.1158,
+   "glucose": 2.14,
+   "urea": 0.19,
+   "glycogen": 0.1167,
+   "ammonia": -0.1824,
+   "CO2": 2.4474,
+   "glutamine": -0.0017,
+   "O2_mL_min_liver": 27.69,
+   "status": "optimal",
+   "L1": 185.957,
+   "at_ceiling": [
+    "EX_HC00114_s"
+   ]
+  },
+  "15": {
+   "O2": -4.5198,
+   "palmitate": -0.1895,
+   "lactate": -1.3374,
+   "glycerol": -0.23,
+   "alanine": -0.1158,
+   "glucose": 2.14,
+   "urea": 0.19,
+   "glycogen": 0.1167,
+   "ammonia": -0.1824,
+   "CO2": 2.9089,
+   "glutamine": -0.0017,
+   "O2_mL_min_liver": 32.46,
+   "status": "optimal",
+   "L1": 211.688,
+   "at_ceiling": [
+    "EX_HC00114_s"
+   ]
+  },
+  "20": {
+   "O2": -5.6256,
+   "palmitate": -0.2376,
+   "lactate": -1.3374,
+   "glycerol": -0.23,
+   "alanine": -0.1158,
+   "glucose": 2.14,
+   "urea": 0.19,
+   "glycogen": 0.1167,
+   "ammonia": -0.1824,
+   "CO2": 3.6782,
+   "glutamine": -0.0017,
+   "O2_mL_min_liver": 40.4,
+   "status": "optimal",
+   "L1": 254.572,
+   "at_ceiling": [
+    "EX_HC00114_s"
+   ]
+  },
+  "25": {
+   "status": "infeasible"
+  },
+  "30": {
+   "status": "infeasible"
+  },
+  "40": {
+   "status": "infeasible"
+  }
+ }
+}

@@ -1,0 +1,120 @@
+{
+ "inlet_note": "inlet concentrations are stored in each control.xml (vascular/inlet)",
+ "arms": {
+  "Z0_uniform": {
+   "family": "Z",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 1,
+   "kappa": null,
+   "sha256": "cedce26c14970a9adc072d62b0c7bb3232a8bd1cb5321f4667c56f6c31143c9b"
+  },
+  "Z3_s3_k15": {
+   "family": "Z",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 3,
+   "kappa": 1.5,
+   "sha256": "5daed1155ff95217813218da3af31c7e92b381f83cf940c899707622b696c6f3"
+  },
+  "Z10_s10_k15": {
+   "family": "Z",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 10,
+   "kappa": 1.5,
+   "sha256": "0030618a76e17b5affcdf7e48651f8793321edbc0b5a59741e4b1d3f97f9a13f"
+  },
+  "Z3c_caps_only": {
+   "family": "Z",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 3,
+   "kappa": 1.5,
+   "sha256": "c3cc4ddf7182d8a2a8e13437c37f82950fb13bff25f0d00941add6645240a59c"
+  },
+  "E0_uniform_k10": {
+   "family": "E",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 1,
+   "kappa": 1.0,
+   "sha256": "22ece89f743a5c58686bc435c7a8124e0bd42feecaf1375af51f97caaf17344c"
+  },
+  "E3_s3_k10": {
+   "family": "E",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 3,
+   "kappa": 1.0,
+   "sha256": "9821aaf217de04abe2828f1cb1c337088706f3cb0b6deca25527b6b56d0e1f5d"
+  },
+  "E0_uniform_k15": {
+   "family": "E",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 1,
+   "kappa": 1.5,
+   "sha256": "9cccc3c8bd5b99fc11ddba3ffdda7c54b46ba7b9a371fc8cff069ebdd5466a80"
+  },
+  "E3_s3_k15": {
+   "family": "E",
+   "atpm": 5,
+   "dt": 0.1,
+   "s": 3,
+   "kappa": 1.5,
+   "sha256": "b5fabf128583e8c753c7010549cd8e1e2fe3c6f54f9d45cac449f934fecc2ca3"
+  },
+  "A1_uniform_pal124": {
+   "family": "A",
+   "atpm": 21.6,
+   "dt": 0.02,
+   "s": 1,
+   "kappa": null,
+   "palmitate_mM": 0.124,
+   "sha256": "1840893acf2d689dcd42e56e894b06ea65d393af67459f5e991c64cbf765bc11"
+  },
+  "A2_uniform_pal449": {
+   "family": "A",
+   "atpm": 21.6,
+   "dt": 0.02,
+   "s": 1,
+   "kappa": null,
+   "palmitate_mM": 0.449125,
+   "sha256": "14b75ad63b6ed8b9f22884d24063e3513ad4cbad828f6a4646a3c3122e402340"
+  },
+  "A3_s3_pal449": {
+   "family": "A",
+   "atpm": 21.6,
+   "dt": 0.02,
+   "s": 3,
+   "kappa": 1.5,
+   "palmitate_mM": 0.449125,
+   "sha256": "97812356a013a8ef6c5ed43c809252f6cba0c09c5902bac42be8ae4777c8b1d8"
+  },
+  "quick_Z0": {
+   "family": "quick",
+   "atpm": 5,
+   "dt": 0.1,
+   "base": "Z0_uniform",
+   "steps": 20,
+   "sha256": "bdab5eb5f68828b4e4ff407cb6ba9ff45fe821c0c85acba3d91ae0e58e5cb8cd"
+  },
+  "quick_E3": {
+   "family": "quick",
+   "atpm": 5,
+   "dt": 0.1,
+   "base": "E3_s3_k10",
+   "steps": 20,
+   "sha256": "2f9a4711f3b58f7db008653e317d8ce3740cc05b25ab65f6d2e55c42a63c7803"
+  },
+  "quick_A2": {
+   "family": "quick",
+   "atpm": 21.6,
+   "dt": 0.02,
+   "base": "A2_uniform_pal449",
+   "steps": 20,
+   "sha256": "38bb78fe8e1421dae7b9aa3cd28039ed8f6666d281d0289b377c61431d834ce8"
+  }
+ }
+}
