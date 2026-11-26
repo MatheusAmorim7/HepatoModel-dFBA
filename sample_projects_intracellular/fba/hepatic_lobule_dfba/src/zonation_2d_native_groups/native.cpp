@@ -68,7 +68,7 @@ public:
         n=model.reactions.size();nv=2*n+1;need(n==NR,"ExpectedNRreactions");base.setDimensions(0,nv);
         for(auto rx:model.reactions){ids.push_back(rx->getId());lower.push_back(rx->getLowerBound());upper.push_back(rx->getUpperBound());}
         oi=model.getReactionIndex("R_EX_HC00017_s");
-        {const char* e=getenv("ATPM_EXPECTED");double ex=e?atof(e):5.0;need(model.getReactionLowerBound("R_CULTURE_ATPM")==ex && model.getReactionUpperBound("R_CULTURE_ATPM")==ex,"ATPM contract");}
+        {const char* e=getenv("ATPM_EXPECTED");double ex=e?atof(e):physicell_config_root.child("finite_resource_control").attribute("atpm_expected").as_double(5.0);need(model.getReactionLowerBound("R_CULTURE_ATPM")==ex && model.getReactionUpperBound("R_CULTURE_ATPM")==ex,"ATPM contract");}
         need(model.getReactionLowerBound("R_MEDIUM_ALAGLN_HYD")==0 && model.getReactionUpperBound("R_MEDIUM_ALAGLN_HYD")==0,"Doublecounted cleavage");
         for(auto met:model.metabolites){CoinPackedVector row;std::vector<std::pair<int,double>> terms_for_audit;
             for(int j=0;j<n;++j){auto terms=model.reactions[j]->getMetabolites();auto it=terms.find(met->getId());if(it!=terms.end()){row.insert(j,it->second);terms_for_audit.push_back({j,it->second});}}

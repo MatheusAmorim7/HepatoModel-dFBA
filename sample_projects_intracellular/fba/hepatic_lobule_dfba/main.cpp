@@ -53,6 +53,15 @@ void zero(std::vector<double>& v){std::fill(v.begin(),v.end(),0.);}
 int main(int argc,char** argv){try{
     if(argc==4&&std::string(argv[1])=="sink_fault")return sink_fault_test(argv[2],argv[3]);
     PhaseClock timing;
+    // PhysiCell-style invocation: "./project" or "./project config.xml" runs the first case of the config and writes PhysiCell output to ./output
+    std::vector<std::string> default_args;std::vector<char*> default_argv;bool default_mode=false;std::string default_config;
+    if(argc==1||argc==2){
+        default_mode=true;default_config=argc==2?argv[1]:"config/PhysiCell_settings.xml";
+        pugi::xml_document probe;need(probe.load_file(default_config.c_str()),"Default_config_readable");
+        std::string first=probe.child("PhysiCell_settings").child("finite_resource_control").child("case").attribute("label").value();need(!first.empty(),"Default_config_has_case");
+        int rc_mkdir=std::system("mkdir -p output/raw");(void)rc_mkdir;
+        default_args={argv[0],default_config,first,"output/raw","replay","warm","gzip"};for(auto& s:default_args)default_argv.push_back(&s[0]);argv=default_argv.data();argc=(int)default_argv.size();
+    }
     need(argc==7&&load_PhysiCell_config_file(argv[1]),"Isolated_XML");omp_set_num_threads(1);
     std::string format=argv[6];need(format=="raw"||format=="gzip","Output_format");bool zip=format=="gzip";std::string suffix=zip?".gz":"";
     std::string label=argv[2];output=argv[3];bool reject=std::string(argv[4])=="reject_after_one";
@@ -149,5 +158,10 @@ auto q=initial;auto vc=cfg.child("vascular");need(vc,"Vascular_config");const do
     timing.mark("sink_close");states.finish();oxy.finish();fluxes.finish();timing.mark("completion_summary");{std::ofstream lb(output+"/lbp.json");lb<<std::setprecision(17)<<"{\"local_pool\":"<<LBP<<",\"max_node_draw_pmol\":"<<lbp_max_draw<<",\"max_roundoff_reset_pmol\":"<<lbp_roundoff<<"}\n";}
     std::ofstream summary(output+"/summary.json");summary<<std::setprecision(17)<<"{\"status\":\"completed\",\"accepted_steps\":"<<accepted<<",\"joint_LP_calls\":"<<calls<<",\"setup_initialSolve_calls\":"<<setup_initial_solve_calls<<",\"agents\":3000,\"individual_models\":3000,\"unique_reactions\":"<<3000*NR<<",\"unique_metabolites\":"<<3000*NM<<",\"scheduler_calls\":"<<scheduler_calls<<",\"clock_ticks\":"<<clock_ticks<<",\"source_proposals\":"<<source_calls<<",\"passive_checks\":"<<passive_checks<<",\"unexpected_updates\":"<<unexpected_updates<<",\"writer_calls\":"<<writers<<",\"scheduler_field_drift_pmol\":"<<max_field_drift<<",\"writer_drift_pmol\":"<<writer_drift<<",\"peak_RSS_kB\":"<<usage.ru_maxrss<<"}\n";
     summary.close();cache_report(templates,use_cache,calls,output+"/cache.json");timing.mark("final_evidence_flush");ledger.flush();timing.mark("cache_destruction");templates.clear();timing.finish(output+"/profile.json");
+    if(default_mode){
+        std::cout<<"Raw results are in output/raw. Converting to PhysiCell output (viewable in PhysiCell Studio)..."<<std::endl;
+        const char* pyenv=std::getenv("PY");std::string cmd=std::string(pyenv?pyenv:"python3")+" scripts/export_physicell.py --run output/raw --control "+default_config+" --out output";
+        if(std::system(cmd.c_str())!=0)std::cout<<"Conversion failed (needs numpy, pandas, scipy, cobra; try 'make deps'). Retry with: "<<cmd<<std::endl;
+    }
     return 0;
 }catch(const std::exception& e){std::cerr<<"FAIL "<<e.what()<<std::endl;return 1;}}

@@ -56,3 +56,18 @@ memory_usage.csv
 legacy_project
 # local tool state
 .setup/
+
+# files created by "make hepatic-lobule-sample" (loaded project, like the other PhysiCell samples)
+/main.cpp
+/main-backup.cpp
+/src/
+/scripts/
+/project
+/output/
+/config/PhysiCell_settings-backup.xml
+/config/host_f1_atpm5.xml
+/config/host_atpm21.6.xml
+/config/postabsorptive_host_v1.xml
+/config/scenario_reference_f1.csv
+/config/control_base_phaseC.xml.gz
+/config/studio_template/

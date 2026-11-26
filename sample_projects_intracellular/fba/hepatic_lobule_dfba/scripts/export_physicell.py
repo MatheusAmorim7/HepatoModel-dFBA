@@ -39,6 +39,13 @@ def export(src, label, dt, out, n_snap=None):
         (out / f"{name}.xml").write_text(x); k += 1
     (out / "LEIA-ME.txt").write_text(f"Exportado de {src.name} (dt={dt} min). Snapshots nos passos {idx} (tempo = (passo+1)*dt). Apenas visualizacao; ver export_physicell.py.\n"); return idx
 if __name__ == "__main__":
-    import os
-    A = json.load(open(CFG / "arms.json"))["arms"]; wanted = sys.argv[1:] or [a for a in A if (PRJ / "runs" / a / "summary.json").exists() and not a.startswith("quick")]
+    import argparse, xml.etree.ElementTree as ET
+    ap = argparse.ArgumentParser(description="Export native runs to PhysiCell-standard output (MultiCellDS XML + .mat) for PhysiCell Studio.")
+    ap.add_argument("arms", nargs="*", help="arm names under runs/ (default: every finished non-quick arm)")
+    ap.add_argument("--run", help="a run directory (raw output of ./project, e.g. output/raw)"); ap.add_argument("--control", help="control XML of that run (gives the time step)"); ap.add_argument("--out", help="output directory for --run mode")
+    a = ap.parse_args()
+    if a.run:
+        case = ET.parse(a.control).getroot().find("finite_resource_control").find("case"); dt = float(case.get("dt"))
+        print(case.get("label"), export(Path(a.run), case.get("label"), dt, Path(a.out or "output"))); sys.exit(0)
+    A = json.load(open(CFG / "arms.json"))["arms"]; wanted = a.arms or [x for x in A if (PRJ / "runs" / x / "summary.json").exists() and not x.startswith("quick")]
     for label in wanted: print(label, export(PRJ / "runs" / label, label, A[label]["dt"], PRJ / "studio_output" / label))

@@ -79,15 +79,49 @@ ALL_OBJECTS := $(PhysiCell_OBJECTS) $(PhysiCell_custom_module_OBJECTS) $(dFBA_OB
 # ---------------------------------------------------------------
 # Main build target
 # ---------------------------------------------------------------
-# The repository root builds the shared objects only. The current model is the sample project
-#   sample_projects_intracellular/fba/hepatic_lobule_dfba   (cd there and run "make")
-# and the previous single-driver lobule model is kept in legacy/ ("make -f legacy/Makefile").
+# ---------------------------------------------------------------
+# PhysiCell-style usage of the hepatic lobule dFBA model
+#   make list-projects
+#   make hepatic-lobule-sample     (loads the project into this directory, like the other *-sample rules)
+#   make                           (compiles ./project)
+#   ./project                      (runs the calibrated lobule; PhysiCell output is written to ./output, open it in PhysiCell Studio)
+# Without a loaded project, "make" only builds the shared PhysiCell/dFBA objects.
+# ---------------------------------------------------------------
+.DEFAULT_GOAL := all
+PY ?= python3
+HL_DIR := sample_projects_intracellular/fba/hepatic_lobule_dfba
+WRAP := -Wl,--wrap=_ZN6BioFVM11Basic_Agent29simulate_secretion_and_uptakeEPNS_16MicroenvironmentEd -Wl,--wrap=_ZN6BioFVM16Microenvironment24simulate_diffusion_decayEd -Wl,--wrap=_Z32custom_microenvironment_functiond
+
+list-projects:
+	@echo "Sample projects of this fork:"
+	@echo "  hepatic-lobule-sample   liver lobule with dFBA, zonation, vascular transport and ATP calibration"
+
+hepatic-lobule-sample:
+	touch main.cpp && cp main.cpp main-backup.cpp
+	cp ./$(HL_DIR)/main.cpp ./main.cpp
+	rm -rf ./src ./scripts && cp -r ./$(HL_DIR)/src ./src && cp -r ./$(HL_DIR)/scripts ./scripts
+	if [ -f ./config/PhysiCell_settings.xml ]; then cp ./config/PhysiCell_settings.xml ./config/PhysiCell_settings-backup.xml; fi
+	cp ./$(HL_DIR)/config/cells.csv ./$(HL_DIR)/config/rules0.csv ./$(HL_DIR)/config/host_f1_atpm5.xml ./$(HL_DIR)/config/host_atpm21.6.xml \
+	   ./$(HL_DIR)/config/postabsorptive_host_v1.xml ./$(HL_DIR)/config/scenario_reference_f1.csv ./$(HL_DIR)/config/control_base_phaseC.xml.gz ./config/
+	cp -r ./$(HL_DIR)/config/studio_template ./config/
+	$(PY) ./scripts/make_configs.py --default
+	@echo ""
+	@echo "Hepatic lobule project loaded. Now run:  make   and then   ./project"
+	@echo ""
+
+ifneq ($(wildcard main.cpp),)
+all: main.cpp BioFVM/BioFVM_microenvironment.h $(ALL_OBJECTS)
+	$(LINK_COMMAND) -I. -o $(PROGRAM_NAME) $(ALL_OBJECTS) main.cpp \
+	$(DFBA_LD) $(DFBA_RPATH) $(DFBA_LIBS) -fopenmp $(WRAP)
+	make name
+else
 all: BioFVM/BioFVM_microenvironment.h $(ALL_OBJECTS)
 	@echo ""
-	@echo "Shared PhysiCell/dFBA objects are up to date."
-	@echo "Current model : cd sample_projects_intracellular/fba/hepatic_lobule_dfba && make"
-	@echo "Legacy model  : make -f legacy/Makefile"
+	@echo "Shared PhysiCell/dFBA objects are up to date. No project is loaded."
+	@echo "Hepatic lobule model : make hepatic-lobule-sample && make && ./project"
+	@echo "Legacy model         : make -f legacy/Makefile"
 	@echo ""
+endif
 
 name:
 	@echo ""
