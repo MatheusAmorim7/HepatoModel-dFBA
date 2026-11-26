@@ -2,7 +2,7 @@
 #   make              build ./hepatic_lobule_dfba against the repository root (core/, BioFVM/, addons/dFBA, custom_modules/)
 #   make configs      generate every run configuration (config/arms/*/control.xml) from config/control_base_phaseC.xml.gz
 #   make quick        ~5 min smoke test (3 short runs) + comparison with the shipped reference
-#   make run ARM=Z3_s3_k15   one arm (about 25 min each; arms: see config/arms.json)
+#   make run ARM=Z3_s3_k15   one arm (about 7-10 min alone; arms: see config/arms.json)
 #   make reproduce-zonation | reproduce-emergent | reproduce-atp   all arms of a family, then analysis/figures
 #   make analyze figures studio   post-processing (results/), Studio-viewable export (studio_output/)
 # Requirements (Ubuntu): g++ with OpenMP, coinor-libclp-dev coinor-libcoinutils-dev libsbml5-dev liblapack-dev libxml2-dev libbz2-dev zlib1g-dev, python3 with numpy scipy pandas cobra matplotlib.

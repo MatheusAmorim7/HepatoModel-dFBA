@@ -18,6 +18,16 @@ A PhysiCell + dFBA model of a liver lobule: 3000 hepatocyte agents on a 50×50 v
 | `results/reference/` | Figures, scores and the ATPM scan **from the original runs** (what we report). Your runs write to `results/` (git-ignored). |
 | `docs/` | Protocols with the predictions registered *before* each run, and result reports (Portuguese). |
 
+## Run it the PhysiCell way
+Same workflow as the other PhysiCell samples, from the repository root (Ubuntu/WSL2/Docker; run `make -C sample_projects_intracellular/fba/hepatic_lobule_dfba deps` once if libSBML/Clp are missing):
+```bash
+make list-projects            # lists the samples of this fork
+make hepatic-lobule-sample    # loads the project here (backs up main.cpp and config/PhysiCell_settings.xml)
+make                          # compiles ./project  (about 1-4 min)
+./project                     # runs the calibrated lobule (about 7-10 min); PhysiCell output goes to ./output
+```
+Then open `output/` in **PhysiCell Studio** (Plot tab, e.g. `output00000005.xml`). `./project my_config.xml` runs another config; raw binaries are in `output/raw`. Tested from a fresh clone: the raw results are byte-identical to ours.
+
 ## Easiest ways to run (pick one)
 | You have | Do this | Status |
 |---|---|---|
@@ -50,7 +60,7 @@ make quick            # 3 short runs (~5-10 min) and a bit-level check against t
 `make quick` must end with `OK` for the three runs (relative difference ≤ 1e-9 against the published runs). If it does, your build reproduces ours.
 
 ## Reproduce the results
-Each arm takes ~25 min (a family runs three arms in parallel):
+One arm takes about 7-10 min alone (about 25 min when three run in parallel, as `make reproduce-*` does):
 ```bash
 make reproduce-zonation     # Z0 uniform, Z3 (s=3), Z10 (s=10), Z3c (caps only; expected to be REJECTED at step 0)
 make reproduce-emergent     # E0/E3 arms: glucose output emerges from enzyme capacity
