@@ -76,4 +76,18 @@ clean:
 	rm -rf runs config/arms
 data-cleanup:
 	rm -rf runs studio_output
-.PHONY: all configs run quick reproduce-zonation reproduce-emergent reproduce-atp analyze figures studio clean data-cleanup
+# Install system packages and Python modules (Ubuntu/Debian/WSL/Colab; needs root or sudo for apt).
+deps:
+	./scripts/setup_ubuntu.sh
+
+# Standalone bundle: only what is needed to build and run (no git history, no notebooks). Unpack and run "make quick" inside the project.
+BUNDLE ?= lobule-dfba-standalone.tar.gz
+bundle:
+	tar -C $(ROOT) -czf $(BUNDLE) --transform 's,^,hepatomodel-dfba/,' \
+	  --exclude='*.o' --exclude='sample_projects_intracellular/fba/hepatic_lobule_dfba/runs' --exclude='sample_projects_intracellular/fba/hepatic_lobule_dfba/config/arms' \
+	  --exclude='sample_projects_intracellular/fba/hepatic_lobule_dfba/studio_output' --exclude='sample_projects_intracellular/fba/hepatic_lobule_dfba/hepatic_lobule_dfba' --exclude='__pycache__' \
+	  Makefile VERSION.txt licenses BioFVM core modules addons/dFBA/src addons/dFBA/ext custom_modules/custom.cpp custom_modules/custom.h \
+	  sample_projects_intracellular/fba/hepatic_lobule_dfba
+	@echo "wrote $(BUNDLE)"; ls -la $(BUNDLE)
+
+.PHONY: all deps bundle configs run quick reproduce-zonation reproduce-emergent reproduce-atp analyze figures studio clean data-cleanup

@@ -13,10 +13,23 @@ A PhysiCell + dFBA model of a liver lobule: 3000 hepatocyte agents on a 50×50 v
 | `results/reference/` | Figures, scores and the ATPM scan **from the original runs** (what we report). Your runs write to `results/` (git-ignored). |
 | `docs/` | Protocols with the predictions registered *before* each run, and result reports (Portuguese). |
 
+## Easiest ways to run (pick one)
+| You have | Do this | Status |
+|---|---|---|
+| **A browser** (no install) | Open the notebook in **Google Colab**: [`notebooks/run_lobule_dfba.ipynb`](https://colab.research.google.com/github/MatheusAmorim7/HepatoModel-dFBA/blob/lobule-dfba-reproducible/sample_projects_intracellular/fba/hepatic_lobule_dfba/notebooks/run_lobule_dfba.ipynb) and run all cells. It clones, installs, builds, runs the quick test and shows the figures. | notebook tested headless on Ubuntu; **not yet tested on Colab itself** |
+| **Jupyter on Ubuntu / WSL2** | Same notebook (`jupyter lab`, open `notebooks/run_lobule_dfba.ipynb`). | tested headless on Ubuntu |
+| **Windows or macOS** | **Docker** (see below). Native Windows is not supported; on Windows you can also install WSL2 + Ubuntu and follow the Ubuntu route. | Dockerfile **not tested** (no Docker where it was written) |
+| **No git** | Download `lobule-dfba-standalone.tar.gz` (2 MB; `make bundle` creates it), `tar xzf`, `cd hepatomodel-dfba/sample_projects_intracellular/fba/hepatic_lobule_dfba`, `make deps && make quick`. | tested (build + quick) |
+| **Ubuntu + git** | `git clone --depth 1 --branch lobule-dfba-reproducible https://github.com/MatheusAmorim7/HepatoModel-dFBA.git` (**always use `--depth 1`**: the full history is ~1 GB), then `cd` into the project and `make deps && make quick`. | tested |
+
+**Docker:** `docker build -t lobule-dfba .` (from the repository root), then `docker run --rm -it -p 8888:8888 lobule-dfba` and open the link it prints; the notebook is in the file list. Headless: `docker run --rm -it lobule-dfba make quick`.
+
+> If something fails, `make quick` is the first thing to run: it must print `OK` three times. Please report the **last 30 lines of its output** and your OS/Python versions.
+
 ## Requirements
 Ubuntu/WSL (tested with g++ 13), Python ≥ 3.10.
 ```bash
-sudo apt install g++ make libomp-dev coinor-libclp-dev coinor-libcoinutils-dev libsbml5-dev \
+sudo apt install g++ make coinor-libclp-dev coinor-libcoinutils-dev libsbml5-dev \
                  liblapack-dev libxml2-dev libbz2-dev zlib1g-dev
 pip install numpy scipy pandas cobra matplotlib        # use a virtualenv; pass PY=... to make if needed
 ```

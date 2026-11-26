@@ -1,0 +1,10 @@
+.git
+.venv*/
+notebooks/
+output/
+**/runs/
+**/studio_output/
+**/config/arms/
+**/__pycache__/
+*.o
+Studio.zip
