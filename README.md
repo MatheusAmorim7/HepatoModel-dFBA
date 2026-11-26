@@ -4,6 +4,8 @@
 > [`sample_projects_intracellular/fba/hepatic_lobule_dfba/README.md`](sample_projects_intracellular/fba/hepatic_lobule_dfba/README.md):
 > Google Colab / Jupyter notebook, Docker, or a 2 MB standalone bundle. Clone with `git clone --depth 1 --branch lobule-dfba-reproducible <repo-url>` (the full history is about 1 GB).
 > The previous single-driver model is in [`legacy/`](legacy/).
+>
+> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MatheusAmorim7/HepatoModel-dFBA/blob/lobule-dfba-reproducible/sample_projects_intracellular/fba/hepatic_lobule_dfba/notebooks/run_lobule_dfba.ipynb)
 
 
 **Versions:** 1.14.0 - 

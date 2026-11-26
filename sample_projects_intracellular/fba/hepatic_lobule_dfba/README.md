@@ -1,5 +1,10 @@
 # Hepatic lobule dFBA — zonation, vascular transport and ATP calibration (PhysiCell sample project)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MatheusAmorim7/HepatoModel-dFBA/blob/lobule-dfba-reproducible/sample_projects_intracellular/fba/hepatic_lobule_dfba/notebooks/run_lobule_dfba.ipynb)
+
+**Fastest way to run it:** click the badge → in Colab choose *Runtime → Run all* (about 15 min for build + quick test, nothing to install). Other ways (Docker, no-git bundle, Ubuntu) are in *Easiest ways to run* below.
+
+
 A PhysiCell + dFBA model of a liver lobule: 3000 hepatocyte agents on a 50×50 voxel domain, each with a 225-reaction metabolic network derived from **HepatoNet1** (post-absorptive reference scenario), serial portal→central blood transport with finite stocks, enzyme zonation, and an ATP-maintenance calibration against hepatic O₂ consumption. It is the platform for the thesis question *how much serine can the liver supply to liver metastases of pancreatic cancer* (the tumour is **not** in this project yet).
 
 > **Status: exploratory.** Nothing here is a validated model. Zonation profiles, ATP maintenance and several parameters are declared hypotheses; independent review is pending. Read `docs/` before citing any number.
