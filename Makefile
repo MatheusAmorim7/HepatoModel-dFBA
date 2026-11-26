@@ -79,10 +79,15 @@ ALL_OBJECTS := $(PhysiCell_OBJECTS) $(PhysiCell_custom_module_OBJECTS) $(dFBA_OB
 # ---------------------------------------------------------------
 # Main build target
 # ---------------------------------------------------------------
-all: main.cpp $(ALL_OBJECTS)
-	$(LINK_COMMAND) -o $(PROGRAM_NAME) $(ALL_OBJECTS) main.cpp \
-	$(DFBA_LD) $(DFBA_RPATH) $(DFBA_LIBS) -fopenmp
-	make name
+# The repository root builds the shared objects only. The current model is the sample project
+#   sample_projects_intracellular/fba/hepatic_lobule_dfba   (cd there and run "make")
+# and the previous single-driver lobule model is kept in legacy/ ("make -f legacy/Makefile").
+all: BioFVM/BioFVM_microenvironment.h $(ALL_OBJECTS)
+	@echo ""
+	@echo "Shared PhysiCell/dFBA objects are up to date."
+	@echo "Current model : cd sample_projects_intracellular/fba/hepatic_lobule_dfba && make"
+	@echo "Legacy model  : make -f legacy/Makefile"
+	@echo ""
 
 name:
 	@echo ""
@@ -92,7 +97,7 @@ name:
 # ---------------------------------------------------------------
 # dFBA addon sources
 # ---------------------------------------------------------------
-dfba_intracellular.o: $(DFBA_SRC)/dfba_intracellular.cpp
+dfba_intracellular.o: $(DFBA_SRC)/dfba_intracellular.cpp $(DFBA_SRC)/dfba_lactate_rules.h $(DFBA_SRC)/dfba_exchange_rates.h
 	$(COMPILE_COMMAND) -c $< -o $@
 
 dfba_Model.o: $(DFBA_SRC)/dfba_Model.cpp
@@ -203,7 +208,7 @@ PhysiCell_geometry.o: ./modules/PhysiCell_geometry.cpp
 # ---------------------------------------------------------------
 # Custom modules
 # ---------------------------------------------------------------
-custom.o: ./custom_modules/custom.cpp
+custom.o: ./custom_modules/custom.cpp ./custom_modules/custom.h
 	$(COMPILE_COMMAND) -c ./custom_modules/custom.cpp
 
 # ---------------------------------------------------------------
